@@ -1,10 +1,42 @@
 <script src="https://d3js.org/d3.v6.min.js"></script>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG Inside Script</title>
+</head>
+
+<body>
+
 <script>
   console.log(d3); // test if d3 is loaded
   // Add an SVG
+
+
+
   // Add Rectangles
   // Add Circles
   // Add Lines
   // Add Polygons
+
+  var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("width", "200");
+    svg.setAttribute("height", "200");
+
+    // Create a circle element inside the SVG
+    var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    circle.setAttribute("cx", "100");
+    circle.setAttribute("cy", "100");
+    circle.setAttribute("r", "50");
+    circle.setAttribute("fill", "blue");
+
+    // Append the circle to the SVG
+    svg.appendChild(circle);
+
+    // Append the SVG to the body
+    document.body.appendChild(svg);
 </script>
+</body>
+</html>
