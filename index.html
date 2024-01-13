@@ -7,7 +7,7 @@
   const wwidth = window.innerWidth;
   const wheight = window.innerHeight;
   const svg = d3.select("#svg-container");
-
+  svg.selectAll("*").remove();
   // Add Rectangles
   const rect1 = {x: wwidth/3, y: wheight/5, width: wwidth/3, height: 3*wheight/5, fill: 'yellow'};
   svg.append("rect")
