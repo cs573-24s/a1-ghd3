@@ -1,20 +1,22 @@
 <script src="https://d3js.org/d3.v6.min.js"></script>
 
+<svg id="svg-container"></svg>
+
 <script>
   console.log(d3); // test if d3 is loaded
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  const width = window.innerWidth;
-  const height = window.innerHeight;
-  svg.setAttribute('width', width);
-  svg.setAttribute('height', height);
-  const goalpost = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-  goalpost.setAttribute('x', (width - height) / 2);
-  goalpost.setAttribute('y', 0.1 * height);
-  goalpost.setAttribute('width', .02 * width);
-  goalpost.setAttribute('height', .2 * height);
-  goalpost.setAttribute('fill', 'yellow');
-  svg.appendChild(goalpost);
+  const wwidth = window.innerWidth;
+  const wheight = window.innerHeight;
+  const svg = d3.select("#svg-container");
+
   // Add Rectangles
+  const rect1 = {x: wwidth/3, y: wheight/5, width: wwidth/3, height: 3*wheight/5, fill: 'yellow'};
+  svg.append("rect")
+    .attr("x", rect1.x)
+    .attr("y", rect1.y)
+    .attr("width", rect1.width)
+    .attr("height", rect1.height)
+    .attr("fill", rect1.fill);
+
   // Add Circles
   // Add Lines
   // Add Polygons
