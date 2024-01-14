@@ -1,10 +1,105 @@
-<script src="https://d3js.org/d3.v6.min.js"></script>
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+  </head>
+  <body>
 
-<script>
-  console.log(d3); // test if d3 is loaded
-  // Add an SVG
-  // Add Rectangles
-  // Add Circles
-  // Add Lines
-  // Add Polygons
-</script>
+    <script>
+      let canvas = d3.select("body").append("svg")
+        .attr("width", 600)
+        .attr("height", 600);
+
+      //house base
+      canvas.append("rect")
+        .style("fill", "#e0a017") // testing out color code
+        .style("stroke", "black")
+        .attr("x", 10)
+        .attr("y", 100)
+        .attr("width", 300)
+        .attr("height", 300);
+      
+      // door
+      canvas.append("rect")
+        .style("fill", "brown")
+        .style("stroke", "black")
+        .attr("x", 110)
+        .attr("y", 300)
+        .attr("width", 90)
+        .attr("height", 100);
+      // Add an SVG
+      // Add Rectangles
+      // Add Circles
+      // Add Lines
+      // Add Polygons
+      
+      // Creating a triangle
+      let vertices = [
+        {x: 150, y: 0},
+        {x: 320, y: 100},
+        {x: 0, y: 100}
+      ];
+
+      // some knowledge gotten from https://stackoverflow.com/questions/13204562/proper-format-for-drawing-polygon-data-in-d3
+       // Create a polygon using the vertices of said triangle
+      canvas.append("polygon")
+        .attr("points", vertices.map(function(d) { return [d.x, d.y].join(","); }).join(" ")) // converting vertices to string format
+        .attr("fill", "brown")
+        .style("stroke", "black")
+        .style("strokeWidth", "10px");
+
+      // Creating a roof
+      vertices = [
+        {x: 150, y: 0},
+        {x: 220, y: 0},
+        {x: 220, y: 40},
+      ];
+      canvas.append("polygon")
+        .attr("points", vertices.map(function(d) { return [d.x, d.y].join(","); }).join(" ")) // converting vertices to string format
+        .attr("fill", "red")
+        .style("stroke", "black")
+        .style("strokeWidth", "10px");
+
+      // windows
+      canvas.append("circle")
+        .attr("cx", 80)
+        .attr("cy", 200)
+        .attr("r", 50)
+        .attr("fill", "blue")
+      canvas.append("circle")
+        .attr("cx", 240)
+        .attr("cy", 200)
+        .attr("r", 50)
+        .attr("fill", "blue")
+      canvas.append("line")
+        .attr("x1", 30)
+        .attr("y1", 200)
+        .attr("x2", 130)
+        .attr("y2", 200)
+        .style("stroke", "rgb(0,0,0)")
+        .style("stroke-width", 2);
+      canvas.append("line")
+        .attr("x1", 80)
+        .attr("y1", 150)
+        .attr("x2", 80)
+        .attr("y2", 250)
+        .style("stroke", "rgb(0,0,0)")
+        .style("stroke-width", 2);
+      canvas.append("line")
+        .attr("x1", 190)
+        .attr("y1", 200)
+        .attr("x2", 290)
+        .attr("y2", 200)
+        .style("stroke", "rgb(0,0,0)")
+        .style("stroke-width", 2);
+      canvas.append("line")
+        .attr("x1", 240)
+        .attr("y1", 150)
+        .attr("x2", 240)
+        .attr("y2", 250)
+        .style("stroke", "rgb(0,0,0)")
+        .style("stroke-width", 2);
+
+    </script>
+  </body>
+</html>
