@@ -3,7 +3,11 @@
 <script>
   console.log(d3); // test if d3 is loaded
   // Add an SVG
-  <svg><circle style="fill: #69b3a2" stroke="black" cx=50 cy=50 r=40></circle></svg>
+  const body = d3.select('body');
+  // Add an SVG
+  const svg = body.append('svg')
+    .attr('width', 400)
+    .attr('height', 200);
   // Add Rectangles
   // Add Circles
   // Add Lines
