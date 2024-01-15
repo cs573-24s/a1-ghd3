@@ -41,10 +41,10 @@ This block creates a rectangle for the sky, sets its position, size, and initial
 Example of transformation:
 
 From:
-![](images\noon.png)
+![](./images/noon.png)
 
 To:
-![](images\night.png)
+![](./images/night.png)
 
 # References:
 
