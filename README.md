@@ -1,6 +1,8 @@
 Assignment 1 - Hello World: GitHub and d3  
 ===
 Name: Aviv Nur
+
+Link to the page: [Assignment 1](https://avivnur.github.io/a1-ghd3/)
 # Documentation for D3.js Visualization
 ![d3.js](./images/d3js.png)
 This JavaScript code uses the D3.js library to create a dynamic SVG visualization of a day to night transition in a simple landscape scene.
