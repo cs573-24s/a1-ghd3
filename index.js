@@ -8,7 +8,7 @@ let svg = canvas.append('svg')
                 .attr('width', width)
                 .attr('style', 'background-color: lightblue');
 
-                // The sky night
+// The sky night
 svg.append("rect").attr("x", 0)
                     .attr("y", 0)
                     .attr("width", width)
@@ -22,7 +22,9 @@ svg.append("rect").attr("x", 0)
 svg.append("circle").attr("cx", 90)
                     .attr("cy", 90)
                     .attr("r", 40)
-                    .attr("stroke", "white")
+                    .attr("fill", "lightblue")
+                    .transition()
+                    .duration(10000)
                     .attr("fill", "white");
 
 // The sun
@@ -30,7 +32,7 @@ svg.append("circle").attr("cx", 90)
                     .attr("cy", 90)
                     .attr("r", 40)
                     .attr("stroke", "yellow")
-                    .attr("fill", "orange")
+                    .attr("fill", "yellow")
                     .transition()
                     .duration(10000)
                     .attr("cx", 410)
@@ -40,47 +42,46 @@ svg.append("circle").attr("cx", 90)
                     .attr("fill", "red");
 
 // The stars
-svg.append("circle").attr("cx", 400)
-                    .attr("cy", 100)
-                    .attr("r", 1)
-                    .attr("fill", "white")
-                    .transition()
-                    .duration(10000)
-                    .attr("fill", "yellow");
+let star = d3.symbol().type(d3.symbolStar).size(5);
+svg.append("path").attr("d", star)
+                  .attr("fill", "lightblue")
+                  .attr("transform", "translate(400, 100)")
+                  .transition()
+                  .duration(10000)
+                  .attr("transform", "translate(400, 100) scale(2)")
+                  .attr("fill", "yellow");
 
-svg.append("circle").attr("cx", 450)
-                    .attr("cy", 150)
-                    .attr("r", 1)
-                    .attr("fill", "white")
-                    .transition()
-                    .duration(10000)
-                    .attr("fill", "yellow");
+svg.append("path").attr("d", star)
+                  .attr("fill", "lightblue")
+                  .attr("transform", "translate(450, 150)")
+                  .transition()
+                  .duration(10000)
+                  .attr("transform", "translate(450, 150) scale(2)")
+                  .attr("fill", "yellow");
 
-svg.append("circle").attr("cx", 480)
-                    .attr("cy", 200)
-                    .attr("r", 1)
-                    .attr("fill", "white")
-                    .transition()
-                    .duration(10000)
-                    .attr("fill", "yellow");
+svg.append("path").attr("d", star)
+                  .attr("fill", "lightblue")
+                  .attr("transform", "translate(480, 120)")
+                  .transition()
+                  .duration(10000)
+                  .attr("transform", "translate(480, 120) scale(2)")
+                  .attr("fill", "yellow");
 
-svg.append("circle").attr("cx", 200)
-                    .attr("cy", 200)
-                    .attr("r", 0.5)
-                    .attr("fill", "white")
-                    .transition()
-                    .duration(10000)
-                    .attr("r", 2)
-                    .attr("fill", "yellow");
+svg.append("path").attr("d", star)
+                  .attr("fill", "lightblue")
+                  .attr("transform", "translate(200, 200)")
+                  .transition()
+                  .duration(10000)
+                  .attr("transform", "translate(200, 200) scale(2)")
+                  .attr("fill", "yellow");
 
-svg.append("circle").attr("cx", 200)
-                    .attr("cy", 150)
-                    .attr("r", 0.5)
-                    .attr("fill", "white")
-                    .transition()
-                    .duration(10000)
-                    .attr("r", 2)
-                    .attr("fill", "yellow");
+svg.append("path").attr("d", star)
+                  .attr("fill", "lightblue")
+                  .attr("transform", "translate(150, 180)")
+                  .transition()
+                  .duration(10000)
+                  .attr("transform", "translate(150, 180) scale(2)")
+                  .attr("fill", "yellow");
 
 // The grass
 svg.append("rect").attr("x", 0)
