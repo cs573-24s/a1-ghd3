@@ -40,7 +40,7 @@ svg.append("rect").attr("x", 0)
 
 This block creates a rectangle for the sky, sets its position, size, and initial color, and then transitions the color from light blue (day) to black (night) over a duration of 10,000 milliseconds.
 
-Example of transformation:
+Example of the transition:
 
 From:
 ![](./images/noon.png)
