@@ -1,42 +1,111 @@
-<script src="https://d3js.org/d3.v6.min.js"></script>
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SVG Inside Script</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assignment 1</title>
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script src="https://d3js.org/topojson.v3.min.js"></script>
+  <script src="stack.js"></script>
+  <style>
+    body {
+      text-align: center; /* Center the text horizontally */
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+  </style>
+
+
 </head>
 
-<body>
+<body style="background-color: #f0f0f0;">
 
-<script>
-  console.log(d3); // test if d3 is loaded
-  // Add an SVG
+  <h1>MIDDLE EARTH MAP</h1>
+
+  <script>
+
+    /*Inspiration / Source: https://observablehq.com/@d3/zoom-to-bounding-box?intent=fork
+
+    design flaws:
+    -no easy way to zoom back if you click in the middle of the country
+    -dragging has no limits
+    -zooming in/out on different locations causes weird effects
+
+  
+    */
+    // Add an SVG
 
 
 
-  // Add Rectangles
-  // Add Circles
-  // Add Lines
-  // Add Polygons
+    // Add Rectangles
+    // Add Circles
+    // Add Lines
+    // Add Polygons
 
-  var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svg.setAttribute("width", "200");
-    svg.setAttribute("height", "200");
+    const viewportWidth = document.documentElement.clientWidth;
+    const viewportHeight = document.documentElement.clientHeight;
 
-    // Create a circle element inside the SVG
-    var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-    circle.setAttribute("cx", "100");
-    circle.setAttribute("cy", "100");
-    circle.setAttribute("r", "50");
-    circle.setAttribute("fill", "blue");
+    // Set margins and padding if needed
+    const margin = { top: 100, right: 100, bottom: 100, left: 100 };
+    const width = viewportWidth - margin.left - margin.right;
+    const height = viewportHeight - margin.top - margin.bottom;
 
-    // Append the circle to the SVG
-    svg.appendChild(circle);
+    const transformStack = new Stack();
 
-    // Append the SVG to the body
-    document.body.appendChild(svg);
-</script>
+
+    // Create SVG
+    var svg = d3.select("body")
+    .append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("viewBox", `0 0 3200 2400`)
+        .attr("preserveAspectRatio", "xMidYMid meet");
+
+    
+
+    const g = svg.append("g");
+
+    const zoom = d3.zoom()
+      .scaleExtent([1, 8])
+      
+      .on("zoom", handleZoom);
+
+    svg.call(zoom);
+
+    const initialTransform = d3.zoomIdentity;
+    console.log(initialTransform);
+
+
+      var map = g.append("image")
+      .attr("href", "LOTRHighRes.jpeg")
+      .attr("width", 3200)
+      .attr("height", 2400)
+      .attr("x", 0)
+      .attr("y", 0);
+
+
+    // Create other elements within the fixed image region
+    var circle = g.append("circle")
+      .attr("cx", 1200)
+      .attr("cy", 1400)
+      .attr("r", 50)
+      .attr("fill", "none")
+      .attr("stroke", "red")
+      .attr("stroke-width", 5);
+
+    
+
+    function handleZoom(event) {
+      g.attr("transform", event.transform);
+
+    }
+
+  </script>
 </body>
+
 </html>
