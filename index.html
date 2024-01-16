@@ -7,13 +7,15 @@
   <title>Assignment 1</title>
   <script src="https://d3js.org/d3.v6.min.js"></script>
   <script src="https://d3js.org/topojson.v3.min.js"></script>
-  <script src="stack.js"></script>
+  <script src="map.js"></script>
   <style>
     body {
-      text-align: center; /* Center the text horizontally */
+      text-align: center;
+      /* Center the text horizontally */
     }
 
-    body, html {
+    body,
+    html {
       margin: 0;
       padding: 0;
       overflow: hidden;
@@ -50,60 +52,106 @@
     const viewportWidth = document.documentElement.clientWidth;
     const viewportHeight = document.documentElement.clientHeight;
 
-    // Set margins and padding if needed
-    const margin = { top: 100, right: 100, bottom: 100, left: 100 };
+    // Margins set to prevent drifting of box
+    const margin = { top: 100, right: 450, bottom: 100, left: 450 };
     const width = viewportWidth - margin.left - margin.right;
     const height = viewportHeight - margin.top - margin.bottom;
 
-    const transformStack = new Stack();
+
+    const imgWidth = 3200;
+    const imgHeight = 2400;
 
 
     // Create SVG
     var svg = d3.select("body")
-    .append("svg")
-        .attr("width", width)
-        .attr("height", height)
-        .attr("viewBox", `0 0 3200 2400`)
-        .attr("preserveAspectRatio", "xMidYMid meet");
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .attr("viewBox", `0 0 ${imgWidth} ${imgHeight}`)
+      .attr("preserveAspectRatio", "xMidYMid meet");
 
-    
+
 
     const g = svg.append("g");
 
     const zoom = d3.zoom()
-      .scaleExtent([1, 8])
-      
+      .scaleExtent([1, 3])
+      .translateExtent([[0, 0], [imgWidth, imgHeight]]) //used to ensure zooming out doesn't land in the ocean of nothingness
+
       .on("zoom", handleZoom);
 
     svg.call(zoom);
 
-    const initialTransform = d3.zoomIdentity;
-    console.log(initialTransform);
 
 
-      var map = g.append("image")
+
+    var map = g.append("image")
       .attr("href", "LOTRHighRes.jpeg")
       .attr("width", 3200)
       .attr("height", 2400)
       .attr("x", 0)
-      .attr("y", 0);
+      .attr("y", 0)
+      .on("click", reset);
 
 
-    // Create other elements within the fixed image region
-    var circle = g.append("circle")
-      .attr("cx", 1200)
-      .attr("cy", 1400)
-      .attr("r", 50)
-      .attr("fill", "none")
-      .attr("stroke", "red")
-      .attr("stroke-width", 5);
+    const starPoints = [
+      [0, -50],
+      [14, -14],
+      [50, 0],
+      [14, 14],
+      [0, 50],
+      [-14, 14],
+      [-50, 0],
+      [-14, -14],
+    ];
+    function drawMapCoord(name, x, y) {
+      g.append("polygon")
+        .attr("id", name)
+        .attr("points", starPoints.map(point => point.join(',')).join(' '))
+        .attr("transform", "translate(" + x + "," + y + ")")
+        .attr("fill", "orange")
+        .attr("stroke", "black")
+        .attr("stroke-width", 5)
+        .on("click", function (event) {
+          locationClicked(this, name, x, y);
+        });
+    }
 
-    
+    drawMapCoord("TheShire", 900, 700);
+
+
 
     function handleZoom(event) {
+      console.log(event.transform);
       g.attr("transform", event.transform);
-
     }
+
+    //used from the source
+    function reset() {
+      svg.transition().duration(750).call(
+        zoom.transform,
+        d3.zoomIdentity,
+        d3.zoomTransform(svg.node()).invert([width / 2, height / 2])
+      );
+    }
+
+
+
+    //created to zoom to a specific element
+    
+    function locationClicked(item, name, x, y) {
+      d3.select(item).transition().style("fill", "red");
+      let svgElement = d3.select("#" + name).node();
+
+      //Math performed by ChatGPT
+      svg.transition().duration(750).call(
+        zoom.transform,
+      d3.zoomIdentity.translate(imgWidth / 2, imgHeight / 2).scale(3).translate(-x, -y)
+      );
+    }
+
+
+
 
   </script>
 </body>
