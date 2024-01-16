@@ -1,10 +1,93 @@
 <script src="https://d3js.org/d3.v6.min.js"></script>
 
+<h1>This is a D3js Assignment for Data Visualization at WPI</h1>
+<svg class="one"></svg>
+<h2>D3.js can bind to multiple elements at once</h2>
+<svg class="one"></svg>
+
+<button onclick="createPoly()" style="font-size: 3em">clickme!</button>
+<div>
+  <svg id="canvas" style="height: 1000px; width: 90vw"></svg>
+</div>
+
 <script>
   console.log(d3); // test if d3 is loaded
-  // Add an SVG
+
+  //binds to html elements
+  d3.select("h1").style("color", "red");
+  // Add an svg
+  //can bind to all elements
+  let svgAll = d3.selectAll(".one");
+
+  //binding to one element chooses the first in the html file
+  let svg = d3.select("svg");
   // Add Rectangles
+  svgAll
+    .append("rect")
+    .attr("x", 10)
+    .attr("y", 10)
+    .attr("width", 100)
+    .attr("height", 100)
+    .attr("fill", "purple");
   // Add Circles
+  svgAll
+    .append("circle")
+    .attr("cx", 10)
+    .attr("cy", 10)
+    .attr("r", 100)
+    .attr("fill", "red");
+  svgAll.append("circle").attr("r", 100).attr("fill", "blue");
   // Add Lines
+  svg
+    .append("line")
+    .attr("x2", 110)
+    .attr("y2", 110)
+    .attr("stroke", "green")
+    .attr("stroke-width", 3);
+
   // Add Polygons
+  let polyCanvas = d3.select("#canvas");
+
+  polyCanvas
+    .append("line")
+    .attr("x2", 40)
+    .attr("y2", 40)
+    .attr("stroke", "green")
+    .attr("stroke-width", 3);
+
+  let points = [];
+  for (let i = 0; i < 20; i++) {
+    points.push([Math.random() * 200, Math.random() * 200]);
+  }
+  console.log(points);
+
+  //create polygon with least amt of points
+  let hull = d3.polygonHull(points);
+
+  let line = d3.line().curve(d3.curveLinearClosed);
+  polyCanvas
+    .append("path")
+    .attr("d", line(hull))
+    .attr("fill", "orange")
+    .attr("stroke", "blue");
+
+  function createPoly() {
+    let points = [];
+    let offsetx = Math.random() * 1000;
+    let offsety = Math.random() * 1000;
+    for (let i = 0; i < 10; i++) {
+      points.push([
+        Math.random() * 100 + offsetx,
+        Math.random() * 100 + offsety,
+      ]);
+    }
+    console.log(points);
+    let hull = d3.polygonHull(points);
+    let line = d3.line().curve(d3.curveLinearClosed);
+    polyCanvas
+      .append("path")
+      .attr("d", line(hull))
+      .attr("fill", () => "hsl(" + Math.random() * 360 + ", 100%, 50%)")
+      .attr("stroke", "blue");
+  }
 </script>
