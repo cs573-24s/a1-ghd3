@@ -24,3 +24,11 @@ to learn how to make shapes / polygons
 ### Github Pages Link
 
 [Link to page](https://bhnord.github.io/a1-ghd3/)
+
+#### initial website
+
+![no clicks img](a1-no-clicks.png)
+
+#### webite after some clicks
+
+![some clicks img](./a1-some-clicks.png)
