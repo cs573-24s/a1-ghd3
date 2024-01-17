@@ -18,7 +18,7 @@ Source: https://observablehq.com/@d3/zoom-to-bounding-box?intent=fork
 
 The idea of this project is entirely taken from this map, and at first a lot of the code was used. But there are major alterations from the source material. First, I was no longer able to rely on the US mapping code support so that invalidated a lot of code right away. But I mainly chose this one because I was frustrated with its failings as a design.
 
-design flaws:\n
+design flaws:  
 -after clicking on a state, you had to pan to find a non-state area to click and reset to the full map.  
 -dragging has no limits, can drag as far as you like into the void.  
 -after zooming in, if you moved your cursor sideways and zoomed out, the FOV would be in one of the oceans. (This was the most frustrating)  
