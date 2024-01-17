@@ -1,10 +1,151 @@
 <script src="https://d3js.org/d3.v6.min.js"></script>
 
+<svg id="svg-container"></svg>
+
 <script>
   console.log(d3); // test if d3 is loaded
-  // Add an SVG
-  // Add Rectangles
-  // Add Circles
-  // Add Lines
-  // Add Polygons
+
+  // make svg
+  const svg = d3.select("body")
+    .append("svg")
+    .attr("width", 600)
+    .attr("height", 600)
+
+  // background
+  svg.append("rect")
+    .attr("width", "100%")
+    .attr("height", "100%")
+    .attr("fill", "black");
+
+  // half circle grass
+  svg.append("path")
+    .attr("transform", "translate(300, 300)")
+    .attr("d", d3.arc()
+      .innerRadius( 0 )
+      .outerRadius( 250 )
+      .startAngle( Math.PI/2 )    
+      .endAngle( 3 * Math.PI/2 )      
+      )
+    .attr('stroke', '#355E3B') 
+    .attr('stroke-width', 10)
+    .attr('fill', '#4F7942');
+
+  // field goal
+  svg.append("rect")
+    .attr("x", 450)
+    .attr("y", 125)
+    .attr("width", 10)
+    .attr("height", 100)
+    .attr("fill", "#FFBF00");
+
+  svg.append("rect")
+    .attr("x", 500)
+    .attr("y", 125)
+    .attr("width", 10)
+    .attr("height", 100)
+    .attr("fill", "#FFBF00");
+
+  svg.append("rect")
+    .attr("x", 450)
+    .attr("y", 220)
+    .attr("width", 60)
+    .attr("height", 10)
+    .attr("fill", "#FFBF00");
+
+  svg.append("rect")
+    .attr("x", 475)
+    .attr("y", 225)
+    .attr("width", 10)
+    .attr("height", 70)
+    .attr("fill", "#FFBF00");
+
+  // post with text
+  svg.append("rect")
+    .attr("x", 470)
+    .attr("y", 240)
+    .attr("width", 20)
+    .attr("height", 50)
+    .attr("fill", "#7393B3");
+
+  svg.append("text")
+    .attr('fill', 'white') 
+    .style("font-size", 12)
+    .text("CS 573")
+    .attr("font-family", 'sans-serif')
+    .attr("font-weight", 700)
+    .attr("transform", "translate(475, 245), rotate(90)");
+
+  // football data and path
+  function getFootballHeight(x) {
+    return (.003 * ((x-350)**2)) + 100
+  }
+
+  var footballData = []
+  for(var i=100; i<490; i = i + 10) {
+    x = i
+    y = getFootballHeight(x)
+    footballData.push({xval:x, yval:y})
+  }
+  
+  var kickCurve = d3.line()
+    .x((p) => p.xval)
+    .y((p) => p.yval)
+    .curve(d3.curveBasis);
+
+  // animate, add marker, and add path
+  const transitionPath = d3
+    .transition()
+    .ease(d3.easeSin)
+    .duration(2500);
+
+  svg.append('defs')
+    .append('marker')
+    .attr('id', 'football')
+    .attr('viewBox', [0, 0, 20, 20])
+    .attr('refX', 10)
+    .attr('refY', 10)
+    .attr('markerWidth', 10)
+    .attr('markerHeight', 10)
+    .append("ellipse")
+    .attr("cx", 10)
+    .attr("cy", 10)
+    .attr("rx", 10)
+    .attr("ry", 6)
+    .attr("fill", "#954535")
+    .attr("transform", "translate(10, -5), rotate(40)");
+
+  svg.append("path")
+    .attr("d", kickCurve(footballData))
+    .attr("fill", "none")
+    .attr("stroke", "white")
+    .attr('marker-end', 'url(#football)')
+    .attr('stroke-width', 3)
+    .attr("stroke-dasharray", 500 + " " + 500)
+    .attr("stroke-dashoffset", 500)
+    .transition(transitionPath)
+    .attr("stroke-dashoffset", 0);
+
+  // add rerun button
+  var replay = d3.symbol()
+    .type(d3.symbolTriangle)
+    .size(400);
+
+  svg.append("circle")
+    .attr('id', 'replay')
+    .attr('cx', 300)
+    .attr('cy', 420)
+    .attr('r', 30)
+    .attr('fill', '#355E3B');
+
+  svg.append("path")
+    .attr('id', 'replay')
+    .attr("transform", "translate(300, 420), rotate(90)")
+    .attr("d", replay)
+    .attr("fill", "#4F7942");
+
+  svg.selectAll("#replay")
+    .on("click", function() {
+      location.reload();
+    });
+
 </script>
