@@ -80,6 +80,7 @@
     // Reference https://stackoverflow.com/a/46138980 as a starting point
     // Reference https://webdva.github.io/how-to-draw-a-line-in-d3js/ as a starting point
     // Reference https://d3js.org/d3-shape/arc for curved lines
+    // Reference https://chartio.com/resources/tutorials/how-to-show-data-on-mouseover-in-d3js/ for hover
     const generatePieces = () => {
 
       //Heading
@@ -105,15 +106,38 @@
         .attr('y', local_left_y + 15)
         .attr("text-anchor", "middle")
         .attr("font-weight", "bold")
-        .attr("font-size", "1em")
+        .attr("font-size", "1.2em")
         .text("Hover to learn about each piece!");
+      g.append("text")
+        .attr('x', (local_left_x + 1.5*(PIECES_WIDTH/4)))
+        .attr('y', local_left_y + 35)
+        .attr("text-anchor", "middle")
+        .attr("font-weight", "bold")
+        .attr("font-size", "1.2em")
+        .text("Click a piece to watch it wiggle!");
 
       //Pawn
+      let pawn_tooltip = d3.select("body")
+        .append("div")
+        .style("position", "absolute")
+        .style("visibility", "hidden")
+        .style("background", "#756059")
+        .text("This piece is a Pawn!")
+
       g.append('circle')
         .attr('cx', START_X_OFFSET + 1.05*CHESS_WIDTH)
         .attr('cy', START_Y_OFFSET + 2*(SQUARE_SIZE))
         .attr('r', (SQUARE_SIZE / 4))
-        .attr('fill', "white");
+        .attr('fill', "white")
+        .on("mouseover", function(d) {
+            return pawn_tooltip.style("visibility", "visible");
+          })
+        .on("mousemove", function() {
+            return pawn_tooltip.style("top", (START_Y_OFFSET + 2*(SQUARE_SIZE) + 30) + "px").style("left", (START_X_OFFSET + 1.0*CHESS_WIDTH) + "px");
+          })
+        .on("mouseout", function() {
+            return pawn_tooltip.style("visibility", "hidden");
+          })
 
       g.append('line')
         .attr('stroke', 'white')
