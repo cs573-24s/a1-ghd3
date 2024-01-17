@@ -1,6 +1,9 @@
 Assignment 1 - Hello World: GitHub and d3  
 ===
 
+Github Pages Link: https://echo532.github.io/a1-ghd3/
+
+
 This project is an interactive map of Lord of the Rings. You can zoom and pan over the map, and when you click on one of the interactive stars on the map, the map zooms into that star and informative text appears. You can click the map to return to full view, and you can click on the same star you are on and it will return to full view.
 
 ![The full map from the start](ReadmeScreenshot1.png)
