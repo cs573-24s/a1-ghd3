@@ -1,56 +1,91 @@
 <!DOCTYPE html>
-<div id="container"></div>
+<html lang="en">
+  <head>
+    <title>Chess Board Visualizer</title>
+  </head>
 
-<script src="https://d3js.org/d3.v6.min.js"></script>
+  <body>
+    <div id="container"></div>
+  </body>
 
-<script>
-  console.log(d3);
+  <script src="https://d3js.org/d3.v6.min.js"></script>
 
-  // Add an SVG
-  // Per https://d3js.org/getting-started, setup width, height, and SVG
-  const width = 640
-  const height = 400
+  <script>
+    console.log(d3);
 
-  const svg = d3.create("svg").attr("width", width).attr("height", height);
-  const g = svg.append("g") //Graphics tag to group graphics elements
+    // Add an SVG
+    // Per https://d3js.org/getting-started, setup width, height, and SVG
+    
+    // Rely on width being no greater than the height, to keep square dimensions
+    // Scale down by 0.75 to better fit on the screen
+    const CHESS_WIDTH = 0.75 * window.screen.height;
+    const CHESS_HEIGHT = 0.75 * window.screen.height;
 
-  // Add Rectangles
-  // Reference https://d3-graph-gallery.com/graph/shape.html as a starting point
-  g.append('rect')
-  .attr('x', 200)
-  .attr('y', 100)
-  .attr('width', 300)
-  .attr('height', 240)
-  .attr('stroke', 'brown')
-  .attr('fill', 'red');
+    const START_X_OFFSET = 50;
+    const START_Y_OFFSET = 25;
 
-  // Add Circles
-  // Reference https://d3-graph-gallery.com/graph/shape.html as a starting point
-  g.append('circle')
-  .attr('cx', 350)
-  .attr('cy', 220)
-  .attr('r', 25)
-  .attr('stroke', 'black')
-  .attr('fill', 'orange');
+    const svg = d3.create("svg").attr("width", CHESS_WIDTH + START_X_OFFSET).attr("height", CHESS_HEIGHT + START_Y_OFFSET);
+    const g = svg.append("g") //Graphics tag to group graphics elements
 
-  // Add Lines
-  // Reference https://webdva.github.io/how-to-draw-a-line-in-d3js/ as a starting point
-  g.append('line')
-    .style("stroke", "blue")
-    .style("stroke-width", 20)
-    .attr("x1", 220)
-    .attr("y1", 260)
-    .attr("x2", 480)
-    .attr("y2", 260);
+    // Add Rectangles
+    // Reference https://d3-graph-gallery.com/graph/shape.html as a starting point
+    // Reference https://jonathansoma.com/lede/storytelling/d3/text-elements/ for text
+    const generateChessBoard = () => {
+      const CHESS_BOARD_SIZE = 8;
+      const SQUARE_SIZE = ((CHESS_WIDTH - START_X_OFFSET) / CHESS_BOARD_SIZE);
 
-  // Add Polygons
-  // Reference https://stackoverflow.com/a/46138980 as a starting point
-  g.append("polygon")
-   .attr("points", "200,100 240,60 460,60 500,100")
-   .style("fill", "purple")
-   .style("stroke", "black")
-   .style("strokeWidth", "10px");
+      let x = (CHESS_WIDTH / 2) - ((CHESS_BOARD_SIZE / 2) * SQUARE_SIZE);
+      let y = (CHESS_HEIGHT / 2) - ((CHESS_BOARD_SIZE / 2) * SQUARE_SIZE);
+      for (let row_i = 0; row_i < CHESS_BOARD_SIZE; row_i++) {
+        for (let column_i = 0; column_i < CHESS_BOARD_SIZE; column_i++) {
+          let fill_color = (row_i % 2 == column_i % 2) ? "#f5e6bf" : "#664439"; 
+          g.append('rect')
+            .attr('x', START_X_OFFSET + x + (SQUARE_SIZE * column_i))
+            .attr('y', START_Y_OFFSET + y + (SQUARE_SIZE * row_i))
+            .attr('width', SQUARE_SIZE)
+            .attr('height', SQUARE_SIZE)
+            .attr('stroke', 'black')
+            .attr('fill', fill_color);
+          
+          let square_name = String.fromCharCode(column_i + 97) + (8 - row_i).toString();
+          g.append("text")
+            .attr('x', START_X_OFFSET + x + (SQUARE_SIZE * column_i) + (SQUARE_SIZE / 2))
+            .attr('y', START_Y_OFFSET + y + (SQUARE_SIZE * row_i) + (SQUARE_SIZE / 2))
+            .attr("text-anchor", "middle")
+            .text(square_name);
+        }
+      }
+    }
+    generateChessBoard()
 
-  // Per https://d3js.org/getting-started, add svg node to our div container
-  container.append(svg.node())
-</script>
+    // Add Circles
+    // Reference https://d3-graph-gallery.com/graph/shape.html as a starting point
+    g.append('circle')
+    .attr('cx', 350)
+    .attr('cy', 220)
+    .attr('r', 25)
+    .attr('stroke', 'black')
+    .attr('fill', 'orange');
+
+    // Add Lines
+    // Reference https://webdva.github.io/how-to-draw-a-line-in-d3js/ as a starting point
+    g.append('line')
+      .style("stroke", "blue")
+      .style("stroke-width", 20)
+      .attr("x1", 220)
+      .attr("y1", 260)
+      .attr("x2", 480)
+      .attr("y2", 260);
+
+    // Add Polygons
+    // Reference https://stackoverflow.com/a/46138980 as a starting point
+    g.append("polygon")
+    .attr("points", "200,100 240,60 460,60 500,100")
+    .style("fill", "purple")
+    .style("stroke", "black")
+    .style("strokeWidth", "10px");
+
+    // Per https://d3js.org/getting-started, add svg node to our div container
+    container.append(svg.node())
+  </script>
+</html>
