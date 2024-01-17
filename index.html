@@ -4,7 +4,7 @@
     <title>Chess Board Visualizer</title>
   </head>
 
-  <body>
+  <body style="background-color: gray;">
     <div id="container"></div>
   </body>
 
@@ -21,21 +21,33 @@
     const CHESS_WIDTH = 0.75 * window.screen.height;
     const CHESS_HEIGHT = 0.75 * window.screen.height;
 
+    const PIECES_WIDTH = 0.2 * window.screen.width;
+    const PIECES_HEIGHT = 0.2 * window.screen.height;
+
     const START_X_OFFSET = 50;
     const START_Y_OFFSET = 25;
 
-    const svg = d3.create("svg").attr("width", CHESS_WIDTH + START_X_OFFSET).attr("height", CHESS_HEIGHT + START_Y_OFFSET);
+    const svg = d3.create("svg").attr("width", CHESS_WIDTH + PIECES_WIDTH + START_X_OFFSET).attr("height", CHESS_HEIGHT + PIECES_HEIGHT + START_Y_OFFSET);
     const g = svg.append("g") //Graphics tag to group graphics elements
+
+    const CHESS_BOARD_SIZE = 8;
+    const SQUARE_SIZE = ((CHESS_WIDTH - START_X_OFFSET) / CHESS_BOARD_SIZE);
+
+    let x = (CHESS_WIDTH / 2) - ((CHESS_BOARD_SIZE / 2) * SQUARE_SIZE);
+    let y = (CHESS_HEIGHT / 2) - ((CHESS_BOARD_SIZE / 2) * SQUARE_SIZE);
+
+    g.append("text")
+        .attr('x', START_X_OFFSET + (window.screen.height / 2))
+        .attr('y', START_Y_OFFSET)
+        .attr("text-anchor", "middle")
+        .attr("font-weight", "bold")
+        .attr("font-size", "2em")
+        .text("Chess Visualizer -- CS573 A1 by Andrew Kerekon");
 
     // Add Rectangles
     // Reference https://d3-graph-gallery.com/graph/shape.html as a starting point
     // Reference https://jonathansoma.com/lede/storytelling/d3/text-elements/ for text
     const generateChessBoard = () => {
-      const CHESS_BOARD_SIZE = 8;
-      const SQUARE_SIZE = ((CHESS_WIDTH - START_X_OFFSET) / CHESS_BOARD_SIZE);
-
-      let x = (CHESS_WIDTH / 2) - ((CHESS_BOARD_SIZE / 2) * SQUARE_SIZE);
-      let y = (CHESS_HEIGHT / 2) - ((CHESS_BOARD_SIZE / 2) * SQUARE_SIZE);
       for (let row_i = 0; row_i < CHESS_BOARD_SIZE; row_i++) {
         for (let column_i = 0; column_i < CHESS_BOARD_SIZE; column_i++) {
           let fill_color = (row_i % 2 == column_i % 2) ? "#f5e6bf" : "#664439"; 
@@ -52,6 +64,9 @@
             .attr('x', START_X_OFFSET + x + (SQUARE_SIZE * column_i) + (SQUARE_SIZE / 2))
             .attr('y', START_Y_OFFSET + y + (SQUARE_SIZE * row_i) + (SQUARE_SIZE / 2))
             .attr("text-anchor", "middle")
+            .attr("font-style", "italic")
+            .attr("font-weight", "bold")
+            .attr("fill", "black")
             .text(square_name);
         }
       }
@@ -59,31 +74,56 @@
     generateChessBoard()
 
     // Add Circles
-    // Reference https://d3-graph-gallery.com/graph/shape.html as a starting point
-    g.append('circle')
-    .attr('cx', 350)
-    .attr('cy', 220)
-    .attr('r', 25)
-    .attr('stroke', 'black')
-    .attr('fill', 'orange');
-
     // Add Lines
-    // Reference https://webdva.github.io/how-to-draw-a-line-in-d3js/ as a starting point
-    g.append('line')
-      .style("stroke", "blue")
-      .style("stroke-width", 20)
-      .attr("x1", 220)
-      .attr("y1", 260)
-      .attr("x2", 480)
-      .attr("y2", 260);
-
     // Add Polygons
+    // Reference https://d3-graph-gallery.com/graph/shape.html as a starting point
     // Reference https://stackoverflow.com/a/46138980 as a starting point
-    g.append("polygon")
-    .attr("points", "200,100 240,60 460,60 500,100")
-    .style("fill", "purple")
-    .style("stroke", "black")
-    .style("strokeWidth", "10px");
+    // Reference https://webdva.github.io/how-to-draw-a-line-in-d3js/ as a starting point
+    // Reference https://d3js.org/d3-shape/arc for curved lines
+    const generatePieces = () => {
+
+      //Heading
+      let local_left_x = START_X_OFFSET + CHESS_WIDTH
+      let local_left_y = START_Y_OFFSET + 75
+      g.append("polygon")
+          .attr("points", local_left_x + "," + local_left_y + " "
+            + (local_left_x + 0.5*(PIECES_WIDTH/4)) + "," + (local_left_y - 50) + " "
+            + (local_left_x + 2.5*(PIECES_WIDTH/4)) + "," + (local_left_y - 50) + " "
+            + (local_left_x + 3*(PIECES_WIDTH/4)) + "," + (local_left_y))
+          .style("fill", "#756059")
+          .style("stroke", "black")
+          .style("strokeWidth", "10px");
+      g.append("text")
+        .attr('x', (local_left_x + 1.5*(PIECES_WIDTH/4)))
+        .attr('y', local_left_y - 15)
+        .attr("text-anchor", "middle")
+        .attr("font-weight", "bold")
+        .attr("font-size", "2em")
+        .text("Piece Info");
+      g.append("text")
+        .attr('x', (local_left_x + 1.5*(PIECES_WIDTH/4)))
+        .attr('y', local_left_y + 15)
+        .attr("text-anchor", "middle")
+        .attr("font-weight", "bold")
+        .attr("font-size", "1em")
+        .text("Hover to learn about each piece!");
+
+      //Pawn
+      g.append('circle')
+        .attr('cx', START_X_OFFSET + 1.05*CHESS_WIDTH)
+        .attr('cy', START_Y_OFFSET + 2*(SQUARE_SIZE))
+        .attr('r', (SQUARE_SIZE / 4))
+        .attr('fill', "white");
+
+      g.append('line')
+        .attr('stroke', 'white')
+        .style("stroke-width", 10)
+        .attr("x1", START_X_OFFSET + 1.05*CHESS_WIDTH - (SQUARE_SIZE / 4))
+        .attr("y1", START_Y_OFFSET + 2*(SQUARE_SIZE) + (SQUARE_SIZE / 4))
+        .attr("x2", START_X_OFFSET + 1.05*CHESS_WIDTH + (SQUARE_SIZE / 4))
+        .attr("y2", START_Y_OFFSET + 2*(SQUARE_SIZE) + (SQUARE_SIZE / 4));
+    }
+    generatePieces()
 
     // Per https://d3js.org/getting-started, add svg node to our div container
     container.append(svg.node())
