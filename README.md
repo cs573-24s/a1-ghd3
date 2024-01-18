@@ -1,58 +1,25 @@
-Assignment 1 - Hello World: GitHub and d3
-This is a starting project to make sure you can write and host a webpage that generates graphics using d3.
+# Data Visualization SVG
+ This is the first assignment on data visualization using SVG, HTML, and D3.js. The image below is a summary of how the page looks like but it has animation
+![image](https://github.com/lomuaphe/a1-ghd3/assets/1378493/3f2fcbfb-4e75-467d-bc39-1312b64c62e7)
 
-The primary goal is to be able to generate graphics primitives (circles, rectangles, lines, polygons) at different locations on the screen with different colors.
+## Overview
+The project has the following
+-Grey lines Centered horizontal and vertical.
+-Main rectangle with light grey color.
+-A small white rectagle cutting accross big grey rectangle 
+-"Data" and "visualization" text .
+-Animated circle.
+-A circle with Text "VISUALS" within it.
+-A triangle with the text "Assignment ONE." 
 
-The secondary goal is to introduce you to coding on GitHub, including creating a gh-pages branch to host your visualizations.
+#### Prerequisites
+- To view this you need a web browser supporting SVG and JavaScript.
 
-You may write everything from scratch, or start with demo programs from books or the web. If you do start with code that you found, you must identify the source of the code in your README and, most importantly, make non-trivial changes to the code to make it your own so you really learn what you're doing.
-
-For example, you could download one of the d3.js examples, read it through so you understand what it's doing, and then change the appearance of the graphical output to use different color schemes, different primitive shapes, different layouts of the primitives, and so on.
-
-Resources
-If you need a JavaScript/HTML/CSS refresher, see JavaScript Codeacademy or find one of your choosing on the web.
-
-If you need a Git/GitHub refreseher, some possible resources include Getting Started with GitHub, the GitHub Guides (especially the ones on Hello World, and Understanding the GitHub Flow, and Forking Projects), and CodeSchool's Try Git Course.
-
-Requirements
-Your project should contain at least four kinds of graphics primitives (circles, rectangles, lines, polygons) in different colors.
-Your document should identify the source of the code if you start with code that you found.
-Your code should be forked from the GitHub repo and linked using GitHub pages. See the "GitHub Details" section below for detailed instructions on how to do this.
-GitHub Details
-Fork the GitHub Repository for Assignment 1. You now have a copy associated with your username.
-Make changes to index.html to fulfill the project requirements.
-Make sure your "main" branch matches your "gh-pages" branch. See the GitHub Guides referenced above if you need help.
-Edit the README.md with a link to your gh-pages site "http://YourUsernameGoesHere.github.io/01-ghd3/index.html".
-Submission Details
-To submit, make a Pull Request on the original repository.
-Note: name your pull request using the following scheme:
-a1-your Gh username-your first name-your lastname
-
-Vis Details
-For this project you should use d3.js. You can learn from examples on the d3.js site or start from scratch.
-
-See the Using d3js documentation for how to run your own local server.
-
-Creative solutions are welcome! In the past I've seen recreations of paintings, interactives, and more.
-
-Go beyond the minimum requirements of this project. Experiment with other aspects of the d3 API and d3 Tutorials. Try making the elements interactive, for example, or animate them.
-
-Grading
-Grades are on a 120 point scale. 96 points will be graded for functionality: the program does what the assignment requests with an informative README.
-
-We will use Google Chrome to view submissions. Be sure to test your code there.
-
-Below are some, but not necessarily all, of the key points we will consider during grading:
-
-Circles and Rectangles
-Lines
-Paths
-Different colors
-README Quality
-A description of what you have created. 1-2 screenshots are recommended for the README.
-A working link to the hosted files (usually the gh-pages 'live' url)
-Section for Technical and Design Achievements
-Technical Achievement Desription -- 12
-Design Achievement Description -- 12
-
-Remember, it is up to you to define what constitutes a technical and design achievements. Be ambitious as these are designed to allow you to shape your learning. These are the only way to move from B to A territory.
+#### Installation
+1. Clone the repository or download the HTML file.
+2. Open the HTML file in a web browser.
+### Usage
+Simply open the HTML file in a web browser.
+## Animation
+The circle in the visualization is animated. It starts with a radius of 95, gradually decreases to 50, and changes color during the animation.
+...
