@@ -24,3 +24,5 @@ Simply open the HTML file in a web browser.
 ## Animation
 The circle in the visualization is animated. It starts with a radius of 95, gradually decreases to 50, and changes color during the animation.
 ...
+## Reference
+I used ChatGPT 3.5 to get started 
