@@ -60,7 +60,7 @@
     
     // Snow fill-in
     svg.append("rect")
-      .attr("x", 0)
+      .attr("x", 0) 
       .attr("y", 150)  
       .attr("width", 1700)
       .attr("height", window.innerHeight)  // Height extending to the bottom of the screen
@@ -342,8 +342,6 @@
       .attr("stroke", "grey") 
       .attr("stroke-width", outlineWidth);
 
-    // Add Padding to Poles
-
     // Rope up
     svg.append("line")
       .attr("x1", 0)
@@ -385,6 +383,15 @@
       .attr("width", 10)
       .attr("height", 130)
       .attr("fill", "#2D400B");
+
+    var cartman = svg.append("g")
+      .attr("transform", "translate(725, 405)");
+
+    cartman.append("image")
+      .attr("id", "skier")
+      .attr("xlink:href", "Cartman.webp")
+      .attr("width", 75)
+      .attr("height", 125);
 
     // Chair seat Up
     skiChairGroup.append("rect")
@@ -439,14 +446,17 @@
       .attr("width", 100)
       .attr("height", 150);
 
+    var slope = (700 - 150) / (window.innerWidth - 0); // Variables to prevent skier from moving too far up
+    var yIntercept = 150; 
+
     // Move Skier
     svg.on("click", function(event) {
       // Mouse Coordiante
       var mouseX = event.clientX;
       var mouseY = event.clientY;
 
-      var minY = 150 + 75; // Adjusted based on skier's height
-      var newY = Math.max(mouseY - 75, minY);  // Keep the skier below the specified line
+      var maxY = slope * mouseX + yIntercept;
+      var newY = Math.max(mouseY - 75, maxY);  // Keep the skier below the variable line
 
       // Move skier to click
       skierGroup.transition()
