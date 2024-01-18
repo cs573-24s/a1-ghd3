@@ -1,10 +1,122 @@
-<script src="https://d3js.org/d3.v6.min.js"></script>
-
-<script>
-  console.log(d3); // test if d3 is loaded
-  // Add an SVG
-  // Add Rectangles
-  // Add Circles
-  // Add Lines
-  // Add Polygons
-</script>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>A1 - CS573</title>
+    <style>
+      #control-container {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 300px;
+      }
+      .control-label {
+        display: block;
+        color: #000;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="control-container">
+      <div class="control-label">Min: 1</div>
+      <input type="range" id="slider" min="1" max="200" value="1">
+      <div class="control-label" style="float: none;">Max: 200</div>
+      <div class="control-label">Circle Color:</div>
+      <input type="color" id="circleColor" value="#645959">
+      <div class="control-label">Rectangle Color:</div>
+      <input type="color" id="rectColor" value="#D42B66">
+      <div class="control-label">Triangle Color:</div>
+      <input type="color" id="triangleColor" value="#CACA96">
+      <div class="control-label">Line Color:</div>
+      <input type="color" id="lineColor" value="#1BC918">      
+    </div>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script>
+      // Set up SVG
+      var angle = 0;
+      const svg = d3.select("body").append("svg")
+        .attr("width", 800)
+        .attr("height", 600);
+      function drawFigures(numElements) {
+        svg.selectAll("*").remove(); // Clear existing elements
+        const circleColor = d3.select("#circleColor").property("value");
+        const rectColor = d3.select("#rectColor").property("value");
+        const triangleColor = d3.select("#triangleColor").property("value");
+        const lineColor = d3.select("#lineColor").property("value");
+        const lineLength = 20;
+        for (let i = 0; i < numElements; i++) {
+          // Add a circle
+          let circleCX = Math.random() * 800;
+          let circleCY = Math.random() * 600;
+          let growing = true;
+          let circleRadius = 10;
+          const maxRadius = 20;
+          const minRadius = 5;
+          const radiusChange = 0.5;
+          const intervalDuration = 100;
+          svg.append("circle")
+            .attr("cx", circleCX)
+            .attr("cy", circleCY)
+            .attr("r", circleRadius)
+            .attr("fill", circleColor)
+            .on('click', function() {
+              const that = this;
+              d3.interval(function() {
+                if(growing) {
+                  circleRadius +=radiusChange;
+                  if(circleRadius>=maxRadius) growing=false;
+                } else {
+                  circleRadius -=radiusChange;
+                  if(circleRadius<=minRadius) growing=true;
+                }
+                d3.select(that)
+                .attr("r", circleRadius);
+              }, intervalDuration);
+            });
+          // Add a rectangle
+          let rectX = Math.random()*800;
+          let rectY = Math.random()*600;
+          svg.append("rect")
+            .attr("x", rectX)
+            .attr("y", rectY)
+            .attr("width", 20)
+            .attr("height", 20)
+            .attr("fill", rectColor)
+            .on('click', function() {
+              const that = this;
+              d3.interval(function() {
+                angle += 1;
+                console.log(angle);
+                d3.select(that)
+                .attr("transform", "rotate("+angle+","+(rectX+10)+","+(rectY+10)+")");
+              }, 10);
+            });
+          // Add a triangle (using a path)
+          const x1 = Math.random() * 800, y1 = Math.random() * 600;
+          const x2 = x1 + 20, y2 = y1 + 20;
+          const x3 = x1 - 20, y3 = y1 + 20;
+          svg.append("path")
+            .attr("d", `M ${x1} ${y1} L ${x2} ${y2} L ${x3} ${y3} Z`)
+            .attr("fill", triangleColor);
+          //calculate starting points for the line
+          const lineX1 = Math.random()*(800-lineLength);
+          const lineY1 = Math.random()*(600-lineLength);
+          //Add a line
+          svg.append("line")
+          .attr("x1", lineX1)
+          .attr("y1", lineY1)
+          .attr("x2", lineX1+lineLength)
+          .attr("y2", lineY1+lineLength)
+          .attr("stroke", lineColor)
+          .attr("stroke-width", 2);
+        }
+      }
+      // Initialize (1 element)
+      drawFigures(1);
+      // Slider interaction
+      d3.selectAll("#slider, #circleColor, #rectColor, #triangleColor, #lineColor").on("input", function() {
+        drawFigures(+d3.select("#slider").property("value"));
+      });
+    </script>
+  </body>
+</html>
