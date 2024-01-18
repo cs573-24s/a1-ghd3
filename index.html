@@ -9,7 +9,7 @@
 
 <body>
 
-  <img id="skier" src="Skier.webp" style="position: absolute; width: 100px; height: 150px;"/>
+  <!-- <img id="skier" src="Skier.webp" style="position: absolute; width: 100px; height: 150px;"/> -->
 
   <script>
     console.log(d3); // test if d3 is loaded
@@ -377,7 +377,6 @@
           .remove();
       }
     }
-
     
     // Chairpole up
     skiChairGroup.append("rect")
@@ -431,27 +430,41 @@
 
     d3.timer(makeRain, 100);
 
-    var image = d3.select("#skier");
-    d3.select("svg").on("click", function () {
-      // Get the mouse click coordinates relative to the SVG
-      var [mouseX, mouseY] = d3.mouse(this);
+    var skierGroup = svg.append("g")
+      .attr("transform", "translate(0, 225)");
 
-      // Transition the image to the clicked coordinates
-      image.transition()
-        .duration(1000) // Duration of the animation in milliseconds
-        .attr("x", mouseX - 50) // Adjust for half of the image width
-        .attr("y", mouseY - 75); // Adjust for half of the image height
+    skierGroup.append("image")
+      .attr("id", "skier")
+      .attr("xlink:href", "Skier.webp")
+      .attr("width", 100)
+      .attr("height", 150);
+
+    // Move Skier
+    svg.on("click", function(event) {
+      // Mouse Coordiante
+      var mouseX = event.clientX;
+      var mouseY = event.clientY;
+
+      var minY = 150 + 75; // Adjusted based on skier's height
+      var newY = Math.max(mouseY - 75, minY);  // Keep the skier below the specified line
+
+      // Move skier to click
+      skierGroup.transition()
+        .duration(1000)  
+        .attr("transform", "translate(" + (mouseX - 50) + "," + newY + ")");
     });
-    // // Add a click event listener to the image
-    // image.on("click", function() {
-    //   // Rotate the image to 360 degrees
-    //   image.transition()
-    //     .duration(1000)  // Rotation duration in milliseconds
-    //     .attr("transform", "rotate(360)");
-    // });
-    
-    
+
+    d3.select("body").on("keydown", function() {
+      if (d3.event.key === "j") { 
+        // Rotate skier 360
+        skierGroup.transition("#skier")
+          .duration(1000) 
+          .attr("transform", "rotate(360)");
+      }
+    });
   
   </script>
 </body>
 </html>
+
+<!-- Click Pointer page: https://d3js.org/d3-selection/events --> 
