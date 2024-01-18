@@ -257,6 +257,146 @@
     }
     generatePawn()
 
+    const generateBishop = () => {
+      let bishop_tooltip = d3.select("body")
+        .append("div")
+        .style("position", "absolute")
+        .style("visibility", "hidden")
+        .style("background", "#ABCCC5")
+        .text("This piece is a Bishop! Move diagonally!")
+        .style("font-style", "italic")
+        .style('font-weight', "bold")
+        .style("font-size", "1.2em")
+
+      var bishop_color_flag = true;
+      var bishop_color = "white";
+
+      g.append('circle')
+        .attr("class", "bishop")
+        .attr('cx', CHESS_WIDTH + (PIECES_WIDTH / 2))
+        .attr('cy', 4.5*(SQUARE_SIZE))
+        .attr('r', (SQUARE_SIZE / 8))
+        .attr('fill', bishop_color)
+        .attr('stroke', bishop_color)
+        .on("mouseover", function(d) {
+            return bishop_tooltip.style("visibility", "visible");
+          })
+        .on("mousemove", function() {
+            return bishop_tooltip.style("top", 6*(SQUARE_SIZE) + "px").style("left", (START_X_OFFSET + 1.0*CHESS_WIDTH) + "px");
+          })
+        .on("mouseout", function() {
+            return bishop_tooltip.style("visibility", "hidden");
+          })
+        .on("click", function() {
+          bishop_color_flag = !bishop_color_flag;
+          bishop_color = bishop_color_flag ? "white" : "black";
+          d3.selectAll(".bishop").each(function() {
+            let current_fill = d3.select(this).attr("fill");
+            let new_fill = (current_fill == "transparent") ? "transparent" : bishop_color; 
+            d3.select(this).transition().duration(3000).attr("fill", new_fill).attr("stroke", bishop_color);
+          })
+        })
+
+      g.append('line')
+        .attr("class", "bishop")
+        .attr('stroke', 'white')
+        .style("stroke-width", 10)
+        .attr("x1", CHESS_WIDTH + 7*(PIECES_WIDTH / 16))
+        .attr("y1", 4.75*(SQUARE_SIZE))
+        .attr("x2", CHESS_WIDTH + 9*(PIECES_WIDTH / 16))
+        .attr("y2", 4.75*(SQUARE_SIZE))
+        .on("mouseover", function(d) {
+            return bishop_tooltip.style("visibility", "visible");
+          })
+        .on("mousemove", function() {
+          return bishop_tooltip.style("top", 6*(SQUARE_SIZE) + "px").style("left", (START_X_OFFSET + 1.0*CHESS_WIDTH) + "px");
+          })
+        .on("mouseout", function() {
+            return bishop_tooltip.style("visibility", "hidden");
+          })
+        .on("click", function() {
+          bishop_color_flag = !bishop_color_flag;
+          bishop_color = bishop_color_flag ? "white" : "black";
+          d3.selectAll(".bishop").each(function() {
+            let current_fill = d3.select(this).attr("fill");
+            let new_fill = (current_fill == "transparent") ? "transparent" : bishop_color; 
+            d3.select(this).transition().duration(3000).attr("fill", new_fill).attr("stroke", bishop_color);
+          })
+        })
+
+      g.append('line')
+        .attr("class", "bishop")
+        .attr('stroke', 'white')
+        .style("stroke-width", 15)
+        .attr("x1", CHESS_WIDTH + 6.5*(PIECES_WIDTH / 16))
+        .attr("y1", 5.5*(SQUARE_SIZE))
+        .attr("x2", CHESS_WIDTH + 9.5*(PIECES_WIDTH / 16))
+        .attr("y2", 5.5*(SQUARE_SIZE))
+        .on("mouseover", function(d) {
+            return bishop_tooltip.style("visibility", "visible");
+          })
+        .on("mousemove", function() {
+          return bishop_tooltip.style("top", 6*(SQUARE_SIZE) + "px").style("left", (START_X_OFFSET + 1.0*CHESS_WIDTH) + "px");
+          })
+        .on("mouseout", function() {
+            return bishop_tooltip.style("visibility", "hidden");
+          })
+        .on("click", function() {
+          bishop_color_flag = !bishop_color_flag;
+          bishop_color = bishop_color_flag ? "white" : "black";
+          d3.selectAll(".bishop").each(function() {
+            let current_fill = d3.select(this).attr("fill");
+            let new_fill = (current_fill == "transparent") ? "transparent" : bishop_color; 
+            d3.select(this).transition().duration(3000).attr("fill", new_fill).attr("stroke", bishop_color);
+          })
+        })
+      g.append('line')
+        .attr('stroke', '#CCB4AB')
+        .style("stroke-width", 6)
+        .attr("x1", CHESS_WIDTH + (PIECES_WIDTH / 2))
+        .attr("y1", 4.5*(SQUARE_SIZE))
+        .attr("x2", CHESS_WIDTH + 9.5*(PIECES_WIDTH / 16))
+        .attr("y2", 4*(SQUARE_SIZE))
+        .on("mouseover", function(d) {
+            return bishop_tooltip.style("visibility", "visible");
+          })
+        .on("mousemove", function() {
+          return bishop_tooltip.style("top", 6*(SQUARE_SIZE) + "px").style("left", (START_X_OFFSET + 1.0*CHESS_WIDTH) + "px");
+          })
+        .on("mouseout", function() {
+            return bishop_tooltip.style("visibility", "hidden");
+        })
+
+      g.append('polygon')
+        .attr("class", "bishop")
+        .attr('fill', 'white')
+        .attr('points',
+          (CHESS_WIDTH + 6.5*(PIECES_WIDTH / 16)) + ", " + 5.5*SQUARE_SIZE + " " +
+          (CHESS_WIDTH + 8*(PIECES_WIDTH / 16)) + ", " + 4.75*SQUARE_SIZE + " " +
+          (CHESS_WIDTH + 8*(PIECES_WIDTH / 16)) + ", " + 4.75*SQUARE_SIZE + " " +
+          (CHESS_WIDTH + 9.5*(PIECES_WIDTH / 16)) + ", " + 5.5*SQUARE_SIZE
+        )
+        .on("mouseover", function(d) {
+            return bishop_tooltip.style("visibility", "visible");
+          })
+        .on("mousemove", function() {
+          return bishop_tooltip.style("top", 6*(SQUARE_SIZE) + "px").style("left", (START_X_OFFSET + 1.0*CHESS_WIDTH) + "px");
+          })
+        .on("mouseout", function() {
+            return bishop_tooltip.style("visibility", "hidden");
+          })
+        .on("click", function() {
+          bishop_color_flag = !bishop_color_flag;
+          bishop_color = bishop_color_flag ? "white" : "black";
+          d3.selectAll(".bishop").each(function() {
+            let current_fill = d3.select(this).attr("fill");
+            let new_fill = (current_fill == "transparent") ? "transparent" : bishop_color; 
+            d3.select(this).transition().duration(3000).attr("fill", new_fill).attr("stroke", bishop_color);
+          })
+        })
+    }
+    generateBishop()
+
     // Per https://d3js.org/getting-started, add svg node to our div container
     container.append(svg.node())
   </script>
