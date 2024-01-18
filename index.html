@@ -111,7 +111,7 @@ function animateCircle() {
   circle.transition()
     .duration(2000)
     .attr("r", 50)
-    .style("fill", "5C5470")
+    .style("fill", "red")
     .on("end", function() {
       animateCircle();
     });
@@ -162,7 +162,7 @@ svg.append("text")
   .attr("y", centerY - 250) // Adjusted to be on the base of the triangle
   .attr("text-anchor", "middle")
   .attr("dominant-baseline", "middle")
-  .attr("fill", "gray")
+  .attr("fill", "red")
   .attr("font-size", "20")
   .attr("font-weight", "bold")
   .text("Assignment ONE");
