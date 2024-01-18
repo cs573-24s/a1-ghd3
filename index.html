@@ -223,7 +223,9 @@
             return pawn_tooltip.style("visibility", "visible");
           })
         .on("mousemove", function() {
-            return pawn_tooltip.style("top", 4*(SQUARE_SIZE) + "px").style("left", (START_X_OFFSET + 1.0*CHESS_WIDTH) + "px");
+            let tooltip_x = (is_centered) ? (CHESS_WIDTH / 2) - 2*START_X_OFFSET : (START_X_OFFSET + 1.0*CHESS_WIDTH)
+            let tooltip_y = (is_centered) ? 5*START_Y_OFFSET + (CHESS_WIDTH / 2) : 4*(SQUARE_SIZE) 
+            return pawn_tooltip.style("top", tooltip_y + "px").style("left", tooltip_x + "px");
           })
         .on("mouseout", function() {
             return pawn_tooltip.style("visibility", "hidden");
