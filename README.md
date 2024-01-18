@@ -4,6 +4,7 @@ Assignment 1 - Hello World: GitHub and d3
 This project uses D3.js. The code dynamically generates four kinds of graphical primitives - circles, rectangles, lines, and polygons (triangles), each in different colors.
 
 The webpage includes a control panel (right) allowing users to adjust the number of elements displayed and their colors. Each graphical primitive responds to user interactions in the following ways:
+    
     Circles: Grow and shrink in size upon clicking. Can have their color changed.
     Rectangles: Rotate continuously upon clicking. Can have their color changed.
     Triangles: Static in shape but can have their color changed.
