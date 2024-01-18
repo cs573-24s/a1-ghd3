@@ -1,10 +1,327 @@
-<script src="https://d3js.org/d3.v6.min.js"></script>
+</html>
+<!DOCTYPE html>
+<html>
 
-<script>
-  console.log(d3); // test if d3 is loaded
-  // Add an SVG
-  // Add Rectangles
-  // Add Circles
-  // Add Lines
-  // Add Polygons
-</script>
+<head>
+    <meta charset="utf-8">
+    <title>Truck Visualization</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        /* CSS animation */
+        .fade-in {
+            opacity: 0;
+            animation: fadeInAnimation 1s ease-in forwards;
+        }
+
+        @keyframes fadeInAnimation {
+            0% {opacity: 0;}
+            100% {opacity: 1; }
+        }
+
+        /* CSS to scale the button */
+        #start-animation {
+            transform: scale(3);
+            margin-bottom: 20px;
+            /* Add some space between the button and the SVG */
+        }
+
+        /* CSS for centering */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <svg width="1036" height="1000"></svg>
+    <script>
+        // Select the SVG element
+        const svg = d3.select("svg");
+        svg.attr("style", "background: #ccccff;")
+        // Draw background
+
+        const bgGroup = svg.append("g");
+        const getHillPath = () => {
+            const hillPoints = [
+                { x: 0, y: 300 }, // Bottom left
+                { x: 100, y: 300 }, // Bottom left
+                { x: 300, y: 470 }, // Top middle
+                { x: 500, y: 310 }, // Top middle
+                { x: 600, y: 360 }, // Top middle
+                { x: 700, y: 350 }, // Top middle
+                { x: 800, y: 330 }, // Top middle
+                { x: 900, y: 350 }, // Top middle
+                { x: 1000, y: 350 }, // Top middle
+                { x: 1036, y: 300 }, // Bottom right
+                {x: 1036, y:600},
+                {x: 0, y:600},
+                { x: 0, y: 300 } // Bottom left
+            ];
+
+            const path = d3.path();
+            path.moveTo(hillPoints[0].x, hillPoints[0].y);
+            path.bezierCurveTo(
+                hillPoints[1].x,
+                hillPoints[1].y,
+                hillPoints[2].x,
+                hillPoints[2].y,
+                hillPoints[3].x,
+                hillPoints[3].y
+            );
+            path.bezierCurveTo(
+                hillPoints[4].x,
+                hillPoints[4].y,
+                hillPoints[5].x,
+                hillPoints[5].y,
+                hillPoints[6].x,
+                hillPoints[6].y
+            );
+            path.bezierCurveTo(
+                hillPoints[7].x,
+                hillPoints[7].y,
+                hillPoints[8].x,
+                hillPoints[8].y,
+                hillPoints[9].x,
+                hillPoints[9].y
+            );
+            path.lineTo(hillPoints[10].x, hillPoints[10].y);
+            path.lineTo(hillPoints[11].x, hillPoints[11].y);
+            path.closePath();
+
+            return path.toString();
+
+        }
+        bgGroup.append("path")
+            .attr("d", getHillPath())
+            .attr("fill", "#229922")
+            .attr("stroke", "transparent");
+            // .style("opacity", 0); // Set initial opacity
+
+        bgGroup.append("rect")
+            .attr("x", 0)
+            .attr("y", 600)
+            .attr("width", 1036)
+            .attr("height", 400)
+            .attr("fill", "#444444");
+
+
+        // Define the points of the first triangle
+        const points1 = [
+            { x: 100, y: 500 }, // Bottom left
+            { x: 500, y: 390 }, // Top middle
+            { x: 1000, y: 450 }  // Bottom right
+        ];
+
+        // Draw the first triangle and assign it to a variable
+        const triangle1 = svg.append("polygon")
+            .attr("points", points1.map(p => `${p.x},${p.y}`).join(" "))
+            .attr("fill", "#d0d0d0")
+            .attr("stroke", "#d0d0d0")
+            .style("opacity", 0); // Set initial opacity
+        // Define the points of the second triangle
+        const points2 = [
+            { x: 100, y: 500 }, // Bottom left
+            { x: 1000, y: 450 }, // Top middle
+            { x: 975, y: 500 }  // Bottom right
+        ];
+
+        // Draw the second triangle
+        const triangle2 = svg.append("polygon")
+            .attr("points", points2.map(p => `${p.x},${p.y}`).join(" "))
+            .attr("fill", "#d0d0d0")
+            .attr("stroke", "#d0d0d0")
+            .style("opacity", 0); // Set initial opacity
+
+        // Define the points of the third triangle
+        const points3 = [
+            { x: 100, y: 500 }, // Bottom left
+            { x: 125, y: 625 }, // Top bottom
+            { x: 125, y: 500 }  // Bottom right
+        ];
+
+        // Draw the third triangle
+        const triangle3 = svg.append("polygon")
+            .attr("points", points3.map(p => `${p.x},${p.y}`).join(" "))
+            .attr("fill", "#888888")
+            .attr("stroke", "#888888")
+            .style("opacity", 0); // Set initial opacity
+
+
+        // Define the points of the fourth triangle
+        const points4 = [
+            { x: 975, y: 500 }, // Bottom left
+            { x: 975, y: 625 }, // Top bottom
+            { x: 1000, y: 450 }  // Bottom right
+        ];
+
+        // Draw the fourth triangle
+        const triangle4 = svg.append("polygon")
+            .attr("points", points4.map(p => `${p.x},${p.y}`).join(" "))
+            .attr("fill", "#888888")
+            .attr("stroke", "#888888")
+            .style("opacity", 0); // Set initial opacity
+
+
+        // Define the points of the fifth triangle
+        const points5 = [
+            { x: 300, y: 470 }, // Bottom left
+            { x: 500, y: 410 }, // Top middle
+            { x: 700, y: 450 }  // Bottom right
+        ];
+
+        // Draw the fifth triangle
+        const triangle5 = svg.append("polygon")
+            .attr("points", points5.map(p => `${p.x},${p.y}`).join(" "))
+            .attr("fill", "white")
+            .attr("stroke", "none")
+            .style("opacity", 0); // Set initial opacity
+        // Define the points of the sixth triangle
+        const points6 = [
+            { x: 600, y: 430 }, // Bottom left
+            { x: 600, y: 455 }, // Top middle
+            { x: 700, y: 450 }  // Bottom right
+        ];
+
+        // Draw the sixth triangle
+        const triangle6 = svg.append("polygon")
+            .attr("points", points6.map(p => `${p.x},${p.y}`).join(" "))
+            .attr("fill", "#d0d0d0")
+            .attr("stroke", "none")
+            .style("opacity", 0); // Set initial opacity
+
+        // Calculate the width of the first triangle
+        const triangleWidth = points1[2].x - points1[0].x;
+
+        // RECTANGLE: Draw the rectangle with the width 50 pixels less than the triangle's width and shifted 25 pixels to the right
+        const rectangle = svg.append("rect")
+            .attr("x", points1[0].x + 25) // Shift the x position 25 pixels to the right
+            .attr("y", points1[0].y) // y position same as the triangle's bottom left
+            .attr("width", triangleWidth - 50) // Width is 50 pixels less to account for both sides
+            .attr("height", 125) // Arbitrary height, adjust as needed
+            .attr("fill", "#888888")
+            .attr("stroke", "transparent")
+            .style("opacity", 0); // Set initial opacity
+
+        // CIRCLES: Draw the wheels
+        const wheel1 = svg.append("circle")
+            .attr("cx", 250)
+            .attr("cy", 625)
+            .attr("r", 80)
+            .attr("fill", "charcoal")
+            .attr("stroke", "white")
+            .attr("stroke-width", 4)
+            .style("opacity", 0); // Set initial opacity
+
+        const wheel2 = svg.append("circle")
+            .attr("cx", 800)
+            .attr("cy", 625)
+            .attr("r", 80)
+            .attr("fill", "charcoal")
+            .attr("stroke", "white")
+            .attr("stroke-width", 4)
+            .style("opacity", 0); // Set initial opacity
+
+
+        // Function to draw spokes for a wheel
+        function drawSpokes(centerX, centerY, radius, numSpokes) {
+            const angleStep = 360 / numSpokes;
+            const spokesGroup = svg.append("g");
+            spokesGroup.transition().delay(1000).duration(10000).attrTween("transform", () => {
+                const i = d3.interpolate(0, -7200);
+                return t => `rotate(${i(t)}, ${centerX}, ${centerY})`
+            });
+            for (let i = 0; i < numSpokes; i++) {
+                const angle = angleStep * i;
+                const angleRad = (Math.PI / 180) * angle;
+                const xEnd = centerX + radius * Math.cos(angleRad);
+                const yEnd = centerY + radius * Math.sin(angleRad);
+
+                spokesGroup.append("line") 
+                    .attr("class", "spoke") // Assign a class to each spoke
+                    .style("opacity", 0) // Set initial opacity
+                    .attr("x1", centerX)
+                    .attr("y1", centerY)
+                    .attr("x2", xEnd)
+                    .attr("y2", yEnd)
+                    .attr("stroke", "white")
+                    .attr("stroke-width", 4);
+            }
+        }
+
+        // LINES: Draw spokes for each wheel
+        drawSpokes(250, 625, 80, 6); // Spokes for the first wheel
+        drawSpokes(800, 625, 80, 6); // Spokes for the second wheel
+        
+        // Function to animate the shapes one by one
+        function animateShapes() {
+            // Animate the first triangle
+            triangle1.transition()
+                .duration(1000)
+                .delay(0)
+                .style("opacity", 1);
+
+            // Animate the second triangle
+            triangle2.transition()
+                .duration(1000)
+                .delay(100*3)
+                .style("opacity", 1);
+
+            // Animate the third triangle
+            triangle3.transition()
+                .duration(1000)
+                .delay(200*3)
+                .style("opacity", 1);
+
+            // Animate the fourth triangle
+            triangle4.transition()
+                .duration(1000)
+                .delay(300*3)
+                .style("opacity", 1);
+
+            // Animate the fifth triangle
+            triangle5.transition()
+                .duration(1000)
+                .delay(400*3)
+                .style("opacity", 1);
+
+            // Animate the sixth triangle
+            triangle6.transition()
+                .duration(1000)
+                .delay(500*3)
+                .style("opacity", 1);
+
+            // Animate the rectangle
+            rectangle.transition()
+                .duration(1000)
+                .delay(600*3)
+                .style("opacity", 1);
+
+            // Animate the wheels
+            wheel1.transition()
+                .duration(1000)
+                .delay(700*3)
+                .style("opacity", 1);
+
+            wheel2.transition()
+                .duration(1000)
+                .delay(700*3)
+                .style("opacity", 1);
+
+            // Animate all spokes
+            d3.selectAll(".spoke").transition()
+                .duration(1000)
+                .delay(800*3) // Adjust delay as needed
+                .style("opacity", 1);
+
+        }
+        // Animate shapes when page is loaded
+        animateShapes();
+        
+    </script>
+</body>
+
+</html>
