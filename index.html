@@ -1,10 +1,116 @@
-<script src="https://d3js.org/d3.v6.min.js"></script>
+<!DOCTYPE html>
+<html>
 
-<script>
-  console.log(d3); // test if d3 is loaded
-  // Add an SVG
-  // Add Rectangles
-  // Add Circles
-  // Add Lines
-  // Add Polygons
-</script>
+<head>
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+</head>
+
+<body>
+
+  <script>
+    // add canvas
+    let canvas = d3.select("body").append("svg")
+      .attr("width", 1000)
+      .attr("height", 1000);
+
+    //house wall rec
+    canvas.append("rect")
+      .style("fill", "	#8B8989")
+      .style("stroke", "black")
+      .attr("x", 10)
+      .attr("y", 100)
+      .attr("width", 500)
+      .attr("height", 500);
+
+    // door
+    canvas.append("rect")
+      .style("fill", "	#8B5A2B")
+      .style("stroke", "black")
+      .attr("x", 300)
+      .attr("y", 450)
+      .attr("width", 100)
+      .attr("height", 150);
+
+    // Creating a triangle
+    let vertices = [
+      { x: 250, y: 0 },
+      { x: 520, y: 100 },
+      { x: 0, y: 100 }
+    ];
+
+    // triangle roof
+    canvas.append("polygon")
+      .attr("points", vertices.map(function (d) { return [d.x, d.y].join(","); }).join(" ")) // convert vertices to string format of coordinate as(100,100)
+      .attr("fill", "	#DDA0DD")
+      .style("stroke", "black")
+      .style("strokeWidth", "10px");
+
+    // window
+    canvas.append("circle")
+      .attr("cx", 130)
+      .attr("cy", 200)
+      .attr("r", 70)
+      .attr("fill", "blue")
+    canvas.append("circle")
+      .attr("cx", 400)
+      .attr("cy", 200)
+      .attr("r", 70)
+      .attr("fill", "blue")
+    canvas.append("circle")
+      .attr("cx", 130)
+      .attr("cy", 400)
+      .attr("r", 70)
+      .attr("fill", "blue")
+
+    // define center point coordinates and radius
+    let windows = [
+      { cx: 130, cy: 200, r: 70 },
+      { cx: 400, cy: 200, r: 70 },
+      { cx: 130, cy: 400, r: 70 }
+    ];
+
+    windows.forEach(function (window) {
+      let offset = window.r / 3;
+
+      canvas.append("line")
+        .attr("x1", window.cx - window.r + offset) 
+        .attr("y1", window.cy - window.r + offset) 
+        .attr("x2", window.cx + window.r - offset) 
+        .attr("y2", window.cy + window.r - offset) 
+        .style("stroke", "silver")
+        .style("stroke-width", 2);
+    });
+
+    // add a polygon
+    let squareVertices = [
+      { x: 400, y: 400 },
+      { x: 600, y: 400 },
+      { x: 600, y: 600 },
+      { x: 400, y: 600 }
+    ];
+
+    canvas.append("polygon")
+      .attr("points", squareVertices.map(function (d) { return [d.x, d.y].join(","); }).join(" "))
+      .attr("fill", "none")
+      .style("stroke", "none")
+      .style("strokeWidth", "2px");
+
+    // add image
+    let imageUrl = "https://www.creativefabrica.com/wp-content/uploads/2020/10/26/Home-Sweet-Home-Hand-Lettering-Graphics-6293617-1.jpg"; 
+    canvas.append("svg:image")
+      .attr("xlink:href", imageUrl)
+      .attr("width", 200)
+      .attr("height", 200)
+      .attr("x", 400)
+      .attr("y", 430)
+      .attr("clip-path", "url(#clip)");
+
+    // clip path
+    canvas.append("clipPath")
+      .attr("id", "clip")
+      .append("polygon")
+      .attr("points", squareVertices.map(function (d) { return [d.x, d.y].join(","); }).join(" "));
+  </script>
+</body>
+
+</html>
