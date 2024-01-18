@@ -11,6 +11,13 @@ A white rectangle within the larger rectangle.
 A circle with animation and a white outline.
 Text "VISUALS" within the circle.
 An equilateral triangle with the text "Assignment ONE."
+![image](https://github.com/lomuaphe/a1-ghd3/assets/1378493/b0948219-6211-4f44-99dd-afe33ce36e0e)
+
+
+
+
+
+
 Getting Started
 Prerequisites
 Web browser supporting SVG and JavaScript.
