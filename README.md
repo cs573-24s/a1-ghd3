@@ -1,3 +1,6 @@
+**0. Link to Assignment:**
+https://bijeshshrestha.github.io/a1-ghd3/
+
 **1. Motivation:** 
     This project was an exploration in using basic geometric shapes to construct a recognizable object, specifically a cybertruck (easy choice). The design approach, using fundamental shapes such as triangles, rectangles, lines, circles, and paths, was influenced by creative ideas from thenounproject.com.
 
@@ -64,5 +67,8 @@
     b. [https://stackoverflow.com/questions/65979025/how-can-i-set-the-transform-origin-to-the-middle-of-this-rectangle-in-d3](https://stackoverflow.com/questions/65979025/how-can-i-set-the-transform-origin-to-the-middle-of-this-rectangle-in-d3)
 
     c. [https://thenounproject.com](https://thenounproject.com)
+
+**0. Link to Assignment:**
+[https://bijeshshrestha.github.io/a1-ghd3/](https://bijeshshrestha.github.io/a1-ghd3/)
 
    
