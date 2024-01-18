@@ -191,8 +191,8 @@
       .attr("fill", "white")
       .attr("stroke", "black");
 
-      //  arms
-      svg.append("ellipse")
+      //  left arm
+      var left_arm = svg.append("ellipse")
       .attr("cx", 65)
       .attr("cy", 105)
       .attr("rx", 9)
@@ -202,16 +202,13 @@
 
 
       //  left hand
-      svg.append("ellipse")
+      var left_hand = svg.append("ellipse")
       .attr("cx", 65)
       .attr("cy", 90)
       .attr("rx", 10)
       .attr("ry", 7)
       .attr("fill", "white")
       .attr("stroke", "black");
-
-
-
 
       // coin
       svg.append("path")
@@ -254,6 +251,34 @@
       .attr("y2", 170)
       .attr("stroke", "black");
 
+      update();
+
+      function update(){
+        left_hand.transition()
+        .ease(d3.easeLinear)
+        .duration(2000)
+        .attr("cy",109)
+        .attr("rx", 11)
+
+        left_arm.transition()
+        .ease(d3.easeLinear)
+        .duration(2000)
+        .attr("ry", 4)
+        .on("end", function() {
+            left_hand.transition()
+                .ease(d3.easeLinear)
+                .duration(2000)
+                .delay(400) 
+                .attr("cy", 90)
+                .attr("rx", 10);
+
+            left_arm.transition()
+                .ease(d3.easeLinear)
+                .duration(2000)
+                .delay(400)
+                .attr("ry", 18);
+        });
+      }
     </script>
   </body>
 </html>
