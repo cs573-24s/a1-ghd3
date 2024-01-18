@@ -1,5 +1,24 @@
-Assignment 1 - Hello World: GitHub and d3  
-===
+Data Visualization SVG
+This project provides a simple data visualization using SVG, HTML, and D3.js.
 
-This is a starting project to make sure you can write and host a webpage that generates graphics using d3. 
+Overview
+The visualization includes:
 
+Centered horizontal and vertical lines in light gray.
+A rectangular background in light gray.
+A white rectangle within the larger rectangle.
+"Data" and "visualization" text on either side of the white rectangle.
+A circle with animation and a white outline.
+Text "VISUALS" within the circle.
+An equilateral triangle with the text "Assignment ONE."
+Getting Started
+Prerequisites
+Web browser supporting SVG and JavaScript.
+Installation
+Clone the repository or download the HTML file.
+Open the HTML file in a web browser.
+Usage
+Simply open the HTML file in a web browser to view the data visualization.
+
+Animation
+The circle in the visualization is animated. It starts with a radius of 95, gradually decreases to 50, and changes color during the animation.
