@@ -1,10 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
 <script src="https://d3js.org/d3.v6.min.js"></script>
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>cs573-24s-datavisualization-a1-dongtang</title>
+  <style>
+
+    .link {
+      fill: none;
+      stroke: white;
+      stroke-width: 2px;
+    }
+
+
+    .node-circle {
+      fill: steelblue;
+      stroke: white;
+      stroke-width: 2px;
+    }
+
+    .node-rectangle {
+      fill: lightcoral;
+      stroke: white;
+      stroke-width: 2px;
+    }
+
+    .node-triangle {
+      fill: lightgreen;
+      stroke: black;
+      stroke-width: 2px;
+    }
+
+    .canvas-border {
+      fill: none;
+      stroke: black;
+      stroke-width: 5px;
+    }
+
+    .tooltip {
+      position: absolute;
+      text-align: center;
+      padding: 5px;
+      font-size: 12px;
+      background: white;
+      border: 1px solid #ccc;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    /* Styles for pop-up */
+    #popup {
+      position: absolute;
+      background: white;
+      border: 1px solid #ccc;
+      padding: 10px;
+      font-size: 12px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<h1>cs573-24s-datavisualization-a1-dongtang</h1>
+
+<svg width="1000" height="800"></svg>
+
+
 <script>
-  console.log(d3); // test if d3 is loaded
-  // Add an SVG
-  // Add Rectangles
-  // Add Circles
-  // Add Lines
-  // Add Polygons
+
+  // Node data
+  var nodes = [
+    { id: 0, shape: "circle", label: "Node 0", name: "Circle", shapeDesc: "A circular shape" },
+    { id: 1, shape: "rectangle", label: "Node 1", name: "Rectangle", shapeDesc: "A rectangular shape" },
+    { id: 2, shape: "triangle", label: "Node 2", name: "Triangle", shapeDesc: "A triangular shape" }
+  ];
+
+  // Link data
+  var links = [
+    { source: 0, target: 1 },
+    { source: 1, target: 2 }
+  ];
+
+  var svg = d3.select("svg");
+
+
+  svg.append("rect")
+    .attr("width", "100%")
+    .attr("height", "100%")
+    .attr("class", "canvas-border");
+
+
+  var linkLayer = svg.append("g").attr("class", "links");
+
+  var nodeLayer = svg.append("g").attr("class", "nodes");
+
+
+  var tooltip = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+
+
+  var popup = d3.select("body").append("div")
+    .attr("id", "popup");
+
+
+  var simulation = d3.forceSimulation(nodes)
+    .force("link", d3.forceLink(links).id(d => d.id))
+    .force("charge", d3.forceManyBody())
+    .force("center", d3.forceCenter(500, 400));
+
+
+  var node = nodeLayer.selectAll(".node")
+    .data(nodes)
+    .enter().append("g")
+    .attr("class", "node")
+    .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+    .on("mouseover", handleMouseOver)
+    .on("mouseout", handleMouseOut)
+    .on("click", handleClick)
+    .call(d3.drag().on("start", dragstarted).on("drag", dragged).on("end", dragended));
+
+
+  node.filter(function(d) { return d.shape === "circle"; })
+    .append("circle")
+    .attr("r", 20)
+    .attr("class", "node-circle")
+    .style("fill", "steelblue")
+    .style("stroke", "white")
+    .style("stroke-width", "2px");
+
+
+  node.filter(function(d) { return d.shape === "rectangle"; })
+    .append("rect")
+    .attr("x", -20)
+    .attr("y", -20)
+    .attr("width", 40)
+    .attr("height", 40)
+    .attr("class", "node-rectangle")
+    .style("fill", "lightcoral")
+    .style("stroke", "white")
+    .style("stroke-width", "2px");
+
+
+  node.filter(function(d) { return d.shape === "triangle"; })
+    .append("path")
+    .attr("d", d3.symbol().type(d3.symbolTriangle).size(800))
+    .attr("class", "node-triangle")
+    .style("fill", "lightgreen")
+    .style("stroke", "white")
+    .style("stroke-width", "2px");
+
+
+  var link = linkLayer.selectAll(".link")
+    .data(links)
+    .enter().append("line")
+    .attr("class", "link")
+    .style("stroke", "black")
+    .style("stroke-width", "2px");
+
+  function ticked() {
+    link.attr("x1", function(d) { return Math.max(20, Math.min(980, d.source.x)); })
+        .attr("y1", function(d) { return Math.max(20, Math.min(780, d.source.y)); })
+        .attr("x2", function(d) { return Math.max(20, Math.min(980, d.target.x)); })
+        .attr("y2", function(d) { return Math.max(20, Math.min(780, d.target.y)); });
+
+    node.attr("transform", function(d) {
+
+      d.x = Math.max(20, Math.min(980, d.x));
+      d.y = Math.max(20, Math.min(780, d.y));
+      return "translate(" + d.x + "," + d.y + ")";
+    });
+  }
+
+
+  simulation.on("tick", ticked);
+
+
+  function dragstarted(d) {
+    if (!d3.active(simulation)) simulation.alphaTarget(0.3).restart();
+    d.fx = d.x;
+    d.fy = d.y;
+  }
+
+  function dragged(event, d) {
+    d.fx = event.x;
+    d.fy = event.y;
+  }
+
+  function dragended(d) {
+    if (!d3.active(simulation)) simulation.alphaTarget(0.3).restart();
+
+  }
+
+
+  function handleMouseOver(event,d) {
+    tooltip.transition()
+      .duration(200)
+      .style("opacity", .9);
+    tooltip.html(d.label)
+      .style("left", (event.pageX + 10) + "px")
+      .style("top", (event.pageY - 18) + "px");
+  }
+
+
+  function handleMouseOut() {
+    tooltip.transition()
+      .duration(500)
+      .style("opacity", 0);
+  }
+
+
+  function handleClick(event, d) {
+    popup.html("Name: " + d.name + "<br>Label: " + d.label + "<br>ShapeDesc: " + d.shapeDesc)
+      .style("left", (event.pageX + 10) + "px")
+      .style("top", (event.pageY - 18) + "px")
+      .style("display", "block");
+
+    setTimeout(function() {
+      popup.style("display", "none");
+    }, 2000);
+  }
 </script>
+
+</body>
+</html>
