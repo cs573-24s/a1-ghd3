@@ -413,6 +413,62 @@
       var knight_color_flag = true;
       var knight_color = "white";
 
+      g.append("path")
+        .attr("class", "knight")
+        .attr("d",
+          "M " + (CHESS_WIDTH + 6.6*(PIECES_WIDTH / 16)).toString() + " " + (7.5*(SQUARE_SIZE)).toString()
+          + " Q " + (CHESS_WIDTH + 9.5*(PIECES_WIDTH / 16)).toString() + " " + (5.5*(SQUARE_SIZE)).toString() + ", "
+          + (CHESS_WIDTH + 6.5*(PIECES_WIDTH / 16)).toString() + " " + (6.5*(SQUARE_SIZE)).toString())
+        .attr("stroke", knight_color)
+        .attr("fill", "transparent")
+        .attr("stroke-width", 7)
+        .on("mouseover", function(d) {
+            return knight_tooltip.style("visibility", "visible");
+          })
+        .on("mousemove", function() {
+          return knight_tooltip.style("top", 8*(SQUARE_SIZE) + "px").style("left", (START_X_OFFSET + 1.0*CHESS_WIDTH) + "px");
+          })
+        .on("mouseout", function() {
+            return knight_tooltip.style("visibility", "hidden");
+          })
+        .on("click", function() {
+          knight_color_flag = !knight_color_flag;
+          knight_color = knight_color_flag ? "white" : "black";
+          d3.selectAll(".knight").each(function() {
+            let current_fill = d3.select(this).attr("fill");
+            let new_fill = (current_fill == "transparent") ? "transparent" : knight_color; 
+            d3.select(this).transition().duration(3000).attr("fill", new_fill).attr("stroke", knight_color);
+          })
+        })
+
+        g.append("path")
+        .attr("class", "knight")
+        .attr("d",
+          "M " + (CHESS_WIDTH + 9.4*(PIECES_WIDTH / 16)).toString() + " " + (7.5*(SQUARE_SIZE)).toString()
+          + " Q " + (CHESS_WIDTH + 9.5*(PIECES_WIDTH / 16)).toString() + " " + (5*(SQUARE_SIZE)).toString() + ", "
+          + (CHESS_WIDTH + 6.5*(PIECES_WIDTH / 16)).toString() + " " + (6.5*(SQUARE_SIZE)).toString())
+        .attr("stroke", knight_color)
+        .attr("fill", "transparent")
+        .attr("stroke-width", 7)
+        .on("mouseover", function(d) {
+            return knight_tooltip.style("visibility", "visible");
+          })
+        .on("mousemove", function() {
+          return knight_tooltip.style("top", 8*(SQUARE_SIZE) + "px").style("left", (START_X_OFFSET + 1.0*CHESS_WIDTH) + "px");
+          })
+        .on("mouseout", function() {
+            return knight_tooltip.style("visibility", "hidden");
+          })
+        .on("click", function() {
+          knight_color_flag = !knight_color_flag;
+          knight_color = knight_color_flag ? "white" : "black";
+          d3.selectAll(".knight").each(function() {
+            let current_fill = d3.select(this).attr("fill");
+            let new_fill = (current_fill == "transparent") ? "transparent" : knight_color; 
+            d3.select(this).transition().duration(3000).attr("fill", new_fill).attr("stroke", knight_color);
+          })
+        })
+
       g.append('line')
         .attr("class", "knight")
         .attr('stroke', 'white')
