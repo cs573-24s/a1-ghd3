@@ -24,3 +24,10 @@ Design Achievements:
     Responsive Graphics: The graphics respond to user interactions in real-time, enhancing the user experience and demonstrating the dynamic capabilities of D3.js.
 
 Live Demo: https://atamagnini.github.io/a1-ghd3/index.html
+
+Screen recordings:
+
+![chrome-capture-2024-1-18aa](https://github.com/atamagnini/a1-ghd3/assets/54758161/d9fbc146-3183-451c-8fd7-96499de0ca70)
+
+![chrome-capture-2024-1-18a](https://github.com/atamagnini/a1-ghd3/assets/54758161/8470ec58-0970-4a93-9860-f8aa3f0cacd8)
+
