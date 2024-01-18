@@ -1,10 +1,342 @@
-<script src="https://d3js.org/d3.v6.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amicarella CS 573: A1</title>
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+</head>
 
-<script>
-  console.log(d3); // test if d3 is loaded
-  // Add an SVG
-  // Add Rectangles
-  // Add Circles
-  // Add Lines
-  // Add Polygons
-</script>
+<body>
+
+  <img id="skierIMG" src="Skier.webp" style="position: absolute; width: 100px; height: 150px;">
+
+  <script>
+    console.log(d3); // test if d3 is loaded
+    var width = window.innerWidth;
+    var height = window.innerHeight;
+
+    var svg = d3.select("body").append("svg")
+      .attr("width", width)
+      .attr("height", height);
+    
+    // Wheel variables
+    var circleRadius = 20;
+    var outlineWidth = 4;
+
+    var mountain1Path = "M500,150 L100,500 L800,500 Z";
+    svg.append("path")
+      .attr("d", mountain1Path)
+      .attr("fill", "#002D04")
+      .attr("stroke", "black")
+      .attr("stroke-width", 2);
+
+    var mountain2Path = "M500,500 L800,50 L1400,800 Z";
+    svg.append("path")
+      .attr("d", mountain2Path)
+      .attr("fill", "#002D04")
+      .attr("stroke", "black")
+      .attr("stroke-width", 2);
+
+    // Ski mountain contour
+    svg.append("line")
+      .attr("x1", 0)
+      .attr("y1", 150)  // Start at the vertical center
+      .attr("x2", window.innerWidth)
+      .attr("y2", 700)  // End at the vertical center
+      .attr("stroke", "black")
+      .attr("stroke-width", 2);
+
+    // Rope down
+    svg.append("line")
+      .attr("x1", 0)
+      .attr("y1", 5)  
+      .attr("x2", window.innerWidth)
+      .attr("y2", 550)  
+      .attr("stroke", "black")
+      .attr("stroke-width", 2);
+    
+    // Snow fill-in
+    svg.append("rect")
+      .attr("x", 0)
+      .attr("y", 150)  
+      .attr("width", 1700)
+      .attr("height", window.innerHeight)  // Height extending to the bottom of the screen
+      .attr("fill", "lightblue")
+      .attr("transform", "rotate(21, 0, 150)");
+
+    // Wheel holder chairpole 1 down
+    svg.append("rect")
+      .attr("x", 160)
+      .attr("y", 50)
+      .attr("width", 120)
+      .attr("height", 10)
+      .attr("fill", "gray")
+      .attr("transform", "rotate(21, 200, 10)"); // Wheel stand
+    
+    // Wheel 1 chairpole 1 down
+    svg.append("circle")
+      .attr("cx", 170)
+      .attr("cy", 70)
+      .attr("r", circleRadius)
+      .attr("fill", "grey") 
+      .attr("fill-opacity", 0)  
+      .attr("stroke", "grey") 
+      .attr("stroke-width", outlineWidth); 
+
+    // Wheel 2 chairpole 1 down
+    svg.append("circle")
+      .attr("cx", 220)
+      .attr("cy", 90)
+      .attr("r", circleRadius)
+      .attr("fill", "grey") 
+      .attr("fill-opacity", 0)  
+      .attr("stroke", "grey") 
+      .attr("stroke-width", outlineWidth); 
+
+    // Pole 1 Top
+    svg.append("ellipse")
+      .attr("cx", 200)
+      .attr("cy", 20)
+      .attr("rx", 20)
+      .attr("ry", 10)
+      .attr("fill", "red");
+
+    // Pole 1
+    svg.append("rect")
+      .attr("x", 180)
+      .attr("y", 20)
+      .attr("width", 40)
+      .attr("height", 350)
+      .attr("fill", "#2D400B");
+
+    // Wheel holder chairpole 1 up
+    svg.append("rect")
+      .attr("x", 175)
+      .attr("y", 90)
+      .attr("width", 120)
+      .attr("height", 10)
+      .attr("fill", "gray")
+      .attr("transform", "rotate(21, 200, 10)"); // Wheel stand
+
+    // Wheel 1 chairpole 1 up
+    svg.append("circle")
+      .attr("cx", 170)
+      .attr("cy", 115)
+      .attr("r", circleRadius)
+      .attr("fill", "grey")  
+      .attr("fill-opacity", 0)  
+      .attr("stroke", "grey") 
+      .attr("stroke-width", outlineWidth); 
+
+    // Wheel 2 chairpole 1 up
+    svg.append("circle")
+      .attr("cx", 220)
+      .attr("cy", 135)
+      .attr("r", circleRadius)
+      .attr("fill", "grey")  
+      .attr("fill-opacity", 0)  
+      .attr("stroke", "grey") 
+      .attr("stroke-width", outlineWidth); 
+
+    // Wheel holder chairpole 2 down
+    svg.append("rect")
+      .attr("x", 740)
+      .attr("y", 50)
+      .attr("width", 120)
+      .attr("height", 10)
+      .attr("fill", "gray")
+      .attr("transform", "rotate(21, 200, 10)"); // Wheel stand
+
+    // Wheel 1 chairpole 2 down
+    svg.append("circle")
+      .attr("cx", 715)
+      .attr("cy", 280)
+      .attr("r", circleRadius)
+      .attr("fill", "grey")  
+      .attr("fill-opacity", 0)  
+      .attr("stroke", "grey") 
+      .attr("stroke-width", outlineWidth); 
+
+    // Wheel 2 chairpole 2 down
+    svg.append("circle")
+      .attr("cx", 765)
+      .attr("cy", 300)
+      .attr("r", circleRadius)
+      .attr("fill", "grey")  
+      .attr("fill-opacity", 0)  
+      .attr("stroke", "grey") 
+      .attr("stroke-width", outlineWidth); 
+
+    // Pole 2 Top
+    svg.append("ellipse")
+      .attr("cx", 740)
+      .attr("cy", 200)
+      .attr("rx", 20)
+      .attr("ry", 10)
+      .attr("fill", "red");
+    
+    // Pole 2
+    svg.append("rect")
+      .attr("x", 720)
+      .attr("y", 200)
+      .attr("width", 40)
+      .attr("height", 350)
+      .attr("fill", "#2D400B");
+
+    // Wheel holder chairpole 2 up
+    svg.append("rect")
+      .attr("x", 760)
+      .attr("y", 90)
+      .attr("width", 120)
+      .attr("height", 10)
+      .attr("fill", "gray")
+      .attr("transform", "rotate(21, 200, 10)"); // Wheel stand
+
+    // Wheel 1 chairpole 2 down
+    svg.append("circle")
+      .attr("cx", 715)
+      .attr("cy", 320)
+      .attr("r", circleRadius)
+      .attr("fill", "grey")  
+      .attr("fill-opacity", 0)  
+      .attr("stroke", "grey") 
+      .attr("stroke-width", outlineWidth); 
+
+    // Wheel 2 chairpole 2 down
+    svg.append("circle")
+      .attr("cx", 765)
+      .attr("cy", 340)
+      .attr("r", circleRadius)
+      .attr("fill", "grey")  
+      .attr("fill-opacity", 0)  
+      .attr("stroke", "grey") 
+      .attr("stroke-width", outlineWidth); 
+
+    // Wheel holder chairpole 3 down
+    svg.append("rect")
+      .attr("x", 1310)
+      .attr("y", 45)
+      .attr("width", 120)
+      .attr("height", 10)
+      .attr("fill", "gray")
+      .attr("transform", "rotate(21, 200, 10)"); // Wheel stand
+
+    // Wheel 1 chairpole 3 down
+    svg.append("circle")
+      .attr("cx", 1250)
+      .attr("cy", 480)
+      .attr("r", circleRadius)
+      .attr("fill", "grey")  
+      .attr("fill-opacity", 0)  
+      .attr("stroke", "grey") 
+      .attr("stroke-width", outlineWidth); 
+
+    // Wheel 2 chairpole 3 down
+    svg.append("circle")
+      .attr("cx", 1300)
+      .attr("cy", 500)
+      .attr("r", circleRadius)
+      .attr("fill", "grey")  
+      .attr("fill-opacity", 0)  
+      .attr("stroke", "grey") 
+      .attr("stroke-width", outlineWidth);
+
+    // Pole 3 Top
+    svg.append("ellipse")
+      .attr("cx", 1280)
+      .attr("cy", 380)
+      .attr("rx", 20)
+      .attr("ry", 10)
+      .attr("fill", "red");
+    
+    // Pole 3
+    svg.append("rect")
+      .attr("x", 1260)
+      .attr("y", 380)
+      .attr("width", 40)
+      .attr("height", 350)
+      .attr("fill", "#2D400B");
+
+    // Wheel holder chairpole 3 up
+    svg.append("rect")
+      .attr("x", 1330)
+      .attr("y", 90)
+      .attr("width", 120)
+      .attr("height", 10)
+      .attr("fill", "gray")
+      .attr("transform", "rotate(21, 200, 10)"); // Wheel stand
+
+    // Wheel 1 chairpole 3 down
+    svg.append("circle")
+      .attr("cx", 1250)
+      .attr("cy", 530)
+      .attr("r", circleRadius)
+      .attr("fill", "grey")  
+      .attr("fill-opacity", 0)  
+      .attr("stroke", "grey") 
+      .attr("stroke-width", outlineWidth); 
+
+    // Wheel 2 chairpole 3 down
+    svg.append("circle")
+      .attr("cx", 1300)
+      .attr("cy", 550)
+      .attr("r", circleRadius)
+      .attr("fill", "grey")  
+      .attr("fill-opacity", 0)  
+      .attr("stroke", "grey") 
+      .attr("stroke-width", outlineWidth);
+
+    // Add Padding to Poles
+
+    // Rope up
+    svg.append("line")
+      .attr("x1", 0)
+      .attr("y1", 50)  
+      .attr("x2", window.innerWidth)
+      .attr("y2", 600)  
+      .attr("stroke", "black")
+      .attr("stroke-width", 2);
+
+    // Making Snow
+    // Adapted from: https://gist.github.com/nickjevershed/0c1401ff5baae4efb9ff
+    var dropsPerSec = 2;
+    var windStrength = 0;
+
+    function makeRain() {
+      for (var i = 0; i < dropsPerSec; i++) {
+        var startX = Math.random() * width,
+          startY = Math.random() * 100 - 100,
+          endX = startX,
+          endY = height + 200;
+
+        svg.insert("circle")
+          .attr("cx", startX)
+          .attr("cy", startY)
+          .attr("r", 2)
+          .style("fill", "grey")
+          .transition()
+          .duration(2000)
+          .attr("cx", endX)
+          .attr("cy", endY)
+          .remove();
+      }
+    }
+
+    d3.timer(makeRain, 100);
+
+    
+
+    // var image = d3.select("#skierIMG");
+    // // Add a click event listener to the image
+    // image.on("click", function() {
+    //   // Rotate the image to 360 degrees
+    //   image.transition()
+    //     .duration(1000)  // Rotation duration in milliseconds
+    //     .attr("transform", "rotate(360)");
+    // });
+    
+  
+  </script>
+</body>
+</html>
