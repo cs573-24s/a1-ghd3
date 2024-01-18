@@ -1,10 +1,91 @@
-<script src="https://d3js.org/d3.v6.min.js"></script>
+<!DOCTYPE html>
+<div id="container"></div>
 
-<script>
-  console.log(d3); // test if d3 is loaded
-  // Add an SVG
-  // Add Rectangles
-  // Add Circles
-  // Add Lines
-  // Add Polygons
+
+<script type="module">
+
+import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+
+const width = 1000;
+const height = 700;
+
+// making a star symbol
+var star = d3.symbol()
+    .type(d3.symbolStar)
+    .size(30);
+
+// adding a svg
+const svg = d3.create("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+// first layer of background to imitate night sky
+svg.append('rect')
+    .attr('width', '100%')
+    .attr('height', '100%')
+    .attr('fill', 'black');
+
+// second layer of background for user interaction
+svg.append('rect')
+    .attr('width', '100%')
+    .attr('height', '60%')
+    .attr('fill', 'black')
+    .on('click', function(event) { // adds star at mouse click coordiante 
+      let coordinates = d3.pointer(event); // fecting mouse coordinate
+      svg.append('path')
+      .attr('transform', `translate( ${coordinates[0]}, ${coordinates[1]})`)
+      .attr('d', star)
+      .attr('fill', 'white')
+      .size(5);
+    });    
+
+
+
+// Add Rectangles
+// svg.append("rect")
+//     .attr("x", 250)
+//     .attr("y", 250)
+//     .attr("width", 300)
+//     .attr("height", 300)
+//     .attr("fill", "black");
+
+
+// Add Circles
+// svg.append("circle")
+//     .attr('cx', 350)
+//     .attr('cy', 350)
+//     .attr('r', 20)
+//     .style('fill', 'black');
+
+svg.append("circle")
+    .attr('cx', 650)
+    .attr('cy', 350)
+    .attr('r', 200)
+    .attr('stroke', 'black')
+    .attr('stroke-width', 3)
+    .attr('fill', 'none');
+    
+
+// Add Lines
+svg.append("path")
+    .attr("transform", "translate(500,500)")
+    .attr("d", d3.arc()({
+      innerRadius: 25,
+      outerRadius: 50,
+      startAngle: -Math.PI / 2,
+      endAngle: Math.PI / 2
+    }));
+    
+
+      
+
+// Add Polygons
+// svg.append("polygon")
+//    .attr("points", "200,10 250,190 160,210")
+//    .style("fill", "green")
+//    .style("stroke", "black")
+//    .style("strokeWidth", "10px");
+
+container.append(svg.node());
+
 </script>
