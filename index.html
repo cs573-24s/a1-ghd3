@@ -9,7 +9,7 @@
 
 <body>
 
-  <img id="skierIMG" src="Skier.webp" style="position: absolute; width: 100px; height: 150px;">
+  <img id="skier" src="Skier.webp" style="position: absolute; width: 100px; height: 150px;"/>
 
   <script>
     console.log(d3); // test if d3 is loaded
@@ -25,6 +25,7 @@
     var outlineWidth = 4;
 
     var mountain1Path = "M500,150 L100,500 L800,500 Z";
+
     svg.append("path")
       .attr("d", mountain1Path)
       .attr("fill", "#002D04")
@@ -32,6 +33,7 @@
       .attr("stroke-width", 2);
 
     var mountain2Path = "M500,500 L800,50 L1400,800 Z";
+
     svg.append("path")
       .attr("d", mountain2Path)
       .attr("fill", "#002D04")
@@ -213,6 +215,59 @@
       .attr("stroke", "grey") 
       .attr("stroke-width", outlineWidth); 
 
+    var skiChairGroup = svg.append("g")
+      .attr("transform", "translate(200, 20)");
+
+    // Chairpole down
+    skiChairGroup.append("rect")
+      .attr("x", 345)
+      .attr("y", 210)
+      .attr("width", 10)
+      .attr("height", 100)
+      .attr("fill", "#2D400B");
+
+    // Chair seat down
+    skiChairGroup.append("rect")
+      .attr("x", 345)
+      .attr("y", 300)
+      .attr("width", 60)
+      .attr("height", 10)
+      .attr("fill", "grey");
+    
+    // Chair seat line down
+    skiChairGroup.append("line")
+      .attr("x1", 350)
+      .attr("y1", 195)
+      .attr("x2", 350)
+      .attr("y2", 210)
+      .attr("stroke", "black")
+      .attr("stroke-width", 2);
+
+    // Chairpole down
+    skiChairGroup.append("rect")
+      .attr("x", 895)
+      .attr("y", 420)
+      .attr("width", 10)
+      .attr("height", 100)
+      .attr("fill", "#2D400B");
+
+    // Chair seat down
+    skiChairGroup.append("rect")
+      .attr("x", 895)
+      .attr("y", 510)
+      .attr("width", 60)
+      .attr("height", 10)
+      .attr("fill", "grey");
+    
+    // Chair seat line down
+    skiChairGroup.append("line")
+      .attr("x1", 900)
+      .attr("y1", 400)
+      .attr("x2", 900)
+      .attr("y2", 420)
+      .attr("stroke", "black")
+      .attr("stroke-width", 2);
+
     // Wheel holder chairpole 3 down
     svg.append("rect")
       .attr("x", 1310)
@@ -265,7 +320,7 @@
       .attr("width", 120)
       .attr("height", 10)
       .attr("fill", "gray")
-      .attr("transform", "rotate(21, 200, 10)"); // Wheel stand
+      .attr("transform", "rotate(21, 200, 10)");
 
     // Wheel 1 chairpole 3 down
     svg.append("circle")
@@ -323,11 +378,70 @@
       }
     }
 
+    
+    // Chairpole up
+    skiChairGroup.append("rect")
+      .attr("x", 150)
+      .attr("y", 190)
+      .attr("width", 10)
+      .attr("height", 130)
+      .attr("fill", "#2D400B");
+
+    // Chair seat Up
+    skiChairGroup.append("rect")
+      .attr("x", 100)
+      .attr("y", 320)
+      .attr("width", 60)
+      .attr("height", 10)
+      .attr("fill", "grey");
+    
+    // Chair seat line up
+    skiChairGroup.append("line")
+      .attr("x1", 155)
+      .attr("y1", 165)
+      .attr("x2", 155)
+      .attr("y2", 190)
+      .attr("stroke", "black")
+      .attr("stroke-width", 2);
+
+    // Chairpole up
+    skiChairGroup.append("rect")
+      .attr("x", 595)
+      .attr("y", 360)
+      .attr("width", 10)
+      .attr("height", 130)
+      .attr("fill", "#2D400B");
+
+    // Chair seat Up
+    skiChairGroup.append("rect")
+      .attr("x", 545)
+      .attr("y", 480)
+      .attr("width", 60)
+      .attr("height", 10)
+      .attr("fill", "grey");
+    
+    // Chair seat line up
+    skiChairGroup.append("line")
+      .attr("x1", 600)
+      .attr("y1", 335)
+      .attr("x2", 600)
+      .attr("y2", 360)
+      .attr("stroke", "black")
+      .attr("stroke-width", 2);
+
     d3.timer(makeRain, 100);
 
-    
+    var image = d3.select("#skier");
+    d3.select("svg").on("click", function () {
+      // Get the mouse click coordinates relative to the SVG
+      var [mouseX, mouseY] = d3.mouse(this);
 
-    // var image = d3.select("#skierIMG");
+      // Transition the image to the clicked coordinates
+      image.transition()
+        .duration(1000) // Duration of the animation in milliseconds
+        .attr("x", mouseX - 50) // Adjust for half of the image width
+        .attr("y", mouseY - 75); // Adjust for half of the image height
+    });
     // // Add a click event listener to the image
     // image.on("click", function() {
     //   // Rotate the image to 360 degrees
@@ -335,6 +449,7 @@
     //     .duration(1000)  // Rotation duration in milliseconds
     //     .attr("transform", "rotate(360)");
     // });
+    
     
   
   </script>
