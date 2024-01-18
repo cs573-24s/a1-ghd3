@@ -1,5 +1,6 @@
 # Data Visualization SVG
- This is the first assignment on data visualization using SVG, HTML, and D3.js. The image below is a summary of how the page looks like but it has animation
+ This is the first assignment on data visualization using SVG, HTML, and D3.js. The image below is a summary of how the page looks like but it has animation copy this url https://lomuaphe.github.io/a1-ghd3/ to view in browser
+ 
 ![image](https://github.com/lomuaphe/a1-ghd3/assets/1378493/3f2fcbfb-4e75-467d-bc39-1312b64c62e7)
 
 ## Overview
