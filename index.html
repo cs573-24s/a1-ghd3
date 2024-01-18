@@ -1,10 +1,173 @@
-<script src="https://d3js.org/d3.v6.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ 
+<script src="https://d3js.org/d3.v5.min.js"></script>
 
-<script>
-  console.log(d3); // test if d3 is loaded
-  // Add an SVG
-  // Add Rectangles
-  // Add Circles
-  // Add Lines
-  // Add Polygons
-</script>
+
+
+<style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+    </style>
+
+</head>
+<title> 
+Data Visualisation svg
+</title>
+<body>
+
+
+  <script>
+    // Create SVG container
+    var svgWidth = 600;
+    var svgHeight = 600;
+	var stroke=5;
+	
+
+    var svg = d3.select("body").append("svg")
+      .attr("width", svgWidth)
+      .attr("height", svgHeight);
+
+    // Calculate center coordinates
+    var centerX = svgWidth / 2;
+    var centerY = svgHeight / 2;
+
+    // Draw horizontal line
+    svg.append("line")
+      .attr("x1", 0)
+      .attr("y1", centerY)
+      .attr("x2", svgWidth)
+      .attr("y2", centerY)
+      .attr("stroke", "LightGray")
+      .attr("stroke-width", 5);
+
+    // Draw vertical line
+    svg.append("line")
+      .attr("x1", centerX)
+      .attr("y1", 0)
+      .attr("x2", centerX)
+      .attr("y2", svgHeight)
+      .attr("stroke", "LightGray")
+      .attr("stroke-width", 5);
+
+
+
+	  
+	   // Rectangle
+    svg.append("rect")
+      .attr("x", centerX -250)
+      .attr("y", centerY - 120)
+      .attr("width", 500)
+      .attr("height", 270)
+      .attr("fill", "LightGray");
+	  
+	 //rectangle white line center
+// Rectangle 2 - white
+svg.append("rect")
+  .attr("x", centerX -255) // Adjusted to center on the x-axis
+  .attr("y", centerY  -35) // Adjusted to center on the y-axis
+  .attr("width", 510)
+  .attr("height", 70)
+  .attr("fill", "white");
+
+// Text inside Rectangle-left of the circle
+svg.append("text")
+  .attr("x", centerX -160)
+  .attr("y", centerY)
+  .attr("text-anchor", "middle")
+  .attr("dominant-baseline", "middle")
+  .attr("fill", "DimGray")
+  .attr("font-size", "26")
+  .text("Data"); 
+	
+// Text inside Rectangle-right of the circle
+
+	  
+	  svg.append("text")
+  .attr("x", centerX +170)
+  .attr("y", centerY)
+  .attr("text-anchor", "middle")
+  .attr("dominant-baseline", "middle")
+  .attr("fill", "DimGray")
+  .attr("font-size", "26")
+  .text("visualization"); 
+	
+	  
+// Circle where southeast side
+var circle = svg.append("circle")
+  .attr("cx", centerX)
+  .attr("cy", centerY)
+  .attr("r", 95)
+  .style("fill", "DarkGray");
+  
+// Function to animate the circle
+function animateCircle() {
+  circle.transition()
+    .duration(2000)
+    .attr("r", 50)
+    .style("fill", "5C5470")
+    .on("end", function() {
+      animateCircle();
+    });
+}
+
+// Call the function to start the animation
+animateCircle();
+
+
+	  
+	  
+// Circle with White Outline
+svg.append("circle")
+  .attr("cx", centerX)
+  .attr("cy", centerY)
+  .attr("r", 70)
+  .attr("fill", "none")
+  .attr("stroke", "white") // Outline color
+  .attr("stroke-width", 5); // Outline thickness
+
+
+ // Text within the Circle
+  svg.append("text")
+    .attr("x", centerX)
+    .attr("y", centerY)
+    .attr("text-anchor", "middle") // Center the text horizontally
+    .attr("dominant-baseline", "middle") // Center the text vertically
+    .attr("fill", "white") // Text color
+    .attr("font-size", "20")
+    .attr("font-weight", "bold") // Set font weight to bold
+    .text("VISUALS");  
+
+
+
+// Equilateral Triangle
+var trianglePoints = (centerX + 150) + "," + (centerY - 280) + " " +
+                     (centerX + 180) + "," + (centerY - 250) + " " +
+                     (centerX + 120) + "," + (centerY - 250);
+
+svg.append("polygon")
+  .attr("points", trianglePoints)
+  .attr("stroke-width", 2)
+  .attr("fill", "Gainsboro");
+
+// Text inside Triangle
+svg.append("text")
+  .attr("x", centerX + 150)
+  .attr("y", centerY - 250) // Adjusted to be on the base of the triangle
+  .attr("text-anchor", "middle")
+  .attr("dominant-baseline", "middle")
+  .attr("fill", "gray")
+  .attr("font-size", "20")
+  .attr("font-weight", "bold")
+  .text("Assignment ONE");
+
+  </script>
+
+</body>
+</html>
