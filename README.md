@@ -23,7 +23,7 @@ The project has the following
 Simply open the HTML file in a web browser.
 ## Animation
 The circle in the visualization is animated. It starts with a radius of 95, gradually decreases to 50, and changes color during the animation.
-## Technical Achievement Desription -- 12
+## Technical Achievement Desription 
 The technical achievement of this code lies in its power to create visual and dynamic data as well as its flexibility to be used as a base for more complicated and interactive future visualizations. The code has a building blocks ready to be expanded in html and its styles , SVG structures scalable vector graphs imaginable, the d3.js interactions to accommodate things like data-driven documents and D3 functions functions like select, append and attr. It has has text styling as well visual elements. 
 ## Design Achievement Description
 The design achievements of this code are prominently focused on the creation of visually striking and well-structured data visualizations. The implementation of a thoughtfully chosen color scheme, featuring an animated central circle surrounded by rectangles in varying shades of gray and white, enhances the overall aesthetic appeal. The typography, comprising text with distinct sizes and colors, adds another layer of visual interest.
