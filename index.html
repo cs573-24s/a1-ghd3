@@ -1,10 +1,578 @@
-<script src="https://d3js.org/d3.v6.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Chess Piece Visualizer</title>
+  </head>
 
-<script>
-  console.log(d3); // test if d3 is loaded
-  // Add an SVG
-  // Add Rectangles
-  // Add Circles
-  // Add Lines
-  // Add Polygons
-</script>
+  <body style="background-color: #CCB4AB;">
+    <div id="container"></div>
+  </body>
+
+  <script type="module">
+    import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+    console.log(d3);
+
+    // Add an SVG
+    // Per https://d3js.org/getting-started, setup width, height, and SVG
+    
+    // Rely on width being no greater than the height, to keep square dimensions
+    // Scale down by 0.75 to better fit on the screen
+    const CHESS_WIDTH = 0.75 * window.screen.height;
+    const CHESS_HEIGHT = 0.75 * window.screen.height;
+
+    const PIECES_WIDTH = 0.25 * window.screen.width;
+    const PIECES_HEIGHT = 0.25 * window.screen.height;
+
+    const START_X_OFFSET = 50;
+    const START_Y_OFFSET = 25;
+
+    const svg = d3.create("svg").attr("width", CHESS_WIDTH + PIECES_WIDTH + START_X_OFFSET).attr("height", CHESS_HEIGHT + PIECES_HEIGHT + START_Y_OFFSET);
+    const g = svg.append("g") //Graphics tag to group graphics elements
+
+    const CHESS_BOARD_SIZE = 8;
+    const SQUARE_SIZE = ((CHESS_WIDTH - START_X_OFFSET) / CHESS_BOARD_SIZE);
+
+    let x = (CHESS_WIDTH / 2) - ((CHESS_BOARD_SIZE / 2) * SQUARE_SIZE);
+    let y = (CHESS_HEIGHT / 2) - ((CHESS_BOARD_SIZE / 2) * SQUARE_SIZE);
+
+    g.append("text")
+        .attr('x', START_X_OFFSET + (window.screen.height / 2))
+        .attr('y', START_Y_OFFSET)
+        .attr("text-anchor", "middle")
+        .attr("font-weight", "bold")
+        .attr("font-size", "2em")
+        .attr("fill", "#331B12")
+        .text("Minor Pieces Chess Visualizer -- CS573 A1 by Andrew Kerekon");
+
+    // Add Rectangles
+    // Reference https://d3-graph-gallery.com/graph/shape.html as a starting point
+    // Reference https://jonathansoma.com/lede/storytelling/d3/text-elements/ for text
+    const generateChessBoard = () => {
+      for (let row_i = 0; row_i < CHESS_BOARD_SIZE; row_i++) {
+        for (let column_i = 0; column_i < CHESS_BOARD_SIZE; column_i++) {
+          let fill_color = (row_i % 2 == column_i % 2) ? "#BBACA7" : "#664439"; 
+          g.append('rect')
+            .attr('x', START_X_OFFSET + x + (SQUARE_SIZE * column_i))
+            .attr('y', START_Y_OFFSET + y + (SQUARE_SIZE * row_i))
+            .attr('width', SQUARE_SIZE)
+            .attr('height', SQUARE_SIZE)
+            .attr('stroke', 'black')
+            .attr('stroke-width', '4')
+            .attr('fill', fill_color);
+          
+          let square_name = String.fromCharCode(column_i + 97) + (8 - row_i).toString();
+          g.append("text")
+            .attr('x', START_X_OFFSET + x + (SQUARE_SIZE * column_i) + (SQUARE_SIZE / 2))
+            .attr('y', START_Y_OFFSET + y + (SQUARE_SIZE * row_i) + (SQUARE_SIZE / 2))
+            .attr("text-anchor", "middle")
+            .attr("font-style", "italic")
+            .attr("font-weight", "bold")
+            .attr("font-size", "1.5em")
+            .attr("fill", "#331B12")
+            .text(square_name);
+        }
+      }
+    }
+    generateChessBoard()
+
+    // Add Circles
+    // Add Lines
+    // Add Polygons
+    // Reference https://d3-graph-gallery.com/graph/shape.html as a starting point
+    // Reference https://stackoverflow.com/a/46138980 as a starting point
+    // Reference https://webdva.github.io/how-to-draw-a-line-in-d3js/ as a starting point
+    // Reference https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths for curved lines
+    // Reference https://chartio.com/resources/tutorials/how-to-show-data-on-mouseover-in-d3js/ for hover
+    // Reference https://stackoverflow.com/a/24660993 for right-click
+    const generateHeading = () => {
+
+      //Heading
+      let local_left_x = START_X_OFFSET + CHESS_WIDTH
+      let local_left_y = START_Y_OFFSET + SQUARE_SIZE
+      g.append("polygon")
+          .attr("points", local_left_x + "," + (local_left_y + 25) + " "
+            + (local_left_x + 0.5*(PIECES_WIDTH/4)) + "," + (local_left_y - 50) + " "
+            + (local_left_x + 2.5*(PIECES_WIDTH/4)) + "," + (local_left_y - 50) + " "
+            + (local_left_x + 3*(PIECES_WIDTH/4)) + "," + (local_left_y + 25))
+          .style("fill", "#663949")
+          .style("stroke", "black")
+          .style("stroke-width", "4");
+      g.append("text")
+        .attr('x', (local_left_x + 1.5*(PIECES_WIDTH/4)))
+        .attr('y', local_left_y)
+        .attr("text-anchor", "middle")
+        .attr("font-weight", "bold")
+        .attr("font-size", "2em")
+        .attr("fill", "black")
+        .text("Piece Info");
+      g.append("text")
+        .attr('x', (local_left_x + 1.5*(PIECES_WIDTH/4)))
+        .attr('y', local_left_y + 0.75*SQUARE_SIZE)
+        .attr("text-anchor", "middle")
+        .attr("font-weight", "bold")
+        .attr("font-size", "1.2em")
+        .attr("fill", "#331B12")
+        .text("Hover to learn about each piece!");
+      g.append("text")
+        .attr('x', (local_left_x + 1.5*(PIECES_WIDTH/4)))
+        .attr('y', local_left_y + SQUARE_SIZE)
+        .attr("text-anchor", "middle")
+        .attr("font-weight", "bold")
+        .attr("font-size", "1.2em")
+        .attr("fill", "#331B12")
+        .text("Left click any piece to swap color!");
+      g.append("text")
+        .attr('x', (local_left_x + 1.5*(PIECES_WIDTH/4)))
+        .attr('y', local_left_y + 1.25*SQUARE_SIZE)
+        .attr("text-anchor", "middle")
+        .attr("font-weight", "bold")
+        .attr("font-size", "1.2em")
+        .attr("fill", "#331B12")
+        .text("Right click the pawn to move to center!");
+    }
+    generateHeading()
+
+    const generatePawn = () => {
+      let pawn_tooltip = d3.select("body")
+        .append("div")
+        .style("position", "absolute")
+        .style("visibility", "hidden")
+        .style("background", "#ABCCC5")
+        .text("This piece is a Pawn! Push me forward!")
+        .style("font-style", "italic")
+        .style('font-weight', "bold")
+        .style("font-size", "1.2em")
+      
+      var pawn_color_flag = true;
+      var pawn_color = "white";
+      var is_centered = false;
+
+      g.append('circle')
+        .attr("class", "pawn pawncircle")
+        .attr('cx', CHESS_WIDTH + (PIECES_WIDTH / 2))
+        .attr('cy', 3*(SQUARE_SIZE))
+        .attr('r', (SQUARE_SIZE / 4))
+        .attr('fill', pawn_color)
+        .attr('stroke', pawn_color)
+        .on("mouseover", function(d) {
+            return pawn_tooltip.style("visibility", "visible");
+          })
+        .on("mousemove", function() {
+            let tooltip_x = (is_centered) ? (CHESS_WIDTH / 2) - 2*START_X_OFFSET : (START_X_OFFSET + 1.0*CHESS_WIDTH)
+            let tooltip_y = (is_centered) ? 5*START_Y_OFFSET + (CHESS_WIDTH / 2) : 4*(SQUARE_SIZE) 
+            return pawn_tooltip.style("top", tooltip_y + "px").style("left", tooltip_x + "px");
+          })
+        .on("mouseout", function() {
+            return pawn_tooltip.style("visibility", "hidden");
+          })
+        .on("click", function() {
+          pawn_color_flag = !pawn_color_flag;
+          pawn_color = pawn_color_flag ? "white" : "black";
+          d3.selectAll(".pawn").each(function(d, i) {
+            let current_fill = d3.select(this).attr("fill");
+            let new_fill = (current_fill == "transparent") ? "transparent" : pawn_color; 
+            d3.select(this).transition().duration(3000).attr("fill", new_fill).attr("stroke", pawn_color);
+          })
+        })
+        .on("contextmenu", function(d, i) {
+            is_centered = true
+            d3.selectAll(".pawncircle").transition().duration(3000).attr('cx', (START_X_OFFSET + (CHESS_WIDTH / 2)).toString()).attr('cy', (START_Y_OFFSET + (CHESS_WIDTH / 2)).toString());
+            d3.selectAll(".pawnpathleft").transition().duration(3000).attr("d",
+              "M " + (CHESS_WIDTH/2 + 0.5*(PIECES_WIDTH / 16)).toString() + " " + ((3*START_Y_OFFSET + (CHESS_WIDTH / 2))).toString()
+              + " Q " + (START_X_OFFSET + (CHESS_WIDTH / 2)).toString() + " " + 1.1*(START_Y_OFFSET + (CHESS_WIDTH / 2)).toString() + ", "
+              + (START_X_OFFSET + (CHESS_WIDTH / 2)).toString() + " " + (START_Y_OFFSET + (CHESS_WIDTH / 2)).toString())
+            d3.selectAll(".pawnpathright").transition().duration(3000).attr("d",
+              "M " + (START_X_OFFSET + (CHESS_WIDTH / 2)).toString() + " " + (START_Y_OFFSET + (CHESS_WIDTH / 2)).toString()
+              + " Q " + (START_X_OFFSET + (CHESS_WIDTH / 2)).toString() + " " + 1.1*(START_Y_OFFSET + (CHESS_WIDTH / 2)).toString() + ", "
+              + (CHESS_WIDTH/2 + 3.5*(PIECES_WIDTH / 16)).toString() + " " + (3*START_Y_OFFSET + (CHESS_WIDTH / 2)).toString())
+            d3.selectAll(".pawnline").transition().duration(3000)
+              .attr("x1", CHESS_WIDTH/2 + 0.5*(PIECES_WIDTH / 16))
+              .attr("y1", (3*START_Y_OFFSET + (CHESS_WIDTH / 2)))
+              .attr("x2", CHESS_WIDTH/2 + 3.5*(PIECES_WIDTH / 16))
+              .attr("y2", (3*START_Y_OFFSET + (CHESS_WIDTH / 2)))
+          })
+      g.append("path")
+        .attr("class", "pawn pawnpathleft")
+        .attr("d",
+          "M " + (CHESS_WIDTH + 6.5*(PIECES_WIDTH / 16)).toString() + " " + (3.5*(SQUARE_SIZE)).toString()
+          + " Q " + (CHESS_WIDTH + (PIECES_WIDTH / 2)).toString() + " " + (3.5*(SQUARE_SIZE)).toString() + ", "
+          + (CHESS_WIDTH + (PIECES_WIDTH / 2)).toString() + " " + (3*(SQUARE_SIZE)).toString())
+        .attr("stroke", pawn_color)
+        .attr("fill", "transparent")
+        .attr("stroke-width", 7)
+        .on("mouseover", function(d) {
+            return pawn_tooltip.style("visibility", "visible");
+          })
+        .on("mousemove", function() {
+            let tooltip_x = (is_centered) ? (CHESS_WIDTH / 2) - 2*START_X_OFFSET : (START_X_OFFSET + 1.0*CHESS_WIDTH)
+            let tooltip_y = (is_centered) ? 5*START_Y_OFFSET + (CHESS_WIDTH / 2) : 4*(SQUARE_SIZE) 
+            return pawn_tooltip.style("top", tooltip_y + "px").style("left", tooltip_x + "px");
+          })
+        .on("mouseout", function() {
+            return pawn_tooltip.style("visibility", "hidden");
+          })
+        .on("click", function() {
+          pawn_color_flag = !pawn_color_flag;
+          pawn_color = pawn_color_flag ? "white" : "black";
+          d3.selectAll(".pawn").each(function(d, i) {
+            let current_fill = d3.select(this).attr("fill");
+            let new_fill = (current_fill == "transparent") ? "transparent" : pawn_color; 
+            d3.select(this).transition().duration(3000).attr("fill", new_fill).attr("stroke", pawn_color);
+          })
+        })
+        .on("contextmenu", function(d, i) {
+            is_centered = true
+            d3.selectAll(".pawncircle").transition().duration(3000).attr('cx', (START_X_OFFSET + (CHESS_WIDTH / 2)).toString()).attr('cy', (START_Y_OFFSET + (CHESS_WIDTH / 2)).toString());
+            d3.selectAll(".pawnpathleft").transition().duration(3000).attr("d",
+              "M " + (CHESS_WIDTH/2 + 0.5*(PIECES_WIDTH / 16)).toString() + " " + ((3*START_Y_OFFSET + (CHESS_WIDTH / 2))).toString()
+              + " Q " + (START_X_OFFSET + (CHESS_WIDTH / 2)).toString() + " " + 1.1*(START_Y_OFFSET + (CHESS_WIDTH / 2)).toString() + ", "
+              + (START_X_OFFSET + (CHESS_WIDTH / 2)).toString() + " " + (START_Y_OFFSET + (CHESS_WIDTH / 2)).toString())
+            d3.selectAll(".pawnpathright").transition().duration(3000).attr("d",
+              "M " + (START_X_OFFSET + (CHESS_WIDTH / 2)).toString() + " " + (START_Y_OFFSET + (CHESS_WIDTH / 2)).toString()
+              + " Q " + (START_X_OFFSET + (CHESS_WIDTH / 2)).toString() + " " + 1.1*(START_Y_OFFSET + (CHESS_WIDTH / 2)).toString() + ", "
+              + (CHESS_WIDTH/2 + 3.5*(PIECES_WIDTH / 16)).toString() + " " + (3*START_Y_OFFSET + (CHESS_WIDTH / 2)).toString())
+            d3.selectAll(".pawnline").transition().duration(3000)
+              .attr("x1", CHESS_WIDTH/2 + 0.5*(PIECES_WIDTH / 16))
+              .attr("y1", (3*START_Y_OFFSET + (CHESS_WIDTH / 2)))
+              .attr("x2", CHESS_WIDTH/2 + 3.5*(PIECES_WIDTH / 16))
+              .attr("y2", (3*START_Y_OFFSET + (CHESS_WIDTH / 2)))
+          })
+
+      g.append("path")
+        .attr("class", "pawn pawnpathright")
+        .attr("d",
+          "M " + ((CHESS_WIDTH + (PIECES_WIDTH / 2)).toString() + " " + (3*(SQUARE_SIZE)).toString()
+          + " Q " + (CHESS_WIDTH + (PIECES_WIDTH / 2)).toString() + " " + (3.5*(SQUARE_SIZE)).toString() + ", "
+          + (CHESS_WIDTH + 9.5*(PIECES_WIDTH / 16)).toString() + " " + (3.5*(SQUARE_SIZE)).toString()))
+        .attr("stroke", pawn_color)
+        .attr("fill", "transparent")
+        .attr("stroke-width", 7)
+        .on("mouseover", function(d) {
+            return pawn_tooltip.style("visibility", "visible");
+          })
+        .on("mousemove", function() {
+            let tooltip_x = (is_centered) ? (CHESS_WIDTH / 2) - 2*START_X_OFFSET : (START_X_OFFSET + 1.0*CHESS_WIDTH)
+            let tooltip_y = (is_centered) ? 5*START_Y_OFFSET + (CHESS_WIDTH / 2) : 4*(SQUARE_SIZE) 
+            return pawn_tooltip.style("top", tooltip_y + "px").style("left", tooltip_x + "px");
+          })
+        .on("mouseout", function() {
+            return pawn_tooltip.style("visibility", "hidden");
+          })
+        .on("click", function() {
+          pawn_color_flag = !pawn_color_flag;
+          pawn_color = pawn_color_flag ? "white" : "black";
+          d3.selectAll(".pawn").each(function(d, i) {
+            let current_fill = d3.select(this).attr("fill");
+            let new_fill = (current_fill == "transparent") ? "transparent" : pawn_color; 
+            d3.select(this).transition().duration(3000).attr("fill", new_fill).attr("stroke", pawn_color);
+          })
+        })
+        .on("contextmenu", function(d, i) {
+            is_centered = true
+            d3.selectAll(".pawncircle").transition().duration(3000).attr('cx', (START_X_OFFSET + (CHESS_WIDTH / 2)).toString()).attr('cy', (START_Y_OFFSET + (CHESS_WIDTH / 2)).toString());
+            d3.selectAll(".pawnpathleft").transition().duration(3000).attr("d",
+              "M " + (CHESS_WIDTH/2 + 0.5*(PIECES_WIDTH / 16)).toString() + " " + ((3*START_Y_OFFSET + (CHESS_WIDTH / 2))).toString()
+              + " Q " + (START_X_OFFSET + (CHESS_WIDTH / 2)).toString() + " " + 1.1*(START_Y_OFFSET + (CHESS_WIDTH / 2)).toString() + ", "
+              + (START_X_OFFSET + (CHESS_WIDTH / 2)).toString() + " " + (START_Y_OFFSET + (CHESS_WIDTH / 2)).toString())
+            d3.selectAll(".pawnpathright").transition().duration(3000).attr("d",
+              "M " + (START_X_OFFSET + (CHESS_WIDTH / 2)).toString() + " " + (START_Y_OFFSET + (CHESS_WIDTH / 2)).toString()
+              + " Q " + (START_X_OFFSET + (CHESS_WIDTH / 2)).toString() + " " + 1.1*(START_Y_OFFSET + (CHESS_WIDTH / 2)).toString() + ", "
+              + (CHESS_WIDTH/2 + 3.5*(PIECES_WIDTH / 16)).toString() + " " + (3*START_Y_OFFSET + (CHESS_WIDTH / 2)).toString())
+            d3.selectAll(".pawnline").transition().duration(3000)
+              .attr("x1", CHESS_WIDTH/2 + 0.5*(PIECES_WIDTH / 16))
+              .attr("y1", (3*START_Y_OFFSET + (CHESS_WIDTH / 2)))
+              .attr("x2", CHESS_WIDTH/2 + 3.5*(PIECES_WIDTH / 16))
+              .attr("y2", (3*START_Y_OFFSET + (CHESS_WIDTH / 2)))
+          })
+
+      g.append('line')
+        .attr("class", "pawn pawnline")
+        .attr('stroke', 'white')
+        .style("stroke-width", 10)
+        .attr("x1", CHESS_WIDTH + 6.5*(PIECES_WIDTH / 16))
+        .attr("y1", 3.5*(SQUARE_SIZE))
+        .attr("x2", CHESS_WIDTH + 9.5*(PIECES_WIDTH / 16))
+        .attr("y2", 3.5*(SQUARE_SIZE))
+        .on("mouseover", function(d) {
+            return pawn_tooltip.style("visibility", "visible");
+          })
+        .on("mousemove", function() {
+            let tooltip_x = (is_centered) ? (CHESS_WIDTH / 2) - 2*START_X_OFFSET : (START_X_OFFSET + 1.0*CHESS_WIDTH)
+            let tooltip_y = (is_centered) ? 5*START_Y_OFFSET + (CHESS_WIDTH / 2) : 4*(SQUARE_SIZE) 
+            return pawn_tooltip.style("top", tooltip_y + "px").style("left", tooltip_x + "px");
+          })
+        .on("mouseout", function() {
+            return pawn_tooltip.style("visibility", "hidden");
+          })
+        .on("click", function() {
+          pawn_color_flag = !pawn_color_flag;
+          pawn_color = pawn_color_flag ? "white" : "black";
+          d3.selectAll(".pawn").each(function() {
+            let current_fill = d3.select(this).attr("fill");
+            let new_fill = (current_fill == "transparent") ? "transparent" : pawn_color; 
+            d3.select(this).transition().duration(3000).attr("fill", new_fill).attr("stroke", pawn_color);
+          })
+        })
+        .on("contextmenu", function(d, i) {
+            is_centered = true
+            d3.selectAll(".pawncircle").transition().duration(3000).attr('cx', (START_X_OFFSET + (CHESS_WIDTH / 2)).toString()).attr('cy', (START_Y_OFFSET + (CHESS_WIDTH / 2)).toString());
+            d3.selectAll(".pawnpathleft").transition().duration(3000).attr("d",
+              "M " + (CHESS_WIDTH/2 + 0.5*(PIECES_WIDTH / 16)).toString() + " " + ((3*START_Y_OFFSET + (CHESS_WIDTH / 2))).toString()
+              + " Q " + (START_X_OFFSET + (CHESS_WIDTH / 2)).toString() + " " + 1.1*(START_Y_OFFSET + (CHESS_WIDTH / 2)).toString() + ", "
+              + (START_X_OFFSET + (CHESS_WIDTH / 2)).toString() + " " + (START_Y_OFFSET + (CHESS_WIDTH / 2)).toString())
+            d3.selectAll(".pawnpathright").transition().duration(3000).attr("d",
+              "M " + (START_X_OFFSET + (CHESS_WIDTH / 2)).toString() + " " + (START_Y_OFFSET + (CHESS_WIDTH / 2)).toString()
+              + " Q " + (START_X_OFFSET + (CHESS_WIDTH / 2)).toString() + " " + 1.1*(START_Y_OFFSET + (CHESS_WIDTH / 2)).toString() + ", "
+              + (CHESS_WIDTH/2 + 3.5*(PIECES_WIDTH / 16)).toString() + " " + (3*START_Y_OFFSET + (CHESS_WIDTH / 2)).toString())
+            d3.selectAll(".pawnline").transition().duration(3000)
+              .attr("x1", CHESS_WIDTH/2 + 0.5*(PIECES_WIDTH / 16))
+              .attr("y1", (3*START_Y_OFFSET + (CHESS_WIDTH / 2)))
+              .attr("x2", CHESS_WIDTH/2 + 3.5*(PIECES_WIDTH / 16))
+              .attr("y2", (3*START_Y_OFFSET + (CHESS_WIDTH / 2)))
+        })
+    }
+    generatePawn()
+
+    const generateBishop = () => {
+      let bishop_tooltip = d3.select("body")
+        .append("div")
+        .style("position", "absolute")
+        .style("visibility", "hidden")
+        .style("background", "#ABCCC5")
+        .text("This piece is a Bishop! Move diagonally!")
+        .style("font-style", "italic")
+        .style('font-weight', "bold")
+        .style("font-size", "1.2em")
+
+      var bishop_color_flag = true;
+      var bishop_color = "white";
+
+      g.append('circle')
+        .attr("class", "bishop")
+        .attr('cx', CHESS_WIDTH + (PIECES_WIDTH / 2))
+        .attr('cy', 4.5*(SQUARE_SIZE))
+        .attr('r', (SQUARE_SIZE / 8))
+        .attr('fill', bishop_color)
+        .attr('stroke', bishop_color)
+        .on("mouseover", function(d) {
+            return bishop_tooltip.style("visibility", "visible");
+          })
+        .on("mousemove", function() {
+            return bishop_tooltip.style("top", 6*(SQUARE_SIZE) + "px").style("left", (START_X_OFFSET + 1.0*CHESS_WIDTH) + "px");
+          })
+        .on("mouseout", function() {
+            return bishop_tooltip.style("visibility", "hidden");
+          })
+        .on("click", function() {
+          bishop_color_flag = !bishop_color_flag;
+          bishop_color = bishop_color_flag ? "white" : "black";
+          d3.selectAll(".bishop").each(function() {
+            let current_fill = d3.select(this).attr("fill");
+            let new_fill = (current_fill == "transparent") ? "transparent" : bishop_color; 
+            d3.select(this).transition().duration(3000).attr("fill", new_fill).attr("stroke", bishop_color);
+          })
+        })
+
+      g.append('line')
+        .attr("class", "bishop")
+        .attr('stroke', 'white')
+        .style("stroke-width", 10)
+        .attr("x1", CHESS_WIDTH + 7*(PIECES_WIDTH / 16))
+        .attr("y1", 4.75*(SQUARE_SIZE))
+        .attr("x2", CHESS_WIDTH + 9*(PIECES_WIDTH / 16))
+        .attr("y2", 4.75*(SQUARE_SIZE))
+        .on("mouseover", function(d) {
+            return bishop_tooltip.style("visibility", "visible");
+          })
+        .on("mousemove", function() {
+          return bishop_tooltip.style("top", 6*(SQUARE_SIZE) + "px").style("left", (START_X_OFFSET + 1.0*CHESS_WIDTH) + "px");
+          })
+        .on("mouseout", function() {
+            return bishop_tooltip.style("visibility", "hidden");
+          })
+        .on("click", function() {
+          bishop_color_flag = !bishop_color_flag;
+          bishop_color = bishop_color_flag ? "white" : "black";
+          d3.selectAll(".bishop").each(function() {
+            let current_fill = d3.select(this).attr("fill");
+            let new_fill = (current_fill == "transparent") ? "transparent" : bishop_color; 
+            d3.select(this).transition().duration(3000).attr("fill", new_fill).attr("stroke", bishop_color);
+          })
+        })
+
+      g.append('line')
+        .attr("class", "bishop")
+        .attr('stroke', 'white')
+        .style("stroke-width", 15)
+        .attr("x1", CHESS_WIDTH + 6.5*(PIECES_WIDTH / 16))
+        .attr("y1", 5.5*(SQUARE_SIZE))
+        .attr("x2", CHESS_WIDTH + 9.5*(PIECES_WIDTH / 16))
+        .attr("y2", 5.5*(SQUARE_SIZE))
+        .on("mouseover", function(d) {
+            return bishop_tooltip.style("visibility", "visible");
+          })
+        .on("mousemove", function() {
+          return bishop_tooltip.style("top", 6*(SQUARE_SIZE) + "px").style("left", (START_X_OFFSET + 1.0*CHESS_WIDTH) + "px");
+          })
+        .on("mouseout", function() {
+            return bishop_tooltip.style("visibility", "hidden");
+          })
+        .on("click", function() {
+          bishop_color_flag = !bishop_color_flag;
+          bishop_color = bishop_color_flag ? "white" : "black";
+          d3.selectAll(".bishop").each(function() {
+            let current_fill = d3.select(this).attr("fill");
+            let new_fill = (current_fill == "transparent") ? "transparent" : bishop_color; 
+            d3.select(this).transition().duration(3000).attr("fill", new_fill).attr("stroke", bishop_color);
+          })
+        })
+      g.append('line')
+        .attr('stroke', '#CCB4AB')
+        .style("stroke-width", 6)
+        .attr("x1", CHESS_WIDTH + (PIECES_WIDTH / 2))
+        .attr("y1", 4.5*(SQUARE_SIZE))
+        .attr("x2", CHESS_WIDTH + 9.5*(PIECES_WIDTH / 16))
+        .attr("y2", 4*(SQUARE_SIZE))
+        .on("mouseover", function(d) {
+            return bishop_tooltip.style("visibility", "visible");
+          })
+        .on("mousemove", function() {
+          return bishop_tooltip.style("top", 6*(SQUARE_SIZE) + "px").style("left", (START_X_OFFSET + 1.0*CHESS_WIDTH) + "px");
+          })
+        .on("mouseout", function() {
+            return bishop_tooltip.style("visibility", "hidden");
+        })
+
+      g.append('polygon')
+        .attr("class", "bishop")
+        .attr('fill', 'white')
+        .attr('points',
+          (CHESS_WIDTH + 6.5*(PIECES_WIDTH / 16)) + ", " + 5.5*SQUARE_SIZE + " " +
+          (CHESS_WIDTH + 8*(PIECES_WIDTH / 16)) + ", " + 4.75*SQUARE_SIZE + " " +
+          (CHESS_WIDTH + 8*(PIECES_WIDTH / 16)) + ", " + 4.75*SQUARE_SIZE + " " +
+          (CHESS_WIDTH + 9.5*(PIECES_WIDTH / 16)) + ", " + 5.5*SQUARE_SIZE
+        )
+        .on("mouseover", function(d) {
+            return bishop_tooltip.style("visibility", "visible");
+          })
+        .on("mousemove", function() {
+          return bishop_tooltip.style("top", 6*(SQUARE_SIZE) + "px").style("left", (START_X_OFFSET + 1.0*CHESS_WIDTH) + "px");
+          })
+        .on("mouseout", function() {
+            return bishop_tooltip.style("visibility", "hidden");
+          })
+        .on("click", function() {
+          bishop_color_flag = !bishop_color_flag;
+          bishop_color = bishop_color_flag ? "white" : "black";
+          d3.selectAll(".bishop").each(function() {
+            let current_fill = d3.select(this).attr("fill");
+            let new_fill = (current_fill == "transparent") ? "transparent" : bishop_color; 
+            d3.select(this).transition().duration(3000).attr("fill", new_fill).attr("stroke", bishop_color);
+          })
+        })
+    }
+    generateBishop()
+
+    const generateKnight = () => {
+      let knight_tooltip = d3.select("body")
+        .append("div")
+        .style("position", "absolute")
+        .style("visibility", "hidden")
+        .style("background", "#ABCCC5")
+        .text("This piece is a Knight! Jump across pieces!")
+        .style("font-style", "italic")
+        .style('font-weight', "bold")
+        .style("font-size", "1.2em")
+
+      var knight_color_flag = true;
+      var knight_color = "white";
+
+      g.append("path")
+        .attr("class", "knight")
+        .attr("d",
+          "M " + (CHESS_WIDTH + 6.7*(PIECES_WIDTH / 16)).toString() + " " + (7.5*(SQUARE_SIZE)).toString()
+          + " Q " + (CHESS_WIDTH + 9.5*(PIECES_WIDTH / 16)).toString() + " " + (5.5*(SQUARE_SIZE)).toString() + ", "
+          + (CHESS_WIDTH + 6.5*(PIECES_WIDTH / 16)).toString() + " " + (6.5*(SQUARE_SIZE)).toString())
+        .attr("stroke", knight_color)
+        .attr("fill", "transparent")
+        .attr("stroke-width", 7)
+        .on("mouseover", function(d) {
+            return knight_tooltip.style("visibility", "visible");
+          })
+        .on("mousemove", function() {
+          return knight_tooltip.style("top", 8*(SQUARE_SIZE) + "px").style("left", (START_X_OFFSET + 1.0*CHESS_WIDTH) + "px");
+          })
+        .on("mouseout", function() {
+            return knight_tooltip.style("visibility", "hidden");
+          })
+        .on("click", function() {
+          knight_color_flag = !knight_color_flag;
+          knight_color = knight_color_flag ? "white" : "black";
+          d3.selectAll(".knight").each(function() {
+            let current_fill = d3.select(this).attr("fill");
+            let new_fill = (current_fill == "transparent") ? "transparent" : knight_color; 
+            d3.select(this).transition().duration(3000).attr("fill", new_fill).attr("stroke", knight_color);
+          })
+        })
+
+        g.append("path")
+        .attr("class", "knight")
+        .attr("d",
+          "M " + (CHESS_WIDTH + 9.3*(PIECES_WIDTH / 16)).toString() + " " + (7.5*(SQUARE_SIZE)).toString()
+          + " Q " + (CHESS_WIDTH + 9.5*(PIECES_WIDTH / 16)).toString() + " " + (5*(SQUARE_SIZE)).toString() + ", "
+          + (CHESS_WIDTH + 6.5*(PIECES_WIDTH / 16)).toString() + " " + (6.5*(SQUARE_SIZE)).toString())
+        .attr("stroke", knight_color)
+        .attr("fill", "transparent")
+        .attr("stroke-width", 7)
+        .on("mouseover", function(d) {
+            return knight_tooltip.style("visibility", "visible");
+          })
+        .on("mousemove", function() {
+          return knight_tooltip.style("top", 8*(SQUARE_SIZE) + "px").style("left", (START_X_OFFSET + 1.0*CHESS_WIDTH) + "px");
+          })
+        .on("mouseout", function() {
+            return knight_tooltip.style("visibility", "hidden");
+          })
+        .on("click", function() {
+          knight_color_flag = !knight_color_flag;
+          knight_color = knight_color_flag ? "white" : "black";
+          d3.selectAll(".knight").each(function() {
+            let current_fill = d3.select(this).attr("fill");
+            let new_fill = (current_fill == "transparent") ? "transparent" : knight_color; 
+            d3.select(this).transition().duration(3000).attr("fill", new_fill).attr("stroke", knight_color);
+          })
+        })
+
+      g.append('line')
+        .attr("class", "knight")
+        .attr('stroke', 'white')
+        .style("stroke-width", 15)
+        .attr("x1", CHESS_WIDTH + 6.5*(PIECES_WIDTH / 16))
+        .attr("y1", 7.5*(SQUARE_SIZE))
+        .attr("x2", CHESS_WIDTH + 9.5*(PIECES_WIDTH / 16))
+        .attr("y2", 7.5*(SQUARE_SIZE))
+        .on("mouseover", function(d) {
+            return knight_tooltip.style("visibility", "visible");
+          })
+        .on("mousemove", function() {
+          return knight_tooltip.style("top", 8*(SQUARE_SIZE) + "px").style("left", (START_X_OFFSET + 1.0*CHESS_WIDTH) + "px");
+          })
+        .on("mouseout", function() {
+            return knight_tooltip.style("visibility", "hidden");
+          })
+        .on("click", function() {
+          knight_color_flag = !knight_color_flag;
+          knight_color = knight_color_flag ? "white" : "black";
+          d3.selectAll(".knight").each(function() {
+            let current_fill = d3.select(this).attr("fill");
+            let new_fill = (current_fill == "transparent") ? "transparent" : knight_color; 
+            d3.select(this).transition().duration(3000).attr("fill", new_fill).attr("stroke", knight_color);
+          })
+        })
+    }
+    generateKnight()
+
+    // Per https://d3js.org/getting-started, add svg node to our div container
+    container.append(svg.node())
+  </script>
+</html>
