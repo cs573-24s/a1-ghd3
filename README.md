@@ -12,11 +12,13 @@ The webpage includes a control panel (right) allowing users to adjust the number
 The range slider controls the number of graphical elements (min: 1, max: 200) displayed on the screen. Color pickers are provided for each graphical primitive, allowing the user to change their colors in real time.
 
 Technical Achievements:
+    
     Dynamic SVG Generation: The code uses D3.js to dynamically create and manipulate SVG elements based on user input.
     Interactive Elements: Interactive behaviors like growing, shrinking, and rotating are implemented for the SVG elements.
     Color Customization: Users can customize colors of each graphic element.
 
 Design Achievements:
+   
     User Interface: A control panel is designed for easy interaction with the graphic elements.
     Responsive Graphics: The graphics respond to user interactions in real-time, enhancing the user experience and demonstrating the dynamic capabilities of D3.js.
 
