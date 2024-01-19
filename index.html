@@ -73,12 +73,13 @@
       points.push([x, y])
     }
     let r = Math.random() * 3 + 2;
+    let color = 255-(Math.random()*255);
     sky
       .append('circle')
       .attr('cx', x-xOffset)
       .attr('cy', y-yOffset)
       .attr('r', r)
-      .attr('fill', "white")
+      .attr('fill', "rgb(255,255,"+color+")")
       .style("filter", "url(#glow)");
   }
 
