@@ -1,10 +1,181 @@
 <script src="https://d3js.org/d3.v6.min.js"></script>
+<body style="background-color:#000131 ;">
+<h1>Here are some shapes</h1>
+
+<svg id="one" height="30" width="30"></svg>
+<svg id="two" height="30" width="30"></svg>
+<svg id="three" height="30" width="30"></svg>
+<svg id="four" height="30" width="30"></svg><br>
+
+<button style="font-size: 22" onclick="createConstellation()">create constellation (you need stars for a constellation)</button>
+<h1>click anywhere below for a star</h1>
+
+<svg id="sky" style="height: 100vw; width: 100vw"></svg>
 
 <script>
   console.log(d3); // test if d3 is loaded
-  // Add an SVG
-  // Add Rectangles
-  // Add Circles
-  // Add Lines
+  d3.selectAll("h1").style("color", "white");
+  let rectangle = d3.select("#one");
+  rectangle
+    .append("rect")
+    .attr("x", 0)
+    .attr("y", 0)
+    .attr("width", 30)
+    .attr("height", 30)
+    .attr("fill", "yellow");
+
+  let circle = d3.select("#two");
+  circle
+    .append("circle")
+    .attr("cx", 15)
+    .attr("cy", 15)
+    .attr("r", 15)
+    .attr("fill", "green");
+
+  let line = d3.select("#three");
+  line
+    .append("line")
+    .attr("x2", 30)
+    .attr("y2", 30)
+    .attr("stroke", "blue")
+    .attr("stroke-width", 2);
+  
+  let polygon = d3.select("#four");
+  polygon
+    .append("polygon")
+    .attr("points", "0,3 4,2 30,27 13,25")
+    .attr("fill", "red");
   // Add Polygons
+
+  let points = [];
+  
+  let sky = d3.select('#sky');
+
+  //glow
+  var filter = sky.append("filter")
+    .attr("id","glow");
+  filter.append("feGaussianBlur")
+    .attr("stdDeviation","2.5")
+    .attr("result","coloredBlur");
+  var feMerge = filter.append("feMerge");
+  feMerge.append("feMergeNode")
+    .attr("in","coloredBlur");
+  feMerge.append("feMergeNode")
+    .attr("in","SourceGraphic");
+  
+  let xOffset = 8
+  let yOffset = 214
+
+  function mouseClick(event) {
+    x = event.clientX
+    y = event.clientY
+    if(x > xOffset && y>yOffset){
+      points.push([x, y])
+    }
+    let r = Math.random() * 3 + 2;
+    sky
+      .append('circle')
+      .attr('cx', x-xOffset)
+      .attr('cy', y-yOffset)
+      .attr('r', r)
+      .attr('fill', "white")
+      .style("filter", "url(#glow)");
+  }
+
+
+  class DisjointSet {
+    constructor(size) {
+      this.parent = new Array(size);
+      this.rank = new Array(size);
+
+      for (let i = 0; i < size; i++) {
+        this.parent[i] = i;
+        this.rank[i] = 0;
+    }
+  }
+
+    find(x) {
+      if (this.parent[x] !== x) {
+        this.parent[x] = this.find(this.parent[x]);
+      }
+      return this.parent[x];
+    }
+
+    union(x, y) {
+      const rootX = this.find(x);
+      const rootY = this.find(y);
+
+      if (rootX !== rootY) {
+        if (this.rank[rootX] < this.rank[rootY]) {
+          this.parent[rootX] = rootY;
+        } else if (this.rank[rootX] > this.rank[rootY]) {
+          this.parent[rootY] = rootX;
+        } else {
+          this.parent[rootY] = rootX;
+          this.rank[rootX]++;
+        }
+      }
+    }
+  }
+
+  
+  function distanceFormula(x1, y1, x2, y2) {
+    const dx = x2 - x1;
+    const dy = y2 - y1;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+
+  function minimumSpanningTree(points) {
+    const n = points.length;
+    const edges = [];
+
+    // Generate all edges and their distances
+    for (let i = 0; i < n; i++) {
+      for (let j = i + 1; j < n; j++) {
+        const distance = distanceFormula(points[i][0], points[i][1], points[j][0], points[j][1]);
+        edges.push({ u: i, v: j, weight: distance });
+      }
+    }
+
+    // Sort edges by weight
+    edges.sort((a, b) => a.weight - b.weight);
+
+    const disjointSet = new DisjointSet(n);
+    const spanningTree = [];
+
+    // Add edges to the spanning tree while avoiding cycles
+    for (const edge of edges) {
+      if (disjointSet.find(edge.u) !== disjointSet.find(edge.v)) {
+        spanningTree.push(edge);
+        disjointSet.union(edge.u, edge.v);
+      }
+    }
+
+    return spanningTree;
+  }
+
+
+
+  function createConstellation(){
+    //super inefficient algorithm :P
+    const spanningTree = minimumSpanningTree(points);
+    console.log('Minimum Spanning Tree:', spanningTree);
+    for(let i = 0; i<spanningTree.length; i++){
+      let edge=spanningTree[i];
+      // console.log(edge)
+      sky
+        .append("line")
+        .attr("x1", points[edge.u][0]-xOffset)
+        .attr("y1", points[edge.u][1]-yOffset)
+        .attr("x2", points[edge.v][0]-xOffset)
+        .attr("y2", points[edge.v][1]-yOffset)
+        .attr("stroke", "white")
+        .attr("stroke-width", 1);
+    }
+  }
+
+  document.addEventListener("click", mouseClick);
+
 </script>
+
+<!-- star or constellation maker -->
