@@ -1,3 +1,29 @@
+Data Visualization Assignment 1 - Madelyn Marcotte
+===
+GitHub Pages Link: https://madelynmarcotte.github.io/a1-ghd3/index.html
+
+For Assignment 1, I created an interactive snowman page using shapes in d3.js as well as the drag and drop feature. 
+The image below shows the starting state of the page, and includes directions for the user to drag and drop the shapes to the side of the snowman and place them as they like to give him a face. 
+
+<img width="602" alt="image" src="https://github.com/madelynmarcotte/a1-ghd3/assets/51792257/88404092-6679-49bf-bf48-ddb50b4ae153">
+
+Once the user is happy with their design, they can click the button in the corner to receive an encouraging message, as shown in the image below.
+
+<img width="630" alt="image" src="https://github.com/madelynmarcotte/a1-ghd3/assets/51792257/0b582405-1eef-4dff-b35c-28b1810e54e5">
+
+I utilized multiple guides for using d3 which are linked here: https://www.freecodecamp.org/news/learn-d3-js-in-5-minutes-c5ec29fb0725/, https://d3js.org/d3-drag, https://d3-graph-gallery.com/graph/shape.html
+
+Technical Achievement 
+===
+I went beyond the instructions for this assignment by using the drag functionality of d3. I consulted an additional resource to learn how to implement this functionality in order to make my page more interesting and interactive.
+
+Design Achievement
+===
+For this assignment I sought to make my documentation and user instructions clear and informative. I made sure to include all of the recommended components of the README file and sought to keep my tone professional. I also included directions on my page, to ensure that potential users would understand how to interact with the page, and kept the overall layout simple to prevent any potential confusion or cluttering. I added some style to the button in order to make the page a bit more appealing and less basic. 
+
+*** Start of original README ***
+===
+
 Assignment 1 - Hello World: GitHub and d3  
 ===
 
