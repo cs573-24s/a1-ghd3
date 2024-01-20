@@ -1,9 +1,39 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <script src="https://d3js.org/d3.v6.min.js"></script>
 
 <script>
-  console.log(d3); // test if d3 is loaded
+  console.log(d3); 
+  // 1. 添加SVG元素
+var svg = d3.select("body").append("svg")
+            .attr("width", 500)
+            .attr("height", 300);
+
+// 2. 绑定数据
+var data = [80, 120, 60, 150, 200];
+var bars = svg.selectAll(".bar")
+              .data(data)
+              .enter()
+              .append("rect")
+              .attr("class", "bar");
+
+// 3. 设置条形图属性
+bars.attr("x", (d, i) => i * 30)
+    .attr("y", d => 300 - d)
+    .attr("width", 25)
+    .attr("height", d => d)
+    .attr("fill", "teal");
+
+// 4. 添加文字标签
+bars.data(data)
+    .enter()
+    .append("text")
+    .text(d => d)
+    .attr("x", (d, i) => i * 30 + 10)
+    .attr("y", d => 300 - d - 10)
+    .attr("fill", "white");
+  
+  // test if d3 is loaded
   // Add an SVG
   // Add Rectangles
   // Add Circles
@@ -14,13 +44,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Data Visualization A1</title>
+  <title>Data Visualization A1 Anthony Chen</title>
 
 </head>
 
 <body>
-  <h1>Anthony Chen</h1>
-  <div id="chart"></div>
+
 </body>
 
 </html>
