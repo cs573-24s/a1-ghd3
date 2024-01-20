@@ -19,16 +19,16 @@
     const svgHeight = 600;
 
     // Set up SVG
-    const svg = d3.select('svg')
+    const svg = d3.select('body').append('svg')
         .attr('width', svgWidth)
         .attr('height', svgHeight);
 
     // Constants for positions and sizes
     const childRadius = 20;
-    const arrowLength = 150;
     const treeWidth = 60;
     const treeHeight = 200;
     const appleRadius = 10;
+    const arrowLength = 150;
 
     // Calculate center coordinates
     const centerX = svgWidth / 2;
