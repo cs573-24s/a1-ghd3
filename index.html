@@ -23,22 +23,34 @@
 
     // Constants for positions and sizes
     const childRadius = 20;
-    const arrowLength = 50;
+    const arrowLength = 150;
     const treeWidth = 60;
     const treeHeight = 200;
     const appleRadius = 10;
 
     // Initial positions
-    const childPosition = { x: 100, y: 550 };
-    const arrowStartPosition = { x: 120, y: 540 };
-    const treePosition = { x: 500, y: 400 };
-    const applePosition = { x: 520, y: 300 };
+    const childPosition = { x: 100, y: 5550 };
+    const arrowStartPosition = { x: 120, y: 5540 };
+    const treePosition = { x: 3500, y: 5400 };
+    const applePosition = { x: 3520, y: 5300 };
+
+
+    child.style('fill', 'blue');
+    tree.style('fill', 'brown');
+    apple.style('fill', 'red');
+    arrow.style('stroke', 'black');   
 
     // Create elements
+
+    const canopy = svg.append('polygon')
+        .attr('points', '3480,5400 3520,5360 3560,5400')
+        .attr('fill', 'green');
+
     const child = svg.append('circle')
         .attr('cx', childPosition.x)
         .attr('cy', childPosition.y)
         .attr('r', childRadius);
+
 
     const arrow = svg.append('line')
         .attr('x1', arrowStartPosition.x)
@@ -47,6 +59,10 @@
         .attr('y2', arrowStartPosition.y)
         .attr('stroke-width', 2)
         .attr('stroke', 'black');
+
+    const arrowTip = svg.append('path')
+    .attr('d', d3.line()([[arrowStartPosition.x + arrowLength, arrowStartPosition.y - 5], [arrowStartPosition.x + arrowLength + 10, arrowStartPosition.y], [arrowStartPosition.x + arrowLength, arrowStartPosition.y + 5]]))
+    .attr('fill', 'black');
 
     const tree = svg.append('rect')
         .attr('x', treePosition.x)
@@ -78,6 +94,9 @@
                 .attr('y1', d => d.y += arrowVelocity.y)
                 .attr('x2', d => d.x + arrowLength)
                 .attr('y2', d => d.y);
+            
+            arrowTip.attr('d', d3.line()([[d.x + arrowLength, d.y - 5], [d.x + arrowLength + 10, d.y], [d.x + arrowLength, d.y + 5]]));
+        
 
             arrowVelocity.y += gravity; // Apply gravity to arrow
 
@@ -88,6 +107,33 @@
             }
         }
     }
+
+    const drag = d3.drag()
+    .on('start', dragStarted)
+    .on('drag', dragging)
+    .on('end', dragEnded);
+
+    function dragStarted(event, d) {
+        d3.select(this).raise();
+    }
+
+    function dragging(event, d) {
+        const dx = event.x - d.x;
+        const dy = event.y - d.y;
+        const angle = Math.atan2(dy, dx);
+        arrow.attr('transform', `rotate(${angle * 180 / Math.PI},${d.x},${d.y})`);
+        arrowTip.attr('transform', `rotate(${angle * 180 / Math.PI},${d.x},${d.y})`);
+    }
+
+    function dragEnded(event, d) {
+        // Update arrow velocity based on drag
+        arrowVelocity = { x: Math.cos(angle) * 5, y: Math.sin(angle) * -10 };
+    }
+
+    // Apply drag behavior to the arrow
+    arrow.call(drag);
+    arrowTip.call(drag);
+
 
     // Interactivity - shoot arrow on click
     svg.on('click', () => {
