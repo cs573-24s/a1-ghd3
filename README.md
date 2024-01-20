@@ -21,12 +21,6 @@ aaaaaaaaaaaaaaaaaaaaaa
 
 Demo site: https://TonyC793.github.io/01-ghd3
 
-
-    - Section for Technical and Design Achievements
-
-Technical Achievement Desription -- 12  
-Design Achievement Description -- 12
-
 ## Technical Achievement Desription
 
 I successfully implemented a aaaaaaaaaaaaaaaaaaaaaaa
