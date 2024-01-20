@@ -1,49 +1,258 @@
-<script src="https://d3js.org/d3.v6.min.js"></script>
+<!DOCTYPE html>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<h1>Snowman Decorating Game</h1>
+<p>Instructions: Drag the shapes below to give the snowman a face!</p>
+<body>
+
+<!-- create button -->
+<button onclick="appendText()">Click Here When You Are Finished!</button>
+
+<!-- create header to be filled with text when button is clicked -->
+<h2 id="header"></h2>
+
+<style>
+    /* add style for the button */
+    button {
+      padding: 8px;
+      background-color: #4c86a8; /* blue*/
+      color: #ffffff; /* white */
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    /* make the button change color when hovering over it*/
+    button:hover {
+      background-color: #194c6f; /* dark blue*/
+    }
+</style>
 
 <script>
-  console.log(d3); // test if d3 is loaded
-  // Add an SVG
-  // Add Rectangles
-  // Add Circles
-  // Add Lines
-  // Add Polygons
+    
+// function for adding text to header when button is clicked
+function appendText() {
+  // Select the header element
+  const header = d3.select('#header');
 
-{
-  // Declare the chart dimensions and margins.
-  const width = 640;
-  const height = 400;
-  const marginTop = 20;
-  const marginRight = 20;
-  const marginBottom = 30;
-  const marginLeft = 40;
-
-  // Declare the x (horizontal position) scale.
-  const x = d3.scaleUtc()
-      .domain([new Date("2023-01-01"), new Date("2024-01-01")])
-      .range([marginLeft, width - marginRight]);
-
-  // Declare the y (vertical position) scale.
-  const y = d3.scaleLinear()
-      .domain([0, 100])
-      .range([height - marginBottom, marginTop]);
-
-  // Create the SVG container.
-  const svg = d3.create("svg")
-      .attr("width", width)
-      .attr("height", height);
-
-  // Add the x-axis.
-  svg.append("g")
-      .attr("transform", `translate(0,${height - marginBottom})`)
-      .call(d3.axisBottom(x));
-
-  // Add the y-axis.
-  svg.append("g")
-      .attr("transform", `translate(${marginLeft},0)`)
-      .call(d3.axisLeft(y));
-
-  // Return the SVG element.
-  return svg.node();
+  // Append text to the header
+  header.text('Great Job!');
 }
-  
+
+// Select the body element and append an SVG container
+var svg = d3.select('body').append('svg')
+  .attr('width', 1000)   // Set the width of the SVG
+  .attr('height', 1000); // Set the height of the SVG
+
+// Append three circles to the SVG (creates the snowman body)
+// 1
+svg.append('circle')
+  .attr('cx', 475)
+  .attr('cy', 150)
+  .attr('r', 60)
+  .attr('stroke', 'black')
+  .attr('fill', 'white');
+// 2
+svg.append('circle')
+  .attr('cx', 475)
+  .attr('cy', 270)
+  .attr('r', 60)
+  .attr('stroke', 'black')
+  .attr('fill', 'white');
+// 3
+svg.append('circle')
+  .attr('cx', 475)
+  .attr('cy', 391)
+  .attr('r', 60)
+  .attr('stroke', 'black')
+  .attr('fill', 'white');
+
+// Append three rectangles to the SVG (creates the top hat)
+// 1 - brim
+svg.append('rect')
+  .attr('x', 400)
+  .attr('y', 50)
+  .attr('width', 150)    // Set the width of the rectangle
+  .attr('height', 40)    // Set the height of the rectangle
+  .attr('fill', 'black'); // Set the fill color to black
+
+// 2 - top part
+svg.append('rect')
+  .attr('x', 437)
+  .attr('y', 0)
+  .attr('width', 80)    // Set the width of the rectangle
+  .attr('height', 60)    // Set the height of the rectangle
+  .attr('fill', 'black'); // Set the fill color to black
+
+// 3 - red trim
+svg.append('rect')
+  .attr('x', 400)
+  .attr('y', 50)
+  .attr('width', 150)    // Set the width of the rectangle
+  .attr('height', 20)    // Set the height of the rectangle
+  .attr('fill', 'red'); // Set the fill color to red
+
+// Append lines to the SVG (creates arms)
+svg.append('line')
+  .attr('x1', 417)
+  .attr('y1', 250)
+  .attr('x2', 350)
+  .attr('y2', 200)
+  .attr('stroke', 'brown')
+  .style('stroke-width', 5);
+
+svg.append('line')
+  .attr('x1', 350)
+  .attr('y1', 200)
+  .attr('x2', 310)
+  .attr('y2', 200)
+  .attr('stroke', 'brown')
+  .style('stroke-width', 5);
+
+svg.append('line')
+  .attr('x1', 350)
+  .attr('y1', 200)
+  .attr('x2', 360)
+  .attr('y2', 160)
+  .attr('stroke', 'brown')
+  .style('stroke-width', 5);
+
+
+svg.append('line')
+  .attr('x1', 533)
+  .attr('y1', 250)
+  .attr('x2', 600)
+  .attr('y2', 200)
+  .attr('stroke', 'brown')
+  .style('stroke-width', 5);
+
+svg.append('line')
+  .attr('x1', 600)
+  .attr('y1', 200)
+  .attr('x2', 590)
+  .attr('y2', 160)
+  .attr('stroke', 'brown')
+  .style('stroke-width', 5);
+
+svg.append('line')
+  .attr('x1', 600)
+  .attr('y1', 200)
+  .attr('x2', 650)
+  .attr('y2', 200)
+  .attr('stroke', 'brown')
+  .style('stroke-width', 5);
+
+// append small circles and triangle to the SVG to drag onto the snowman
+// add call to d3.drag to each shape
+
+svg.append('circle')
+  .attr('cx', 100)
+  .attr('cy', 100)
+  .attr('r', 7)
+  .attr('fill', 'black')
+  .call(d3.drag()
+    .on('start', dragStarted)
+    .on('drag', dragging)
+    .on('end', dragEnded));
+
+svg.append('circle')
+  .attr('cx', 100)
+  .attr('cy', 120)
+  .attr('r', 7)
+  .attr('fill', 'black')
+  .call(d3.drag()
+    .on('start', dragStarted)
+    .on('drag', dragging)
+    .on('end', dragEnded));
+
+svg.append('circle')
+  .attr('cx', 100)
+  .attr('cy', 140)
+  .attr('r', 7)
+  .attr('fill', 'black')
+  .call(d3.drag()
+    .on('start', dragStarted)
+    .on('drag', dragging)
+    .on('end', dragEnded));
+
+svg.append('circle')
+  .attr('cx', 100)
+  .attr('cy', 160)
+  .attr('r', 7)
+  .attr('fill', 'black')
+  .call(d3.drag()
+    .on('start', dragStarted)
+    .on('drag', dragging)
+    .on('end', dragEnded));
+
+svg.append('circle')
+  .attr('cx', 100)
+  .attr('cy', 180)
+  .attr('r', 7)
+  .attr('fill', 'black')
+  .call(d3.drag()
+    .on('start', dragStarted)
+    .on('drag', dragging)
+    .on('end', dragEnded));
+
+svg.append('circle')
+  .attr('cx', 100)
+  .attr('cy', 200)
+  .attr('r', 7)
+  .attr('fill', 'black')
+  .call(d3.drag()
+    .on('start', dragStarted)
+    .on('drag', dragging)
+    .on('end', dragEnded));
+
+svg.append('circle')
+  .attr('cx', 100)
+  .attr('cy', 220)
+  .attr('r', 7)
+  .attr('fill', 'black')
+  .call(d3.drag()
+    .on('start', dragStarted)
+    .on('drag', dragging)
+    .on('end', dragEnded));
+
+svg.append('circle')
+  .attr('cx', 100)
+  .attr('cy', 240)
+  .attr('r', 7)
+  .attr('fill', 'black')
+  .call(d3.drag()
+    .on('start', dragStarted)
+    .on('drag', dragging)
+    .on('end', dragEnded));
+
+  // triangle nose
+svg.append('polygon')
+   .attr('x', 400)
+   .attr('y', 50)
+   .attr('points', '100, 65 10, 90 90, 90')
+   .attr('fill', 'orange')
+   .call(d3.drag()
+     .on('start', dragStarted)
+     .on('drag', dragging)
+     .on('end', dragEnded));
+
+// Drag helper functions
+
+// Drag started
+function dragStarted() {
+  d3.select(this).raise().classed('active', true);
+}
+
+// Dragging
+function dragging(event, d) {
+  d3.select(this).attr('transform', `translate(${d3.event.x},${d3.event.y})`);
+}
+
+// Drag ended
+function dragEnded() {
+  d3.select(this).classed('active', false);
+}
+
 </script>
+
+</body>
+</html>
