@@ -27,19 +27,27 @@
     const childRadius = 30;
     const childPosition = { x: 50, y: svgHeight - 50 };
 
+
+
+
+
     // Tree settings
-    const treeWidth = 60;
+    const treeWidth = 40;
     const treeHeight = 200;
     const treePosition = { x: svgWidth - 100, y: svgHeight - treeHeight - 50 };
+
+
+
+    // Canopy settings (Hexagon)
+    const sideLength = treeWidth; // The side of the hexagon is the same as the width of the tree
+    const canopyHeight = Math.sqrt(3) * sideLength; // Height of a regular hexagon
+    const canopyPosition = { x: treePosition.x + treeWidth / 2, y: treePosition.y };
+
 
     // Arrow settings
     const arrowLength = 100;
     const arrowPosition = { x: childPosition.x + 40, y: childPosition.y };
 
-    // Canopy settings
-    const canopyHeight = treeHeight * 3;
-    const canopyWidth = canopyHeight * 2 / Math.sqrt(3);  // Hexagon width
-    const canopyPosition = { x: treePosition.x + treeWidth / 2 - canopyWidth / 2, y: treePosition.y - canopyHeight };
 
     // Apple settings
     const appleRadius = childRadius / Math.sqrt(2);  // Area is half of the child
