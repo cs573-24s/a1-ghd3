@@ -2,7 +2,7 @@ Assignment 1 - Hello World: GitHub and d3
 ===
 # Data Visualization Assignment 1
 
-## Overview
+## Description
 
 This project demonstrates a simple data visualization using D3.js to create aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
