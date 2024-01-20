@@ -19,7 +19,7 @@
     const svgHeight = 600;
 
     // Set up SVG
-    const svg = d3.select('body').append('svg')
+    const svg = d3.select('body').select('svg')
         .attr('width', svgWidth)
         .attr('height', svgHeight);
 
@@ -40,23 +40,25 @@
     const treePosition = { x: centerX - treeWidth / 2, y: centerY - treeHeight / 2 };
     const applePosition = { x: centerX, y: centerY - treeHeight / 2 };
 
-
-    child.style('fill', 'blue');
-    tree.style('fill', 'brown');
-    apple.style('fill', 'red');
-    arrow.style('stroke', 'black');   
-
     // Create elements
-
-    const canopy = svg.append('polygon')
-        .attr('points', `${centerX-20},${centerY-100} ${centerX},${centerY-140} ${centerX+20},${centerY-100}`)
-        .attr('fill', 'green');
-
     const child = svg.append('circle')
         .attr('cx', childPosition.x)
         .attr('cy', childPosition.y)
-        .attr('r', childRadius);
+        .attr('r', childRadius)
+        .style('fill', 'blue');
 
+    const tree = svg.append('rect')
+        .attr('x', treePosition.x)
+        .attr('y', treePosition.y)
+        .attr('width', treeWidth)
+        .attr('height', treeHeight)
+        .style('fill', 'brown');
+
+    const apple = svg.append('circle')
+        .attr('cx', applePosition.x)
+        .attr('cy', applePosition.y)
+        .attr('r', appleRadius)
+        .style('fill', 'red');
 
     const arrow = svg.append('line')
         .attr('x1', arrowStartPosition.x)
@@ -64,22 +66,15 @@
         .attr('x2', arrowStartPosition.x + arrowLength)
         .attr('y2', arrowStartPosition.y)
         .attr('stroke-width', 2)
-        .attr('stroke', 'black');
+        .style('stroke', 'black');
 
     const arrowTip = svg.append('path')
-    .attr('d', d3.line()([[arrowStartPosition.x + arrowLength, arrowStartPosition.y - 5], [arrowStartPosition.x + arrowLength + 10, arrowStartPosition.y], [arrowStartPosition.x + arrowLength, arrowStartPosition.y + 5]]))
-    .attr('fill', 'black');
+        .attr('d', d3.line()([[arrowStartPosition.x + arrowLength, arrowStartPosition.y - 5], [arrowStartPosition.x + arrowLength + 10, arrowStartPosition.y], [arrowStartPosition.x + arrowLength, arrowStartPosition.y + 5]]))
+        .style('fill', 'black');
 
-    const tree = svg.append('rect')
-        .attr('x', treePosition.x)
-        .attr('y', treePosition.y)
-        .attr('width', treeWidth)
-        .attr('height', treeHeight);
-
-    const apple = svg.append('circle')
-        .attr('cx', applePosition.x)
-        .attr('cy', applePosition.y)
-        .attr('r', appleRadius);
+    const canopy = svg.append('polygon')
+        .attr('points', `${centerX-20},${centerY-100} ${centerX},${centerY-140} ${centerX+20},${centerY-100}`)
+        .style('fill', 'green');
 
     // Gravity force
     const gravity = 0.98;
