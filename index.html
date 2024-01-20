@@ -1,57 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-<script src="https://d3js.org/d3.v6.min.js"></script>
-
-<script>
-  console.log(d3); 
-  // 1. 添加SVG元素
-var svg = d3.select("body").append("svg")
-            .attr("width", 500)
-            .attr("height", 300);
-
-// 2. 绑定数据
-var data = [80, 120, 60, 150, 200];
-var bars = svg.selectAll(".bar")
-              .data(data)
-              .enter()
-              .append("rect")
-              .attr("class", "bar");
-
-// 3. 设置条形图属性
-bars.attr("x", (d, i) => i * 30)
-    .attr("y", d => 300 - d)
-    .attr("width", 25)
-    .attr("height", d => d)
-    .attr("fill", "teal");
-
-// 4. 添加文字标签
-bars.data(data)
-    .enter()
-    .append("text")
-    .text(d => d)
-    .attr("x", (d, i) => i * 30 + 10)
-    .attr("y", d => 300 - d - 10)
-    .attr("fill", "white");
-
-  // test if d3 is loaded
-  // Add an SVG
-  // Add Rectangles
-  // Add Circles
-  // Add Lines
-  // Add Polygons
-</script>
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Data Visualization A1 Anthony Chen</title>
-
 </head>
 
 <body>
   <h1>All work and no play makes jack a dull boyyyyyyyyyyyyyyyyy</h1>
 
   <svg width="1000" height="800"></svg>
-</body>
 
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script>
+
+    console.log(d3); // test if d3 is loaded
+
+    // Set up SVG
+    const svg = d3.select('body').append('svg')
+        .attr('width', 800)
+        .attr('height', 600);
+
+    // Constants for positions and sizes
+    const childRadius = 20;
+    const arrowLength = 50;
+    const treeWidth = 60;
+    const treeHeight = 200;
+    const appleRadius = 10;
+
+    // Initial positions
+    const childPosition = { x: 100, y: 550 };
+    const arrowStartPosition = { x: 120, y: 540 };
+    const treePosition = { x: 500, y: 400 };
+    const applePosition = { x: 520, y: 300 };
+
+    // Create elements
+    const child = svg.append('circle')
+        .attr('cx', childPosition.x)
+        .attr('cy', childPosition.y)
+        .attr('r', childRadius);
+
+    const arrow = svg.append('line')
+        .attr('x1', arrowStartPosition.x)
+        .attr('y1', arrowStartPosition.y)
+        .attr('x2', arrowStartPosition.x + arrowLength)
+        .attr('y2', arrowStartPosition.y)
+        .attr('stroke-width', 2)
+        .attr('stroke', 'black');
+
+    const tree = svg.append('rect')
+        .attr('x', treePosition.x)
+        .attr('y', treePosition.y)
+        .attr('width', treeWidth)
+        .attr('height', treeHeight);
+
+    const apple = svg.append('circle')
+        .attr('cx', applePosition.x)
+        .attr('cy', applePosition.y)
+        .attr('r', appleRadius);
+
+    // Gravity force
+    const gravity = 0.98;
+
+    // Arrow dynamics
+    let isArrowShot = false;
+    let arrowVelocity = { x: 5, y: -10 };
+
+    // d3-force setup
+    const simulation = d3.forceSimulation()
+        .force('x', d3.forceX().strength(0.02))
+        .force('y', d3.forceY().strength(0.02))
+        .on('tick', ticked);
+
+    function ticked() {
+        if (isArrowShot) {
+            arrow.attr('x1', d => d.x += arrowVelocity.x)
+                .attr('y1', d => d.y += arrowVelocity.y)
+                .attr('x2', d => d.x + arrowLength)
+                .attr('y2', d => d.y);
+
+            arrowVelocity.y += gravity; // Apply gravity to arrow
+
+            // Check for collision with apple
+            if (checkCollision(arrow, apple)) {
+                // Handle collision - make apple fall
+                apple.attr('cy', d => d.y += gravity);
+            }
+        }
+    }
+
+    // Interactivity - shoot arrow on click
+    svg.on('click', () => {
+        if (!isArrowShot) {
+            isArrowShot = true;
+            simulation.nodes([arrowStartPosition]);
+        }
+    });
+
+    // Collision detection function
+    function checkCollision(arrow, apple) {
+        // Simple collision detection logic (can be improved)
+        const arrowPos = { x: arrow.attr('x1'), y: arrow.attr('y1') };
+        const applePos = { x: apple.attr('cx'), y: apple.attr('cy') };
+
+        const distance = Math.sqrt(Math.pow(arrowPos.x - applePos.x, 2) + Math.pow(arrowPos.y - applePos.y, 2));
+        return distance < appleRadius;
+    }
+
+    // Start simulation
+    simulation.nodes([arrowStartPosition, applePosition]);
+
+
+  </script>
+</body>
 </html>
