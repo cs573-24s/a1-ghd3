@@ -145,9 +145,6 @@
 
         arrowGroup.raise();
 
-
-
-
       })
       .on('end', function() {
         // Launch arrow with projectile motion
@@ -160,9 +157,6 @@
 
         arrowGroup.raise();
 
-        if (checkCollision(arrowGroup, canopy)) {
-        makeAppleFall(apple);
-        }
 
         d3.timer(function(elapsed) {
           const t = elapsed / 1000;
@@ -173,6 +167,13 @@
           arrowGroup.attr('transform', `translate(${arrowPosition.x + x - dx},${arrowPosition.y + y - dy}) rotate(${angle},${0},${0})`);
           return y + arrowPosition.y > svgHeight; // Stop the timer if arrow reaches bottom of the SVG
         });
+
+        if (checkCollision(arrowGroup, canopy)) {
+        makeAppleFall(apple);
+        }
+
+
+
       });
 
     
