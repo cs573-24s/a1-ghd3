@@ -137,17 +137,17 @@
       .on('drag', function(event) {
         const dx = event.x - arrowPosition.x;
         const dy = event.y - arrowPosition.y;
-        angle = Math.atan2(dx, dy) * (180 / Math.PI);
+        angle = Math.atan2(dy, dx) * (180 / Math.PI);
 
         arrowGroup.attr('transform', `translate(${arrowPosition.x},${arrowPosition.y}) rotate(${angle},${0},${0})`);
       })
       .on('end', function() {
         // Launch arrow with projectile motion
-        const velocity = 350;
+        const velocity = 50;
         const angleRadians = angle * (Math.PI / 180);
         const velocityX = velocity * Math.cos(angleRadians);
         const velocityY = velocity * Math.sin(angleRadians);
-        const gravity = 100;
+        const gravity = 20;
 
         d3.timer(function(elapsed) {
           const t = elapsed / 1000;
