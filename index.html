@@ -146,10 +146,7 @@
         arrowGroup.raise();
 
 
-        // if (checkCollision(arrowGroup, canopy)) {
 
-        // makeAppleFall(apple);
-        // }
 
       })
       .on('end', function() {
@@ -160,11 +157,12 @@
         const velocityY = velocity * Math.sin(angleRadians);
         const gravity = 200;
 
-        makeAppleFall(apple);
 
         arrowGroup.raise();
 
-
+        if (checkCollision(arrowGroup, canopy)) {
+        makeAppleFall(apple);
+        }
 
         d3.timer(function(elapsed) {
           const t = elapsed / 1000;
