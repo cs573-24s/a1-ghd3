@@ -69,6 +69,7 @@
     // Arrow settings
     const arrowLength = 90;
     const arrowPosition = { x: childPosition.x + 40, y: childPosition.y };
+    let angle = 0;
     const arrowVelocity = 200;
     const gravity = 100;
 
@@ -123,31 +124,32 @@
       .style('fill', 'black');
 
     // Drag behavior
-    let isDragging = false, angle = 0;
     const drag = d3.drag()
-      .on('start', function() { isDragging = true; })
+      .on('start', () => {})
       .on('drag', function(event) {
-        if (isDragging) {
-          const dx = event.x - arrowPosition.x;
-          const dy = event.y - arrowPosition.y;
-          angle = Math.atan2(dy, dx) * (180 / Math.PI);
-          arrow.attr('transform', `rotate(${angle}, ${arrowPosition.x}, ${arrowPosition.y})`);
-          arrowTip.attr('transform', `rotate(${angle}, ${arrowPosition.x}, ${arrowPosition.y})`);
-        }
+        const dx = event.x - arrowPosition.x;
+        const dy = event.y - arrowPosition.y;
+        angle = Math.atan2(dy, dx) * (180 / Math.PI);
+
+        arrow.attr('transform', `rotate(${angle},${arrowPosition.x},${arrowPosition.y})`);
+        arrowTip.attr('transform', `rotate(${angle},${arrowPosition.x},${arrowPosition.y})`);
       })
-      .on('end', function() {
-        isDragging = false;
-        // Launch arrow with initial velocity
-        const angle = parseFloat(arrow.attr('transform').split('(')[1].split(',')[0]);
-        const velocityX = arrowVelocity * Math.cos(angle * (Math.PI / 180));
-        const velocityY = arrowVelocity * Math.sin(angle * (Math.PI / 180));
+      .on('end', () => {
+        // Launch arrow with projectile motion
+        const velocity = 10;
+        const angleRadians = angle * (Math.PI / 180);
+        const velocityX = velocity * Math.cos(angleRadians);
+        const velocityY = velocity * Math.sin(angleRadians);
+        const gravity = 0.5;
+
         d3.timer(function(elapsed) {
           const t = elapsed / 1000;
           const x = arrowPosition.x + velocityX * t;
           const y = arrowPosition.y + velocityY * t + 0.5 * gravity * t * t;
+
           arrow.attr('x2', x).attr('y2', y);
-          arrowTip.attr('transform', `translate(${x - arrowPosition.x}, ${y - arrowPosition.y}) rotate(${angle}, ${arrowPosition.x}, ${arrowPosition.y})`);
-          return y > svgHeight;  // Stop the timer if the arrow reaches the bottom of the SVG
+          arrowTip.attr('transform', `translate(${x - (arrowPosition.x + arrowLength)},${y - arrowPosition.y}) rotate(${angle},${arrowPosition.x},${arrowPosition.y})`);
+          return y > svgHeight; // Stop the timer if arrow reaches bottom of the SVG
         });
       });
 
