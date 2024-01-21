@@ -103,7 +103,7 @@
       [canopyCenter.x - canopySideLength / 2, canopyCenter.y + canopyHeight]
     ].map(p => p.join(',')).join(' ');
 
-    svg.append('polygon')
+    const canopy = svg.append('polygon')
       .attr('points', canopyPoints)
       .style('fill', 'green');
 
