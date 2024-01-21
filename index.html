@@ -199,14 +199,21 @@
           const dy = arrowLength * Math.sin(angleRadians);
           arrowGroup.attr('transform', `translate(${arrowPosition.x + x - dx},${arrowPosition.y + y - dy}) rotate(${angle},${0},${0})`);
 
-        // 对每个苹果进行碰撞检测
-        svg.selectAll('circle.apple').each(function() {
-          const appleElement = this;
-          if (checkCollision(arrowGroup, appleElement, angle, arrowLength)) {
-            makeAppleFall(appleElement);
+          
+          let collisionDetected = false;
+
+          svg.selectAll('circle.apple').each(function() {
+            const appleElement = this;
+            if (checkCollision(arrowGroup, appleElement, angle, arrowLength)) {
+              makeAppleFall(appleElement);
+              collisionDetected = true; // 标记检测到碰撞
+            }
+          });
+
+          if (collisionDetected) {
             return true; // 检测到碰撞后停止计时器
           }
-        });
+
 
           return y + arrowPosition.y > svgHeight; // Stop the timer if arrow reaches bottom of the SVG
         });
@@ -258,6 +265,7 @@
 
       let posX = applePosition.x; // 苹果的初始水平位置
       let posY = applePosition.y; // 苹果的初始垂直位置
+
       const bounceFactor = 0.7; // 弹跳系数，用于模拟能量损失
       const svgRightEdge = svgWidth - appleRadius; // SVG容器的右边缘位置
       const svgLeftEdge = appleRadius;
