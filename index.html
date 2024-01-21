@@ -146,19 +146,10 @@
         arrowGroup.raise();
 
 
-        // Check for collision with apple
         if (checkCollision(arrowGroup, apple)) {
-          // Make apple fall
-          d3.timer(function(elapsed) {
-            const t = elapsed / 1000;
-            const y = applePosition.y + 0.5 * gravity * t * t;
-            apple.attr('cy', y);
-            return y > svgHeight; // Stop the timer if apple reaches bottom of the SVG
-          });
+
+        makeAppleFall(apple);
         }
-
-
-
       })
       .on('end', function() {
         // Launch arrow with projectile motion
@@ -189,9 +180,8 @@
     arrowTip.call(drag);
 
 
-        // Function to check collision
-        function checkCollision(arrowGroup, apple) {
-      // Simplified collision logic
+    // 碰撞检测函数
+    function checkCollision(arrow, apple) {
       const arrowBox = arrow.node().getBBox();
       const appleBox = apple.node().getBBox();
       return (
@@ -200,6 +190,19 @@
         arrowBox.y < appleBox.y + appleBox.height &&
         arrowBox.y + arrowBox.height > appleBox.y
       );
+    }
+
+    // 苹果下落函数
+    function makeAppleFall(apple) {
+      const gravity = 9.8;  // 假设重力加速度
+      let duration = 0;
+
+      d3.timer(function(elapsed) {
+        duration += elapsed;
+        const newY = applePosition.y + 0.5 * gravity * Math.pow(duration / 1000, 2);
+        apple.attr('cy', newY);
+        return newY > svgHeight;  // 如果苹果到达 SVG 底部，则停止计时器
+      });
     }
 
   </script>
