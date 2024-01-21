@@ -1,30 +1,17 @@
-Assignment 1 - Hello World: GitHub and d3  
+Data Visualization Assignment 1 - Hello World: GitHub and d3  
 ===
+This assignment visualizes a simple interactive page called **"Friends Trip"**  in d3.js. The illustration includes the required shapes (circles, rectangles, lines, polygons, paths in different colors) to create animals, a train, and a background. You can also change the passengers to the other train by dragging. 
 
-This is a starting project to make sure you can write and host a webpage that generates graphics using d3. 
+Demo Link: https://gbenderiya.github.io/a1-ghd3/index.html
 
-The primary goal is to be able to generate graphics primitives (circles, rectangles, lines, polygons) at different locations on the screen with different colors. 
+Here is the screenshot of the page with default location of animals:
+![Alt text](image.png)
 
-The secondary goal is to introduce you to coding on GitHub, including creating a gh-pages branch to host your visualizations.
+Here is the screenshot of the page after changing location of the animals:
 
-You may write everything from scratch, or start with demo programs from books or the web. 
-If you do start with code that you found, you **must identify** the source of the code in your README and, most importantly, make non-trivial changes to the code to make it your own so you really learn what you're doing. 
+![Alt text](image-1.png)
 
-For example, you could download one of the d3.js examples, read it through so you understand what it's doing, and then change the appearance of the graphical output to use different color schemes, different primitive shapes, different layouts of the primitives, and so on.
 
-Resources
----
-
-If you need a JavaScript/HTML/CSS refresher, see [JavaScript Codeacademy](https://www.codecademy.com/en/tracks/javascript) or find one of your choosing on the web.
-
-If you need a Git/GitHub refreseher, some possible resources include [Getting Started with GitHub](https://help.github.com/categories/bootcamp/), the [GitHub Guides](https://guides.github.com/) (especially the ones on Hello World, and Understanding the GitHub Flow, and Forking Projects), and [CodeSchool's Try Git Course](https://www.codeschool.com/courses/try-git).
-
-Requirements
----
-
-1. Your project should contain at least four kinds of graphics primitives (circles, rectangles, lines, polygons) in different colors. 
-2. Your document should identify the source of the code if you start with code that you found. 
-3. Your code should be forked from the GitHub repo and linked using GitHub pages. See the "GitHub Details" section below for detailed instructions on how to do this.
 
 GitHub Details
 ---
