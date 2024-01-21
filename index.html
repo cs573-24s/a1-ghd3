@@ -64,9 +64,15 @@
 
     // Apple settings
     const appleRadius = 10;
-    const apple1Position = { x: canopyCenter.x - canopySideLength / 2, y: canopyCenter.y + canopyHeight /3};
-    const apple2Position = { x: canopyCenter.x + canopySideLength / 2, y: canopyCenter.y + canopyHeight / 3};
-    const apple3Position = { x: canopyCenter.x, y: canopyCenter.y - canopyHeight / 2 };
+    const P1 = { x: canopyCenter.x - canopySideLength / 2, y: canopyCenter.y + canopyHeight /3};
+    const P2 = { x: canopyCenter.x + canopySideLength / 2, y: canopyCenter.y + canopyHeight / 3};
+    const P3 = { x: canopyCenter.x, y: canopyCenter.y - canopyHeight / 2 };
+
+    const applesData = [
+      { id: 'apple1', color: 'red', position: P1 },
+      { id: 'apple2', color: 'orange', position: P2 },
+      { id: 'apple3', color: 'yellow', position: P3 }
+    ];
 
     // Arrow settings
     const arrowLength = 90;
@@ -110,23 +116,35 @@
       .style('fill', 'green');
 
     // Draw apple
-    const apple1 = svg.append('circle')
-      .attr('cx', apple1Position.x)
-      .attr('cy', apple1Position.y)
+    // const apple1 = svg.append('circle')
+    //   .attr('cx', apple1Position.x)
+    //   .attr('cy', apple1Position.y)
+    //   .attr('r', appleRadius)
+    //   .style('fill', 'red');
+
+    // const apple2 = svg.append('circle')
+    // .attr('cx', apple2Position.x)
+    // .attr('cy', apple2Position.y)
+    // .attr('r', appleRadius)
+    // .style('fill', 'orange');
+
+    // const apple3 = svg.append('circle')
+    // .attr('cx', apple3Position.x)
+    // .attr('cy', apple3Position.y)
+    // .attr('r', appleRadius)
+    // .style('fill', 'yellow');
+
+
+    svg.selectAll('circle.apple')
+    .data(applesData)
+    .enter().append('circle')
+      .attr('class', 'apple')
+      .attr('id', d => d.id)
+      .attr('cx', d => d.position.x)
+      .attr('cy', d => d.position.y)
       .attr('r', appleRadius)
-      .style('fill', 'red');
+      .style('fill', d => d.color);
 
-    const apple2 = svg.append('circle')
-    .attr('cx', apple2Position.x)
-    .attr('cy', apple2Position.y)
-    .attr('r', appleRadius)
-    .style('fill', 'orange');
-
-    const apple3 = svg.append('circle')
-    .attr('cx', apple3Position.x)
-    .attr('cy', apple3Position.y)
-    .attr('r', appleRadius)
-    .style('fill', 'yellow');
 
     // Draw arrow
     const arrow = arrowGroup.append('line')
@@ -162,7 +180,7 @@
       })
       .on('end', function(event) {
         // Launch arrow with projectile motion
-        const velocity = (Math.sqrt((event.x) ** 2 + (svgHeight - event.y) ** 2) / 30)**2;
+        const velocity = (Math.sqrt((event.x) ** 2 + (svgHeight - event.y) ** 2) / 50)**2;
 
         const angleRadians = angle * (Math.PI / 180);
         const velocityX = velocity * Math.cos(angleRadians);
@@ -197,16 +215,7 @@
               return true; // 检测到碰撞后停止计时器
           }
 
-          // 检测箭头是否离开了 SVG 容器
-          if (arrowPosition.x + x - dx < 0 || arrowPosition.x + x - dx > svgWidth || 
-              arrowPosition.y + y - dy < 0 || arrowPosition.y + y - dy > svgHeight) {
-            // 重置箭头位置到起始点
-            arrowGroup.attr('transform', `translate(${arrowPosition.x},${arrowPosition.y}) rotate(0)`);
-            // 停止当前的计时器
-            timer.stop();
-          }
-
-          // return y + arrowPosition.y > svgHeight; // Stop the timer if arrow reaches bottom of the SVG
+          return y + arrowPosition.y > svgHeight; // Stop the timer if arrow reaches bottom of the SVG
         });
 
       });
@@ -216,27 +225,29 @@
 
 
       // 修改后的碰撞检测函数
-      function checkCollision(arrowGroup, apple, angle, arrowLength) {
-      // 获取箭头当前位置
-      const arrowTransform = d3.select(arrowGroup.node()).attr("transform");
-      const translate = arrowTransform.substring(10, arrowTransform.indexOf(')')).split(',');
-      const arrowX = parseFloat(translate[0]);
-      const arrowY = parseFloat(translate[1]);
+      function checkCollision(arrowGroup, appleElement, angle, arrowLength) {
+        const appleData = d3.select(appleElement).datum();
+        const applePosition = appleData.position;
+        // 获取箭头当前位置
+        const arrowTransform = d3.select(arrowGroup.node()).attr("transform");
+        const translate = arrowTransform.substring(10, arrowTransform.indexOf(')')).split(',');
+        const arrowX = parseFloat(translate[0]);
+        const arrowY = parseFloat(translate[1]);
 
-      // 计算箭头路径上的点
-      const points = [];
-      for (let i = 0; i <= arrowLength; i += 5) {
-        const x = arrowX + i * Math.cos(angle * Math.PI / 180);
-        const y = arrowY + i * Math.sin(angle * Math.PI / 180);
-        points.push({x, y});
+        // 计算箭头路径上的点
+        const points = [];
+        for (let i = 0; i <= arrowLength; i += 5) {
+          const x = arrowX + i * Math.cos(angle * Math.PI / 180);
+          const y = arrowY + i * Math.sin(angle * Math.PI / 180);
+          points.push({x, y});
       }
 
       // 检查这些点是否进入了树冠区域
       for (const point of points) {
-        if (point.x >= appleCenter.x - appleSideLength &&
-            point.x <= appleCenter.x + appleSideLength &&
-            point.y >= appleCenter.y - appleHeight &&
-            point.y <= appleCenter.y + appleHeight) {
+        if (point.x >= applePosition.x - appleRadius &&
+            point.x <= applePosition.x + appleRadius &&
+            point.y >= applePosition.y - appleRadius &&
+            point.y <= applePosition.y + appleRadius) {
           return true;
         }
       }
@@ -245,9 +256,13 @@
 
 
     function makeAppleFall(apple) {
+      const appleData = d3.select(appleElement).datum();
+      const applePosition = appleData.position
+
       const gravity = 0.05; // 假设重力加速度
       let velocityY = 0; // 初始垂直速度
       let velocityX = 0.5; // 初始水平速度，向右
+
       let posX = applePosition.x; // 苹果的初始水平位置
       let posY = applePosition.y; // 苹果的初始垂直位置
       const bounceFactor = 0.7; // 弹跳系数，用于模拟能量损失
