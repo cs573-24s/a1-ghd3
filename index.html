@@ -197,7 +197,16 @@
               return true; // 检测到碰撞后停止计时器
           }
 
-          return y + arrowPosition.y > svgHeight; // Stop the timer if arrow reaches bottom of the SVG
+          // 检测箭头是否离开了 SVG 容器
+          if (arrowPosition.x + x - dx < 0 || arrowPosition.x + x - dx > svgWidth || 
+              arrowPosition.y + y - dy < 0 || arrowPosition.y + y - dy > svgHeight) {
+            // 重置箭头位置到起始点
+            arrowGroup.attr('transform', `translate(${arrowPosition.x},${arrowPosition.y}) rotate(0)`);
+            // 停止当前的计时器
+            timer.stop();
+          }
+
+          // return y + arrowPosition.y > svgHeight; // Stop the timer if arrow reaches bottom of the SVG
         });
 
       });
