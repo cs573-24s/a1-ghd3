@@ -19,5 +19,4 @@ Link: "http://amicarellade.github.io/a1-ghd3/index.html".
 a1-amicarellade-Dante-Amicarella
 ```
 
-<img width="1207" alt="Screenshot 2024-01-21 at 4 54 03 PM" src="https://github.com/amicarellade/a1-ghd3/assets/56127779/61f68817-4c45-481f-afab-dca5284cc421">
 
