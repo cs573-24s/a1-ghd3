@@ -5,11 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Amicarella CS 573: A1</title>
   <script src="https://d3js.org/d3.v6.min.js"></script>
+  <style>
+    #myModal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      background-color: #fff;
+      border: 1px solid #000;
+      z-index: 1;
+    }
+
+    .text-bubble {
+      display: none;
+      position: absolute;
+      padding: 10px;
+      background-color: #fff;
+      border: 1px solid #000;
+      z-index: 1;
+    }
+  </style>
 </head>
 
 <body>
-
-  <!-- <img id="skier" src="Skier.webp" style="position: absolute; width: 100px; height: 150px;"/> -->
+  <div id="myModal">
+    <p>Welcome to South Park Winter Paradise!</p>
+    <p>To operate the skier, click along the mountain. 
+      <br>(P.S. Press 'c' to see what Cartman to see what he has to say!)
+    </p>
+    <button onclick="closeModal()">Close</button>
+  </div>
+  <div id="textBubble" class="text-bubble"></div>
 
   <script>
     console.log(d3); // test if d3 is loaded
@@ -356,7 +384,7 @@
     var dropsPerSec = 2;
     var windStrength = 0;
 
-    function makeRain() {
+    function makeSnow() {
       for (var i = 0; i < dropsPerSec; i++) {
         var startX = Math.random() * width,
           startY = Math.random() * 100 - 100,
@@ -435,9 +463,10 @@
       .attr("stroke", "black")
       .attr("stroke-width", 2);
 
-    d3.timer(makeRain, 100);
+    d3.timer(makeSnow, 100);
 
     var skierGroup = svg.append("g")
+      .attr("id", "skierGroup")
       .attr("transform", "translate(0, 225)");
 
     skierGroup.append("image")
@@ -448,6 +477,23 @@
 
     var slope = (700 - 150) / (window.innerWidth - 0); // Variables to prevent skier from moving too far up
     var yIntercept = 150; 
+
+    // Not working 
+    function rotateSkier() {
+      // Get the skier element
+      var skier = d3.select("#skier");
+
+      skier.attr("transform", "rotate(360 0 0)");
+    }
+
+    document.addEventListener("keydown", function(event) {
+      // Ensure the event is defined and the key is "j"
+      if (event && event.keyCode === 74) {
+        console.log('j pressed');
+
+        rotateSkier();
+      }
+    });
 
     // Move Skier
     svg.on("click", function(event) {
@@ -462,17 +508,47 @@
       skierGroup.transition()
         .duration(1000)  
         .attr("transform", "translate(" + (mouseX - 50) + "," + newY + ")");
-    });
+    }); 
 
-    d3.select("body").on("keydown", function() {
-      if (d3.event.key === "j") { 
-        // Rotate skier 360
-        skierGroup.transition("#skier")
-          .duration(1000) 
-          .attr("transform", "rotate(360)");
+    function displayModal() {
+      var modal = document.getElementById("myModal");
+      modal.style.display = "block";
+    }
+
+    function closeModal() {
+      var modal = document.getElementById("myModal");
+      modal.style.display = "none"
+    }
+
+    window.onload = displayModal;
+
+    // Event listener for the "c" key
+    d3.select(window).on("keydown", function (event) {
+      console.log(d3.event);
+      // Ensure the event is defined
+      if (event.key === "c") {
+        // Get the mouse coordinates
+        console.log('c pressed')
+
+        displayTextBubble("'Do a flip motherf*cker! (Press 'j')'");
+
       }
     });
-  
+
+    function displayTextBubble(text, x, y) {
+      var textBubble = svg.append("g")
+        .attr("transform", "translate(" + x + "," + y + ")");
+
+      // Append the text
+      textBubble.append("text")
+        .attr("x", 900)
+        .attr("y", 450)
+        .text(text)
+        .attr("font-size", "14px")
+        .attr("fill", "white")
+        .attr("text-anchor", "middle");
+    }
+
   </script>
 </body>
 </html>
