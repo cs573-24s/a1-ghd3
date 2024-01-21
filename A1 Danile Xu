@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D3.js Graphics Primitives</title>
+    <!-- Include D3.js library -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <style>
+        /* Add any additional styling here */
+    </style>
+</head>
+<body>
+
+<script>
+    // Set up SVG container
+    const svgWidth = 500;
+    const svgHeight = 300;
+
+    const svg = d3.select("body")
+        .append("svg")
+        .attr("width", svgWidth)
+        .attr("height", svgHeight);
+
+    // Draw Circle
+    svg.append("circle")
+        .attr("cx", 50)
+        .attr("cy", 50)
+        .attr("r", 30)
+        .attr("fill", "blue");
+
+    // Draw Rectangle
+    svg.append("rect")
+        .attr("x", 100)
+        .attr("y", 20)
+        .attr("width", 80)
+        .attr("height", 60)
+        .attr("fill", "green");
+
+    // Draw Line
+    svg.append("line")
+        .attr("x1", 200)
+        .attr("y1", 50)
+        .attr("x2", 300)
+        .attr("y2", 50)
+        .attr("stroke", "red")
+        .attr("stroke-width", 2);
+
+    // Draw Polygon
+    const polygonPoints = [
+        { x: 350, y: 20 },
+        { x: 400, y: 50 },
+        { x: 350, y: 80 }
+    ];
+
+    svg.append("polygon")
+        .attr("points", polygonPoints.map(d => `${d.x},${d.y}`).join(" "))
+        .attr("fill", "orange");
+
+</script>
+
+</body>
+</html>
