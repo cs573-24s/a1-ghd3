@@ -64,15 +64,15 @@
 
     // Apple settings
     const appleRadius = 10;
-    const P1 = { x: canopyCenter.x - canopySideLength * 2 / 3, y: canopyCenter.y + canopyHeight / 3};
-    const P2 = { x: canopyCenter.x + canopySideLength * 2 / 3, y: canopyCenter.y + canopyHeight / 4};
-    const P3 = { x: canopyCenter.x, y: canopyCenter.y - canopyHeight / 2 };
-    const P4 = { x: canopyCenter.x - canopySideLength  / 3, y: canopyCenter.y + canopyHeight / 3};
-    const P5 = { x: canopyCenter.x + canopySideLength  / 3, y: canopyCenter.y + canopyHeight / 4};
-    const P6 = { x: canopyCenter.x, y: canopyCenter.y + canopyHeight / 2 };
+    const P1 = { x: canopyCenter.x - canopySideLength * 2 / 3, y: canopyCenter.y + canopyHeight / 3 + canopyHeight / 4};
+    const P2 = { x: canopyCenter.x + canopySideLength * 2 / 3, y: canopyCenter.y + canopyHeight / 4 + canopyHeight / 4};
+    const P3 = { x: canopyCenter.x, y: canopyCenter.y - canopyHeight / 2 + canopyHeight / 4};
+    const P4 = { x: canopyCenter.x - canopySideLength  / 3, y: canopyCenter.y + canopyHeight / 3 + canopyHeight / 4};
+    const P5 = { x: canopyCenter.x + canopySideLength  / 3, y: canopyCenter.y + canopyHeight / 4} + canopyHeight / 4;
+    const P6 = { x: canopyCenter.x, y: canopyCenter.y + canopyHeight / 2 + canopyHeight / 4};
     const P7 = { x: canopyCenter.x - canopySideLength / 2, y: canopyCenter.y + canopyHeight * 2 / 3};
     const P8 = { x: canopyCenter.x + canopySideLength / 2, y: canopyCenter.y + canopyHeight * 2 / 3};
-    const P9 = { x: canopyCenter.x, y: canopyCenter.y - canopyHeight / 3 };
+    const P9 = { x: canopyCenter.x, y: canopyCenter.y - canopyHeight / 3 + canopyHeight / 4};
 
     const applesData = [
       { id: 'apple1', color: 'red', position: P1 },
