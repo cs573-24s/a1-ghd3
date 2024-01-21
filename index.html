@@ -145,6 +145,13 @@
 
         arrowGroup.raise();
 
+
+        if (checkCollision(arrowGroup, canopy)) {
+        makeAppleFall(apple);
+        }
+
+
+
       })
       .on('end', function() {
         // Launch arrow with projectile motion
@@ -168,9 +175,7 @@
           return y + arrowPosition.y > svgHeight; // Stop the timer if arrow reaches bottom of the SVG
         });
 
-        if (checkCollision(arrowGroup, canopy)) {
-        makeAppleFall(apple);
-        }
+
 
 
 
