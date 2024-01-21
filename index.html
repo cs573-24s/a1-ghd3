@@ -146,10 +146,10 @@
         arrowGroup.raise();
 
 
-        if (checkCollision(arrowGroup, canopy)) {
+        // if (checkCollision(arrowGroup, canopy)) {
 
-        makeAppleFall(apple);
-        }
+        // makeAppleFall(apple);
+        // }
 
       })
       .on('end', function() {
@@ -159,6 +159,8 @@
         const velocityX = velocity * Math.cos(angleRadians);
         const velocityY = velocity * Math.sin(angleRadians);
         const gravity = 200;
+
+        makeAppleFall(apple);
 
         arrowGroup.raise();
 
