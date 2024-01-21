@@ -35,6 +35,7 @@
     const text1 = "All work and no play makes Jack a dull boy";
     const text2 = "All play and no work makes Bob a play boy";
 
+    const text3 = "记得要把鼠标拖动后的显示放上去";
     // Add texts
     svg.append('text')
       .attr('x', 100)
@@ -47,6 +48,12 @@
       .attr('y', 80)
       .text(text2)
       .attr('class', 'handwriting');
+
+    svg.append('text')
+    .attr('x', 100)
+    .attr('y', 80)
+    .text(text3)
+    .attr('class', 'handwriting');
 
     // Child settings
     const childRadius = 20;
@@ -64,15 +71,15 @@
 
     // Apple settings
     const appleRadius = 10;
-    const P1 = { x: canopyCenter.x - canopySideLength * 2 / 3, y: canopyCenter.y + canopyHeight / 3 + canopyHeight / 4};
-    const P2 = { x: canopyCenter.x + canopySideLength * 2 / 3, y: canopyCenter.y + canopyHeight / 4 + canopyHeight / 4};
-    const P3 = { x: canopyCenter.x, y: canopyCenter.y - canopyHeight / 2 + canopyHeight / 4};
-    const P4 = { x: canopyCenter.x - canopySideLength  / 3, y: canopyCenter.y + canopyHeight / 3 + canopyHeight / 4};
-    const P5 = { x: canopyCenter.x + canopySideLength  / 3, y: canopyCenter.y + canopyHeight / 4} + canopyHeight / 4;
-    const P6 = { x: canopyCenter.x, y: canopyCenter.y + canopyHeight / 2 + canopyHeight / 4};
-    const P7 = { x: canopyCenter.x - canopySideLength / 2, y: canopyCenter.y + canopyHeight * 2 / 3};
-    const P8 = { x: canopyCenter.x + canopySideLength / 2, y: canopyCenter.y + canopyHeight * 2 / 3};
-    const P9 = { x: canopyCenter.x, y: canopyCenter.y - canopyHeight / 3 + canopyHeight / 4};
+    const P1 = { x: canopyCenter.x - canopySideLength * 2 / 3, y: canopyCenter.y + canopyHeight / 3 - canopyHeight / 4};
+    const P2 = { x: canopyCenter.x + canopySideLength * 2 / 3, y: canopyCenter.y + canopyHeight / 4 - canopyHeight / 4};
+    const P3 = { x: canopyCenter.x, y: canopyCenter.y - canopyHeight / 2};
+    const P4 = { x: canopyCenter.x - canopySideLength  / 3, y: canopyCenter.y + canopyHeight / 3 - canopyHeight / 4};
+    const P5 = { x: canopyCenter.x + canopySideLength  / 3, y: canopyCenter.y + canopyHeight / 4} - canopyHeight / 4;
+    const P6 = { x: canopyCenter.x, y: canopyCenter.y + canopyHeight / 2 - canopyHeight / 4};
+    const P7 = { x: canopyCenter.x - canopySideLength / 2, y: canopyCenter.y + canopyHeight * 2 / 3 - canopyHeight / 4};
+    const P8 = { x: canopyCenter.x + canopySideLength / 2, y: canopyCenter.y + canopyHeight * 2 / 3 - canopyHeight / 4};
+    const P9 = { x: canopyCenter.x, y: canopyCenter.y - canopyHeight / 3};
 
     const applesData = [
       { id: 'apple1', color: 'red', position: P1 },
