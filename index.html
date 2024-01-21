@@ -69,10 +69,11 @@
     const P3 = { x: canopyCenter.x, y: canopyCenter.y - canopyHeight / 2 };
 
     const applesData = [
-      { id: 'apple1', color: 'red', position: P1 },
-      { id: 'apple2', color: 'orange', position: P2 },
-      { id: 'apple3', color: 'yellow', position: P3 }
+      { id: 'apple1', color: 'red', position: P1, velocityX: 0, velocityY: 0 },
+      { id: 'apple2', color: 'orange', position: P2, velocityX: 0, velocityY: 0 },
+      { id: 'apple3', color: 'yellow', position: P3, velocityX: 0, velocityY: 0 }
     ];
+
 
     // Arrow settings
     const arrowLength = 90;
@@ -255,6 +256,27 @@
     }
 
 
+    function handleAppleCollisions() {
+      for (let i = 0; i < applesData.length; i++) {
+        for (let j = i + 1; j < applesData.length; j++) {
+          const apple1 = applesData[i];
+          const apple2 = applesData[j];
+
+          const dx = apple1.position.x - apple2.position.x;
+          const dy = apple1.position.y - apple2.position.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < appleRadius * 2) {
+            // 简单的碰撞响应：交换它们的速度
+            [apple1.velocityX, apple2.velocityX] = [apple2.velocityX, apple1.velocityX];
+            [apple1.velocityY, apple2.velocityY] = [apple2.velocityY, apple1.velocityY];
+          }
+        }
+      }
+    }
+
+
+
     function makeAppleFall(appleElement) {
       const appleData = d3.select(appleElement).datum();
       const applePosition = appleData.position
@@ -296,7 +318,18 @@
         }
 
         // 更新苹果的位置
-        d3.select(appleElement).attr('cx', posX).attr('cy', posY);
+        // 结果就是因为差了这么一点点!!
+
+        // 更新每个苹果的位置和速度
+        applesData.forEach(appleData => {
+          appleData.position.x += appleData.velocityX;
+          appleData.position.y += appleData.velocityY;
+          
+          d3.select(`#${appleData.id}`)
+            .attr('cx', appleData.position.x)
+            .attr('cy', appleData.position.y);
+        });
+
 
         // 如果苹果几乎停止移动，则停止计时器
         if (Math.abs(velocityY) < 0.01 && posY >= svgHeight - 100 - appleRadius && Math.abs(velocityX) < 0.01) {
