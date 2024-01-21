@@ -200,20 +200,11 @@
           arrowGroup.attr('transform', `translate(${arrowPosition.x + x - dx},${arrowPosition.y + y - dy}) rotate(${angle},${0},${0})`);
 
           // 检查碰撞并使苹果掉落
-          if (checkCollision(arrowGroup, apple1, angle, arrowLength)) {
+          if (checkCollision(arrowGroup, appleElement, angle, arrowLength)) {
               makeAppleFall(apple1);
               return true; // 检测到碰撞后停止计时器
           }
 
-          if (checkCollision(arrowGroup, apple2, angle, arrowLength)) {
-              makeAppleFall(apple2);
-              return true; // 检测到碰撞后停止计时器
-          }
-
-          if (checkCollision(arrowGroup, apple3, angle, arrowLength)) {
-              makeAppleFall(apple3);
-              return true; // 检测到碰撞后停止计时器
-          }
 
           return y + arrowPosition.y > svgHeight; // Stop the timer if arrow reaches bottom of the SVG
         });
