@@ -1,6 +1,6 @@
 Assignment 1 - Hello World: GitHub and d3  
 ===
-Link to gh-pages:
+Link to gh-pages: https://kdu1.github.io/a1-ghd3/
 
 
 For this assignment, I created a graphic of a car on a street with a streetlight. I made the svg responsive to adjust to the page size. I made the car using circles, rectangles and an arcs, the street with rectangles and the streetlight using a rectangle and a line and a polygon for the light. I used various different colors and adjusted the opacity of the light to make it semi-transparent. I made the road using a for loop to repeat the pattern for the dashed lines. 
