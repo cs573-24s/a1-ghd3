@@ -23,7 +23,7 @@ The challenge:
 - Drag-and-Drop Functionality (to drag entire group of objects)
 
 What helped me:
-- I was lost in infinite moving object and I solved with the help of chatgpt. But to be honest, it still has a bug if you close look at the moving clouds.
+- I was lost in infinite moving objects and I solved it with the help of chatgpt. But to be honest, it still has a bug if you close look at the moving clouds.
 
 Design Achievement Description
 ---
