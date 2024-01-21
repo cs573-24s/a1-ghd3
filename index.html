@@ -138,7 +138,7 @@
         const dx = event.x - arrowPosition.x;
         const dy = arrowPosition.y - event.y;
         angle = Math.atan2(dy, dx) * (180 / Math.PI);
-        arrowGroup.attr('transform', `translate(${arrowPosition.x},${arrowPosition.y}) rotate(${-angle},${0},${0})`);
+        arrowGroup.attr('transform', `translate(${arrowPosition.x},${arrowPosition.y}) rotate(${angle -90},${0},${0})`);
       })
       .on('end', function() {
         // Launch arrow with projectile motion
