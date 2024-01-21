@@ -70,8 +70,8 @@
     const arrowLength = 90;
     const arrowPosition = { x: childPosition.x + 40, y: childPosition.y };
     let angle = 0;
-    const arrowVelocity = 200;
-    const gravity = 100;
+    // const arrowVelocity = 200;
+    // const gravity = 100;
 
     // Draw child
     svg.append('circle')
@@ -110,18 +110,22 @@
       .style('fill', 'red');
 
     // Draw arrow
-    const arrow = svg.append('line')
-      .attr('x1', arrowPosition.x)
-      .attr('y1', arrowPosition.y)
-      .attr('x2', arrowPosition.x + arrowLength)
-      .attr('y2', arrowPosition.y)
+    const arrowGroup = svg.append('g');
+    const arrow = arrowGroup.append('line')
+      .attr('x1', 0)
+      .attr('y1', 0)
+      .attr('x2', arrowLength)
+      .attr('y2', 0)
       .attr('stroke-width', 2)
       .style('stroke', 'black');
 
     // Draw arrow tip (triangle)
-    const arrowTip = svg.append('path')
-      .attr('d', `M ${arrowPosition.x + arrowLength} ${arrowPosition.y} L ${arrowPosition.x + arrowLength - 10} ${arrowPosition.y - 5} L ${arrowPosition.x + arrowLength - 10} ${arrowPosition.y + 5} Z`)
+    const arrowTip = arrowGroup.append('path')
+      .attr('d', `M ${arrowLength} 0 L ${arrowLength - 10} -5 L ${arrowLength - 10} 5 Z`)
       .style('fill', 'black');
+
+    // Initial transform to position arrow
+    arrowGroup.attr('transform', `translate(${arrowPosition.x},${arrowPosition.y})`);
 
     // Drag behavior
     const drag = d3.drag()
@@ -130,9 +134,7 @@
         const dx = event.x - arrowPosition.x;
         const dy = event.y - arrowPosition.y;
         angle = Math.atan2(dy, dx) * (180 / Math.PI);
-
-        arrow.attr('transform', `rotate(${angle},${arrowPosition.x},${arrowPosition.y})`);
-        arrowTip.attr('transform', `rotate(${angle},${arrowPosition.x},${arrowPosition.y})`);
+        arrowGroup.attr('transform', `translate(${arrowPosition.x},${arrowPosition.y}) rotate(${angle})`);
       })
       .on('end', () => {
         // Launch arrow with projectile motion
@@ -141,14 +143,13 @@
         const velocityX = velocity * Math.cos(angleRadians);
         const velocityY = velocity * Math.sin(angleRadians);
         const gravity = 0.5;
+        const centerX = arrowLength * 2 / 3; // Center of mass
 
         d3.timer(function(elapsed) {
           const t = elapsed / 1000;
-          const x = arrowPosition.x + velocityX * t;
+          const x = arrowPosition.x + velocityX * t - centerX;
           const y = arrowPosition.y + velocityY * t + 0.5 * gravity * t * t;
-
-          arrow.attr('x2', x).attr('y2', y);
-          arrowTip.attr('transform', `translate(${x - (arrowPosition.x + arrowLength)},${y - arrowPosition.y}) rotate(${angle},${arrowPosition.x},${arrowPosition.y})`);
+          arrowGroup.attr('transform', `translate(${x},${y}) rotate(${angle})`);
           return y > svgHeight; // Stop the timer if arrow reaches bottom of the SVG
         });
       });
