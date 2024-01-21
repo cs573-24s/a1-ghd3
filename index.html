@@ -16,6 +16,11 @@
     svg {
       border: 1px solid #ccc;
     }
+    .handwriting {
+      font-family: 'Brush Script MT', cursive;
+      font-size: 24px;
+      fill: black;
+    }
   </style>
 </head>
 <body>
@@ -26,6 +31,23 @@
     const svgWidth = 800, svgHeight = 600;
     const svg = d3.select('svg');
 
+    // Text settings
+    const text1 = "All work and no play makes Jack a dull boy";
+    const text2 = "All play and no work makes Bob a playboy";
+
+    // Add texts
+    svg.append('text')
+      .attr('x', 100)
+      .attr('y', 50)
+      .text(text1)
+      .attr('class', 'handwriting');
+
+    svg.append('text')
+      .attr('x', 100)
+      .attr('y', 80)
+      .text(text2)
+      .attr('class', 'handwriting');
+      
     // Child settings
     const childRadius = 20;
     const childPosition = { x: 100, y: svgHeight - 100 };
