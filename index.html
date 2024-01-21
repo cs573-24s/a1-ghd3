@@ -135,13 +135,11 @@
     const drag = d3.drag()
       .on('start', () => {})
       .on('drag', function(event) {
-        // const dx = event.x - arrowPosition.x;
-        // const dy = event.y - arrowPosition.y;
-        const dx = event.x - 140;
-        const dy = event.y - 500;
+        const dx = event.x - arrowPosition.x;
+        const dy = event.y - arrowPosition.y;
         angle = Math.atan2(dy, dx) * (180 / Math.PI);
 
-        arrowGroup.attr('transform', `translate(${140},${500}) rotate(${angle},${0},${0})`);
+        arrowGroup.attr('transform', `translate(${arrowPosition.x},${arrowPosition.y}) rotate(${angle},${0},${0})`);
       })
       .on('end', function() {
         // Launch arrow with projectile motion
