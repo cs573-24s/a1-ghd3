@@ -73,6 +73,10 @@
     // const arrowVelocity = 200;
     // const gravity = 100;
 
+    // Create arrow group
+    const arrowGroup = svg.append('g')
+    .attr('transform', `translate(${arrowPosition.x},${arrowPosition.y})`);
+
     // Draw child
     svg.append('circle')
       .attr('cx', childPosition.x)
@@ -110,7 +114,6 @@
       .style('fill', 'red');
 
     // Draw arrow
-    const arrowGroup = svg.append('g');
     const arrow = arrowGroup.append('line')
       .attr('x1', 0)
       .attr('y1', 0)
@@ -136,21 +139,20 @@
         angle = Math.atan2(dy, dx) * (180 / Math.PI);
         arrowGroup.attr('transform', `translate(${arrowPosition.x},${arrowPosition.y}) rotate(${angle})`);
       })
-      .on('end', () => {
+      .on('end', function() {
         // Launch arrow with projectile motion
         const velocity = 10;
         const angleRadians = angle * (Math.PI / 180);
         const velocityX = velocity * Math.cos(angleRadians);
         const velocityY = velocity * Math.sin(angleRadians);
         const gravity = 0.5;
-        const centerX = arrowLength * 2 / 3; // Center of mass
 
         d3.timer(function(elapsed) {
           const t = elapsed / 1000;
-          const x = arrowPosition.x + velocityX * t - centerX;
-          const y = arrowPosition.y + velocityY * t + 0.5 * gravity * t * t;
-          arrowGroup.attr('transform', `translate(${x},${y}) rotate(${angle})`);
-          return y > svgHeight; // Stop the timer if arrow reaches bottom of the SVG
+          const x = velocityX * t;
+          const y = velocityY * t + 0.5 * gravity * t * t;
+          arrowGroup.attr('transform', `translate(${arrowPosition.x + x},${arrowPosition.y + y}) rotate(${angle})`);
+          return y + arrowPosition.y > svgHeight; // Stop the timer if arrow reaches bottom of the SVG
         });
       });
 
