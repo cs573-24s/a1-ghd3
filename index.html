@@ -136,7 +136,7 @@
       .on('start', () => {})
       .on('drag', function(event) {
         const dx = event.x - 140;
-        const dy = event.y - 500;
+        const dy = 500 -event.y;
         angle = Math.atan2(dy, dx) * (180 / Math.PI);
         arrowGroup.attr('transform', `translate(${arrowPosition.x},${arrowPosition.y}) rotate(${angle},${0},${0})`);
       })
