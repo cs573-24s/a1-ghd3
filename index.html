@@ -69,7 +69,7 @@
     // Arrow settings
     const arrowLength = 90;
     const arrowPosition = { x: childPosition.x + 40, y: childPosition.y };
-    let angle = 0;
+    // let angle = 0;
     // const arrowVelocity = 200;
     // const gravity = 100;
 
@@ -128,8 +128,8 @@
       .attr('d', `M ${arrowLength} 0 L ${arrowLength - 10} -5 L ${arrowLength - 10} 5 Z`)
       .style('fill', 'black');
 
-    // Initial transform to position arrow
-    arrowGroup.attr('transform', `translate(${arrowPosition.x},${arrowPosition.y})`);
+    // // Initial transform to position arrow
+    // arrowGroup.attr('transform', `translate(${arrowPosition.x},${arrowPosition.y})`);
 
     // Drag behavior
     const drag = d3.drag()
@@ -138,8 +138,7 @@
         const dx = event.x - arrowPosition.x;
         const dy = event.y - arrowPosition.y;
         angle = Math.atan2(dy, dx) * (180 / Math.PI);
-        const rotationPointX = arrowLength / Math.cos(angle * (Math.PI / 180));
-        arrowGroup.attr('transform', `translate(${arrowPosition.x},${arrowPosition.y}) rotate(${angle},${rotationPointX},${0})`);
+        arrowGroup.attr('transform', `translate(${arrowPosition.x},${arrowPosition.y}) rotate(${angle},${0},${0})`);
       })
       .on('end', function() {
         // Launch arrow with projectile motion
@@ -153,7 +152,9 @@
           const t = elapsed / 1000;
           const x = velocityX * t;
           const y = velocityY * t + 0.5 * gravity * t * t;
-          arrowGroup.attr('transform', `translate(${arrowPosition.x + x},${arrowPosition.y + y}) rotate(${angle},${0},${0})`);
+          const dx = arrowLength * Math.cos(angleRadians);
+          const dy = arrowLength * Math.sin(angleRadians);
+          arrowGroup.attr('transform', `translate(${arrowPosition.x + x - dx},${arrowPosition.y + y - dy}) rotate(${angle},${0},${0})`);
           return y + arrowPosition.y > svgHeight; // Stop the timer if arrow reaches bottom of the SVG
         });
       });
