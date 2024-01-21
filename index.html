@@ -165,12 +165,14 @@
           const dx = arrowLength * Math.cos(angleRadians);
           const dy = arrowLength * Math.sin(angleRadians);
           arrowGroup.attr('transform', `translate(${arrowPosition.x + x - dx},${arrowPosition.y + y - dy}) rotate(${angle},${0},${0})`);
+
+        // 检查碰撞并使苹果掉落
+        if (checkCollision(arrowGroup, canopy)) {
+            makeAppleFall(apple);
+        }
+
           return y + arrowPosition.y > svgHeight; // Stop the timer if arrow reaches bottom of the SVG
         });
-
-        if (checkCollision(arrowGroup, canopy)) {
-        makeAppleFall(apple);
-    }
 
       });
 
