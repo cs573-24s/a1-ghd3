@@ -138,7 +138,8 @@
         const dx = event.x - arrowPosition.x;
         const dy = event.y - arrowPosition.y;
         angle = Math.atan2(dy, dx) * (180 / Math.PI);
-        arrowGroup.attr('transform', `translate(${arrowPosition.x},${arrowPosition.y}) rotate(${angle},${0},${0})`);
+        const rotationPointX = arrowLength / Math.cos(angle * (Math.PI / 180));
+        arrowGroup.attr('transform', `translate(${arrowPosition.x},${arrowPosition.y}) rotate(${angle},${rotationPointX},${0})`);
       })
       .on('end', function() {
         // Launch arrow with projectile motion
@@ -152,9 +153,7 @@
           const t = elapsed / 1000;
           const x = velocityX * t;
           const y = velocityY * t + 0.5 * gravity * t * t;
-          const dx = arrowLength * Math.cos(angleRadians);
-          const dy = arrowLength * Math.sin(angleRadians);
-          arrowGroup.attr('transform', `translate(${arrowPosition.x + x - dx},${arrowPosition.y + y - dy}) rotate(${angle},${0},${0})`);
+          arrowGroup.attr('transform', `translate(${arrowPosition.x + x},${arrowPosition.y + y}) rotate(${angle},${0},${0})`);
           return y + arrowPosition.y > svgHeight; // Stop the timer if arrow reaches bottom of the SVG
         });
       });
