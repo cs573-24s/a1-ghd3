@@ -146,9 +146,7 @@
         arrowGroup.raise();
 
 
-        if (checkCollision(arrowGroup, canopy)) {
-        makeAppleFall(apple);
-        }
+
 
       })
       .on('end', function() {
@@ -162,6 +160,9 @@
         arrowGroup.raise();
 
         // makeAppleFall(apple);
+        if (checkCollision(arrowGroup, canopy)) {
+        makeAppleFall(apple);
+        }
 
         d3.timer(function(elapsed) {
           const t = elapsed / 1000;
@@ -189,6 +190,9 @@
         arrowBox.y < canopyBox.y + canopyBox.height &&
         arrowBox.y + arrowBox.height > canopyBox.y
       );
+
+      console.log("Collision detected:", collision);
+      return collision;
     }
 
     function makeAppleFall(apple) {
