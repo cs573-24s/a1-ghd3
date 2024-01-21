@@ -162,7 +162,7 @@
       })
       .on('end', function(event) {
         // Launch arrow with projectile motion
-        const velocity = (Math.sqrt((event.x) ** 2 + (svgHeight - event.y) ** 2) / 2)**2;
+        const velocity = (Math.sqrt((event.x) ** 2 + (svgHeight - event.y) ** 2) / 100)**2;
 
         const angleRadians = angle * (Math.PI / 180);
         const velocityX = velocity * Math.cos(angleRadians);
