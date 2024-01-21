@@ -3,19 +3,34 @@
 <h1>Friends Trip</h1>
 <p>Welcome aboard! We're embarking on a journey together, and it's a perfect opportunity for passengers to connect. Your mission is to facilitate introductions among fellow travelers by arranging them into different sections. Simply drag and drop the passengers to create an environment where everyone can easily meet and mingle. Let the journey be not just a destination but a shared experience. Have a great trip!</p>
 <style>
-  .moving-line {
-    animation: move 2s linear infinite; /* CSS animation for movement */
+  .engine-exhaust {
+    animation: moveEngineExhaust 2s linear infinite; /* CSS animation for engine exhaust */
   }
 
-  @keyframes move {
+  .moving-line {
+    animation: moveCloud 2s linear infinite; 
+  }
+
+  @keyframes moveEngineExhaust {
+    from {
+      transform: translate(0, 0);
+    }
+    to {
+      transform: translate(700px, -300px); /* Adjust the values for engine exhaust movement */
+    }
+  }
+
+  @keyframes moveCloud {
     from {
       transform: translateX(0);
     }
     to {
-      transform: translateX(700px);
+      transform: translateX(700px); /* Adjust the values for cloud movement */
     }
   }
 </style>
+
+
 <script type="module">
 
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
@@ -52,7 +67,6 @@ const svg = d3.create("svg")
         .attr("cy", cloudYPosition)
         .attr("r", cloudRadius)
         .attr("fill", "white")
-        .attr("class", "cloud")
         .attr("stroke","black")
 }
 
@@ -69,7 +83,6 @@ const svg = d3.create("svg")
           .attr("cy", cloudYPosition+30)
           .attr("r", cloudRadius)
           .attr("fill", "white")
-          .attr("class", "cloud")
           .attr("stroke","black")
           .attr("class", "moving-line")
   }
@@ -282,12 +295,7 @@ const svg = d3.create("svg")
     .attr("cy", 350)
     .attr("r", 35)
     .attr("fill", "green")
-    .on('click',function(){
-      d3.select(this)
-      .transition()
-      .duration(1000)
-      .attr("fill", "red");
-    });
+  
 
     svg.append("circle")
     .attr("cx", 580)
@@ -316,6 +324,12 @@ const svg = d3.create("svg")
 
   // Draw conductor
   // Draw the cat's head (rectangle)
+/*.on('click',function(){
+  d3.select(this)
+      .transition()
+      .duration(1000)
+      .attr("fill", "red");
+    });*/
   svg.append("rect")
     .attr("x", 110)
     .attr("y", 160)
@@ -333,6 +347,7 @@ const svg = d3.create("svg")
   svg.append("polygon")
     .attr("points", "135,170 170,150 170,165")
     .attr("fill", "orange");
+    
 
   // Draw the cat's eyes (circles)
   svg.append("circle")
@@ -403,49 +418,29 @@ const svg = d3.create("svg")
     .attr("stroke", "black")
 
   // Draw a cloud from engine with circles
-  svg.append("circle")
-    .attr("cx", 30)
-    .attr("cy", 170)
-    .attr("r", 10)
-    .attr("fill", "none")
-    .attr("stroke", "black")
+  for (let i = 0; i < 3; i++) {
+    const circle = svg.append("circle")
+        .attr("cx",   50 + i * 20) // Adjust the spacing between circles
+        .attr("cy", 150 - i * 20)
+        .attr("r", 15)
+        .attr("fill", "white")
+        .attr("class", "cloud")
+        .attr("stroke","black")
+        .attr("class","engine-exhaust")
 
-  svg.append("circle")
-    .attr("cx", 40)
-    .attr("cy", 160)
-    .attr("r", 15)
-    .attr("fill", "white")
-    .attr("stroke", "black")
+}
 
-  svg.append("circle")
-    .attr("cx", 30)
-    .attr("cy", 150)
-    .attr("r", 15)
-    .attr("fill", "white")
-    .attr("stroke", "black")
+  for (let i = 0; i < 3; i++) {
+    const circle = svg.append("circle")
+        .attr("cx",   30 + i * 20) // Adjust the spacing between circles
+        .attr("cy", 180 - i * 20)
+        .attr("r", 10)
+        .attr("fill", "white")
+        .attr("class", "cloud")
+        .attr("stroke","black")
+        .attr("class","engine-exhaust")
 
-  svg.append("circle")
-    .attr("cx", 50)
-    .attr("cy", 150)
-    .attr("r", 15)
-    .attr("fill", "white")
-    .attr("stroke", "black")
-
-    svg.append("circle")
-    .attr("cx", 50)
-    .attr("cy", 130)
-    .attr("r", 20)
-    .attr("fill", "white")
-    .attr("stroke", "black")
-
-
-    svg.append("circle")
-    .attr("cx", 60)
-    .attr("cy", 130)
-    .attr("r", 20)
-    .attr("fill", "white")
-    .attr("stroke", "black")
-
+}
     // Draw passengers
     // 1st passenger - Draw fish 
   const fishGroup = svg.append("g")
