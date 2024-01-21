@@ -166,11 +166,11 @@
           const dy = arrowLength * Math.sin(angleRadians);
           arrowGroup.attr('transform', `translate(${arrowPosition.x + x - dx},${arrowPosition.y + y - dy}) rotate(${angle},${0},${0})`);
 
-        // 检查碰撞并使苹果掉落
-        if (checkCollision(arrowGroup, canopy)) {
-            makeAppleFall(apple);
-            return true;
-        }
+          // 检查碰撞并使苹果掉落
+          if (checkCollision(arrowGroup, canopy, angle, arrowLength)) {
+              makeAppleFall(apple);
+              return true; // 检测到碰撞后停止计时器
+          }
 
           return y + arrowPosition.y > svgHeight; // Stop the timer if arrow reaches bottom of the SVG
         });
@@ -181,40 +181,32 @@
     arrowTip.call(drag);
 
 
+    // 修改后的碰撞检测函数
+    function checkCollision(arrowGroup, canopy, angle, arrowLength) {
+      // 获取箭头当前位置
+      const arrowTransform = d3.select(arrowGroup.node()).attr("transform");
+      const translate = arrowTransform.substring(10, arrowTransform.indexOf(')')).split(',');
+      const arrowX = parseFloat(translate[0]);
+      const arrowY = parseFloat(translate[1]);
 
-    // 碰撞检测函数
-    function checkCollision(arrowGroup, canopy, angle) {
-      const arrowBox = arrowGroup.node().getBBox();
-      const canopyBox = canopy.node().getBBox();
+      // 计算箭头路径上的点
+      const points = [];
+      for (let i = 0; i <= arrowLength; i += 5) {
+        const x = arrowX + i * Math.cos(angle * Math.PI / 180);
+        const y = arrowY + i * Math.sin(angle * Math.PI / 180);
+        points.push({x, y});
+      }
 
-      // 计算箭头中心点的位置
-      const arrowCenterX = arrowBox.x + arrowBox.width / 2;
-      const arrowCenterY = arrowBox.y + arrowBox.height / 2;
-
-      // 将箭头中心点位置转换为以树冠中心为原点的坐标系
-      const transformedArrowCenterX = arrowCenterX - canopyCenter.x;
-      const transformedArrowCenterY = arrowCenterY - canopyCenter.y;
-
-      // 应用旋转变换
-      const rotatedArrowCenterX = transformedArrowCenterX * Math.cos(-angle * Math.PI / 180) - transformedArrowCenterY * Math.sin(-angle * Math.PI / 180);
-      const rotatedArrowCenterY = transformedArrowCenterX * Math.sin(-angle * Math.PI / 180) + transformedArrowCenterY * Math.cos(-angle * Math.PI / 180);
-
-      // 将旋转后的坐标转换回原始坐标系
-      const finalArrowCenterX = rotatedArrowCenterX + canopyCenter.x;
-      const finalArrowCenterY = rotatedArrowCenterY + canopyCenter.y;
-
-
-
-      // 碰撞检测
-      const collision = (
-        finalArrowCenterX > canopyBox.x &&
-        finalArrowCenterX < canopyBox.x + canopyBox.width &&
-        finalArrowCenterY > canopyBox.y &&
-        finalArrowCenterY < canopyBox.y + canopyBox.height
-      );
-
-      console.log("Collision detected:", collision);
-      return collision;
+      // 检查这些点是否进入了树冠区域
+      for (const point of points) {
+        if (point.x >= canopyCenter.x - canopySideLength &&
+            point.x <= canopyCenter.x + canopySideLength &&
+            point.y >= canopyCenter.y - canopyHeight &&
+            point.y <= canopyCenter.y + canopyHeight) {
+          return true;
+        }
+      }
+      return false;
     }
 
     function makeAppleFall(apple) {
