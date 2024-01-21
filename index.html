@@ -201,10 +201,9 @@
 
           // 检查碰撞并使苹果掉落
           if (checkCollision(arrowGroup, appleElement, angle, arrowLength)) {
-              makeAppleFall(apple1);
+              makeAppleFall(apple);
               return true; // 检测到碰撞后停止计时器
           }
-
 
           return y + arrowPosition.y > svgHeight; // Stop the timer if arrow reaches bottom of the SVG
         });
