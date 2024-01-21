@@ -181,19 +181,32 @@
     arrowTip.call(drag);
 
 
-    // 碰撞检测函数
-    function checkCollision(arrowGroup, canopy) {
-      const arrowBox = arrowGroup.node().getBBox();
-      const canopyBox = canopy.node().getBBox();
-      const collision = (
-        arrowBox.x < canopyBox.x + canopyBox.width &&
-        arrowBox.x + arrowBox.width > canopyBox.x &&
-        arrowBox.y < canopyBox.y + canopyBox.height &&
-        arrowBox.y + arrowBox.height > canopyBox.y
-      );
+    // 修改后的碰撞检测函数
+    function checkCollision(arrowGroup, canopy, angle, arrowLength) {
+      // 获取箭头当前位置
+      const arrowTransform = d3.select(arrowGroup.node()).attr("transform");
+      const translate = arrowTransform.substring(10, arrowTransform.indexOf(')')).split(',');
+      const arrowX = parseFloat(translate[0]);
+      const arrowY = parseFloat(translate[1]);
 
-      console.log("Collision detected:", collision);
-      return collision;
+      // 计算箭头路径上的点
+      const points = [];
+      for (let i = 0; i <= arrowLength; i += 5) {
+        const x = arrowX + i * Math.cos(angle * Math.PI / 180);
+        const y = arrowY + i * Math.sin(angle * Math.PI / 180);
+        points.push({x, y});
+      }
+
+      // 检查这些点是否进入了树冠区域
+      for (const point of points) {
+        if (point.x >= canopyCenter.x - canopySideLength &&
+            point.x <= canopyCenter.x + canopySideLength &&
+            point.y >= canopyCenter.y - canopyHeight &&
+            point.y <= canopyCenter.y + canopyHeight) {
+          return true;
+        }
+      }
+      return false;
     }
 
     function makeAppleFall(apple) {
