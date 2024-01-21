@@ -109,7 +109,7 @@
       .style('fill', 'red');
 
     // Draw arrow
-    svg.append('line')
+    const arrow = svg.append('line')
       .attr('x1', arrowPosition.x)
       .attr('y1', arrowPosition.y)
       .attr('x2', arrowPosition.x + arrowLength)
@@ -123,14 +123,14 @@
       .style('fill', 'black');
 
     // Drag behavior
-    let isDragging = false;
+    let isDragging = false, angle = 0;
     const drag = d3.drag()
       .on('start', function() { isDragging = true; })
       .on('drag', function(event) {
         if (isDragging) {
           const dx = event.x - arrowPosition.x;
           const dy = event.y - arrowPosition.y;
-          const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+          angle = Math.atan2(dy, dx) * (180 / Math.PI);
           arrow.attr('transform', `rotate(${angle}, ${arrowPosition.x}, ${arrowPosition.y})`);
           arrowTip.attr('transform', `rotate(${angle}, ${arrowPosition.x}, ${arrowPosition.y})`);
         }
