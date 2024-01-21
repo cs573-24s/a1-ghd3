@@ -69,11 +69,10 @@
     const P3 = { x: canopyCenter.x, y: canopyCenter.y - canopyHeight / 2 };
 
     const applesData = [
-      { id: 'apple1', color: 'red', position: P1, velocityX: 0, velocityY: 0 },
-      { id: 'apple2', color: 'orange', position: P2, velocityX: 0, velocityY: 0 },
-      { id: 'apple3', color: 'yellow', position: P3, velocityX: 0, velocityY: 0 }
+      { id: 'apple1', color: 'red', position: P1 },
+      { id: 'apple2', color: 'orange', position: P2 },
+      { id: 'apple3', color: 'yellow', position: P3 }
     ];
-
 
     // Arrow settings
     const arrowLength = 90;
@@ -85,7 +84,6 @@
     // Create arrow group
     const arrowGroup = svg.append('g')
     .attr('transform', `translate(${arrowPosition.x},${arrowPosition.y})`);
-
 
     // Draw child
     svg.append('circle')
@@ -135,7 +133,6 @@
     // .attr('r', appleRadius)
     // .style('fill', 'yellow');
 
-
     svg.selectAll('circle.apple')
     .data(applesData)
     .enter().append('circle')
@@ -145,7 +142,6 @@
       .attr('cy', d => d.position.y)
       .attr('r', appleRadius)
       .style('fill', d => d.color);
-
 
     // Draw arrow
     const arrow = arrowGroup.append('line')
@@ -200,29 +196,27 @@
           const dy = arrowLength * Math.sin(angleRadians);
           arrowGroup.attr('transform', `translate(${arrowPosition.x + x - dx},${arrowPosition.y + y - dy}) rotate(${angle},${0},${0})`);
 
-
           let collisionDetected = false;
 
           svg.selectAll('circle.apple').each(function() {
             const appleElement = this;
             if (checkCollision(arrowGroup, appleElement, angle, arrowLength)) {
               makeAppleFall(appleElement);
-              collisionDetected = true;
+              collisionDetected = true; // 标记检测到碰撞
             }
           });
 
           if (collisionDetected) {
-            return true;
+            return true; // 检测到碰撞后停止计时器
           }
 
-          return y + arrowPosition.y > svgHeight;
+          return y + arrowPosition.y > svgHeight; // Stop the timer if arrow reaches bottom of the SVG
         });
 
       });
 
     // Apply drag behavior to the arrow tip
     arrowTip.call(drag);
-
 
       // 修改后的碰撞检测函数
       function checkCollision(arrowGroup, appleElement, angle, arrowLength) {
@@ -254,65 +248,56 @@
       return false;
     }
 
-
-    function handleAppleCollisions() {
-      for (let i = 0; i < applesData.length; i++) {
-        for (let j = i + 1; j < applesData.length; j++) {
-          const apple1 = applesData[i];
-          const apple2 = applesData[j];
-
-          const dx = apple1.position.x - apple2.position.x;
-          const dy = apple1.position.y - apple2.position.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance < appleRadius * 2) {
-            // 简单的碰撞响应：交换它们的速度
-            [apple1.velocityX, apple2.velocityX] = [apple2.velocityX, apple1.velocityX];
-            [apple1.velocityY, apple2.velocityY] = [apple2.velocityY, apple1.velocityY];
-          }
-        }
-      }
-    }
-
-
-
-
     function makeAppleFall(appleElement) {
-      const appleData = applesData.find(apple => apple.id === d3.select(appleElement).attr("id"));
-      appleData.velocityY = -0.5; // 设置被击中的苹果的初始垂直速度
+      const appleData = d3.select(appleElement).datum();
+      const applePosition = appleData.position
+
+      const gravity = 0.05; // 假设重力加速度
+      let velocityY = 0; // 初始垂直速度
+      let velocityX = 0.5; // 初始水平速度，向右
+
+      let posX = applePosition.x; // 苹果的初始水平位置
+      let posY = applePosition.y; // 苹果的初始垂直位置
+
+      const bounceFactor = 0.7; // 弹跳系数，用于模拟能量损失
+      const svgRightEdge = svgWidth - appleRadius; // SVG容器的右边缘位置
+      const svgLeftEdge = appleRadius;
 
       d3.timer(function(elapsed) {
-        // 更新所有苹果的位置和速度
-        applesData.forEach(apple => {
-          apple.position.y += apple.velocityY;
-          apple.position.x += apple.velocityX;
-          apple.velocityY += gravity; // 应用重力加速度
+        // 更新速度：增加重力对速度的影响
+        velocityY += gravity;
 
-          // 反弹效果
-          if (apple.position.y > svgHeight - 100 - appleRadius) {
-            apple.position.y = svgHeight - 100 - appleRadius;
-            apple.velocityY = -apple.velocityY * bounceFactor;
-          }
-        });
+        // 更新位置：增加速度对位置的影响
+        posY += velocityY;
+        posX += velocityX;
 
-        // 处理苹果之间的碰撞
-        handleAppleCollisions();
+        // 检查苹果是否接触到地面或者右边墙壁
+        if (posY > svgHeight - 100 - appleRadius) {
+          posY = svgHeight - 100 - appleRadius; // 防止苹果穿透地面
+          velocityY = -velocityY * bounceFactor; // 反转速度并减少能量
+        }
+
+        // 检查苹果是否撞到右边墙壁
+        if (posX > svgRightEdge) {
+          posX = svgRightEdge; // 防止苹果穿透右边墙壁
+          velocityX = -velocityX * bounceFactor; // 反转速度并减少能量
+        }
+
+        if (posX < svgLeftEdge) {
+          posX = svgLeftEdge; // 防止苹果穿透右边墙壁
+          velocityX = -velocityX * bounceFactor; // 反转速度并减少能量
+        }
 
         // 更新苹果的位置
-        applesData.forEach(apple => {
-          d3.select(`#${apple.id}`)
-            .attr('cx', apple.position.x)
-            .attr('cy', apple.position.y);
-        });
+        // 结果就是因为差了这么一点点!!
+        d3.select(appleElement).attr('cx', posX).attr('cy', posY);
 
-        // 停止条件
-        if (applesData.every(apple => Math.abs(apple.velocityY) < 0.01 && apple.position.y >= svgHeight - 100 - appleRadius)) {
-          return true;
+        // 如果苹果几乎停止移动，则停止计时器
+        if (Math.abs(velocityY) < 0.01 && posY >= svgHeight - 100 - appleRadius && Math.abs(velocityX) < 0.01) {
+          return true; // 停止计时器
         }
       });
     }
-
-
 
   </script>
 </body>
