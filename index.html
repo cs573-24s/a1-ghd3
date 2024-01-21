@@ -1,10 +1,204 @@
+<!DOCTYPE html>
+<link rel="shortcut icon" href="#">
 <script src="https://d3js.org/d3.v6.min.js"></script>
-
+<body>
+  <div id="container"></div>
+  <button onclick=moveCar()>Move Car</button>
+</body>
 <script>
+  // Declare the chart dimensions and margins.
+  const width = 640;
+  const height = 400;
+  const marginTop = 20;
+  const marginRight = 20;
+  const marginBottom = 30;
+  const marginLeft = 40;
+  
   console.log(d3); // test if d3 is loaded
-  // Add an SVG
-  // Add Rectangles
+
+  //Make svg
+  const svg = d3.create("svg")
+  .attr("viewBox", `0 0 640 400`) //making svg responsive
+
+  //group for background
+  let backGroup = svg.append("g");
+  //group for car
+  let carGroup = svg.append("g");
+  //group for foreground
+  let foreGroup = svg.append("g");
+  
+
+  //car body
+  var arc = d3.arc()
+  .innerRadius(0)
+  .outerRadius(100)
+  .startAngle(Math.PI*1/2) //converting from degs to radians
+  .endAngle(Math.PI*-1/2) //just radians
+
+  carGroup.append("path")
+  .attr("d", arc)
+  .attr("fill", d3.color("purple"))
+  .attr("transform", "translate(200,200)")
+
+  //car front
+  var arc2 = d3.arc()
+  .innerRadius(0)
+  .outerRadius(60)
+  .startAngle(0) //converting from degs to radians
+  .endAngle(Math.PI*1/2) //just radians
+
+
+  carGroup.append("path")
+  .attr("d", arc2)
+  .attr("fill", d3.color("purple"))
+  .attr("transform", "translate(270,200)");
+
+  //car back
+  var arc3 = d3.arc()
+  .innerRadius(0)
+  .outerRadius(60)
+  .startAngle(Math.PI*3/2) 
+  .endAngle(Math.PI*2);
+
+
+  carGroup.append("path")
+  .attr("d", arc3)
+  .attr("fill", d3.color("purple"))
+  .attr("transform", "translate(130,200)");
+
+  //car windows
+  var window3 = d3.arc()
+  .innerRadius(0)
+  .outerRadius(90)
+  .startAngle(Math.PI*1/2) 
+  .endAngle(Math.PI*-1/2);
+
+
+  carGroup.append("path")
+  .attr("d", window3)
+  .attr("fill", d3.color("black"))
+  .attr("transform", "translate(200,195)");
+
+  //polygon to cover up bottom part
+  carGroup.append("polygon")
+  .attr("points", "120,140 280,140 300,200, 100,200")
+  .style("fill", "purple")
+
+  //separating bar
+
+  carGroup.append("rect").attr("fill", d3.color("purple"))
+  .attr("width", d => 10)
+  .attr("height", d => 40)
+  .attr("x", 195)
+  .attr("y", 105);
+
   // Add Circles
-  // Add Lines
+  //wheel front
+  carGroup.append("circle").attr("fill", d3.color("black"))
+    .attr("r", d => 30)
+    .attr("cx", 290)
+    .attr("cy", 200);
+
+  //inner wheel front
+  carGroup.append("circle").attr("fill", d3.color("darkgray"))
+    .attr("r", d => 20)
+    .attr("cx", 290)
+    .attr("cy", 200);
+
+  //wheel back
+  carGroup.append("circle").attr("fill", d3.color("black"))
+    .attr("r", d => 30)
+    .attr("cx", 110)
+    .attr("cy", 200);
+
+  //inner wheel back
+   carGroup.append("circle").attr("fill", d3.color("darkgray"))
+   .attr("r", d => 20)
+   .attr("cx", 110)
+   .attr("cy", 200);
+
+
+  //background/surroundings: 
+  //background color
+  backGroup.append("rect")
+    .attr("width", "100%")
+    .attr("height", "100%")
+    .attr("fill", "black");
+  //road
+  backGroup.append("rect").attr("fill", d3.color("gray"))
+  .attr("width", d => width)
+  .attr("height", d => 100)
+  .attr("x", 0)
+  .attr("y", 150);
+
+  //road lines
+  const linewidth = 5
+  for(let i = 0; i < width/(linewidth*2); ++i){
+    backGroup.append("rect").attr("fill", d3.color("yellow"))
+    .attr("width", d => linewidth)
+    .attr("height", d => 5)
+    .attr("x", i*linewidth*2)
+    .attr("y", 200);
+  }
+
+  //stars
+  //random generation of position
+  const maxStars = 300;
+  //x coordinates:
+  x = Array.from({length: width}, () => Math.floor(Math.random() * width));
+  //y coordinates:
+  y = Array.from({length: width}, () => Math.floor(Math.random() * 145));
+  for(let i = 0; i < maxStars; i++){
+    //append a dot
+    backGroup.append("circle").attr("fill", d3.color("white"))
+    .attr("r", d => 1)
+    .attr("cx", x[i])
+    .attr("cy", y[i]);
+  }
+
+  // Add Rectangles streetlight head
+  foreGroup.append("rect").attr("fill", d3.color("steelblue"))
+    .attr("width", d => 50)
+    .attr("height", d => 10)
+    .attr("x", 275)
+    .attr("y", 20);
+
   // Add Polygons
+
+  //streetlight light
+  foreGroup.append("polygon")
+    .attr("points", "300,20 400,250 200,250")
+    .style("fill", "orange")
+    .style("stroke", "white")
+    .style("strokeWidth", "5px")
+    .attr("fill-opacity", 0.3);
+
+  // Add Lines streetlight pole
+  const line = d3.line()
+  .x(100, 100)
+  .y(100, 100);
+  
+  foreGroup.append('line').style("stroke", "red")
+  .style("stroke-width", 10)
+  .attr("x1", 300)
+  .attr("y1", 20)
+  .attr("x2", 300)
+  .attr("y2", 250); 
+
+  
+  function moveCar(){
+    carGroup
+      .transition()
+      .duration(2000)
+      .attr("transform", "translate(300,0)")
+  }
+
+ 
+  // Append the SVG element.
+  container.append(svg.node());
+
+ // container.append(bsvg.node());
+
+  
+ 
 </script>
