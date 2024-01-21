@@ -69,7 +69,7 @@
     // Arrow settings
     const arrowLength = 90;
     const arrowPosition = { x: childPosition.x + 40, y: childPosition.y };
-    // let angle = 0;
+    let angle = 0;
     // const arrowVelocity = 200;
     // const gravity = 100;
 
@@ -142,7 +142,7 @@
       })
       .on('end', function() {
         // Launch arrow with projectile motion
-        const velocity = 300;
+        const velocity = 400;
         const angleRadians = angle * (Math.PI / 180);
         const velocityX = velocity * Math.cos(angleRadians);
         const velocityY = velocity * Math.sin(angleRadians);
