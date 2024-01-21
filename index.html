@@ -108,7 +108,7 @@
       .style('fill', 'green');
 
     // Draw apple
-    svg.append('circle')
+    const apple = svg.append('circle')
       .attr('cx', applePosition.x)
       .attr('cy', applePosition.y)
       .attr('r', appleRadius)
@@ -142,6 +142,21 @@
         angle = Math.atan2(dy, dx) * (180 / Math.PI);
 
         arrowGroup.attr('transform', `translate(${arrowPosition.x},${arrowPosition.y}) rotate(${angle},${0},${0})`);
+
+
+        // Check for collision with apple
+        if (checkCollision(arrowGroup, apple)) {
+          // Make apple fall
+          d3.timer(function(elapsed) {
+            const t = elapsed / 1000;
+            const y = applePosition.y + 0.5 * gravity * t * t;
+            apple.attr('cy', y);
+            return y > svgHeight; // Stop the timer if apple reaches bottom of the SVG
+          });
+        }
+
+
+
       })
       .on('end', function() {
         // Launch arrow with projectile motion
@@ -150,6 +165,10 @@
         const velocityX = velocity * Math.cos(angleRadians);
         const velocityY = velocity * Math.sin(angleRadians);
         const gravity = 200;
+
+        
+
+
 
         d3.timer(function(elapsed) {
           const t = elapsed / 1000;
@@ -162,9 +181,24 @@
         });
       });
 
+    
+
     // Apply drag behavior to the arrow tip
     arrowTip.call(drag);
 
+
+        // Function to check collision
+        function checkCollision(arrow, apple) {
+      // Simplified collision logic
+      const arrowBox = arrow.node().getBBox();
+      const appleBox = apple.node().getBBox();
+      return (
+        arrowBox.x < appleBox.x + appleBox.width &&
+        arrowBox.x + arrowBox.width > appleBox.x &&
+        arrowBox.y < appleBox.y + appleBox.height &&
+        arrowBox.y + arrowBox.height > appleBox.y
+      );
+    }
 
   </script>
 </body>
