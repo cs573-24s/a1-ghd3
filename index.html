@@ -321,6 +321,9 @@
         // 结果就是因为差了这么一点点!!
 
         // 更新每个苹果的位置和速度
+
+        handleAppleCollisions();
+        
         applesData.forEach(appleData => {
           appleData.position.x += appleData.velocityX;
           appleData.position.y += appleData.velocityY;
