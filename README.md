@@ -15,10 +15,6 @@ I included multiple interactive elements including click events to move the skie
 
 Link: "http://amicarellade.github.io/a1-ghd3/index.html".
 
-```
-a1-amicarellade-Dante-Amicarella
-```
-
 <img width="1341" alt="Screenshot 2024-01-21 at 5 00 31 PM" src="https://github.com/amicarellade/a1-ghd3/assets/56127779/cd86b8ff-628d-40e2-8521-5be7b6965011">
 
 
