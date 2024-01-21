@@ -142,11 +142,11 @@
       })
       .on('end', function() {
         // Launch arrow with projectile motion
-        const velocity = 10;
+        const velocity = 200;
         const angleRadians = angle * (Math.PI / 180);
         const velocityX = velocity * Math.cos(angleRadians);
         const velocityY = velocity * Math.sin(angleRadians);
-        const gravity = 0.5;
+        const gravity = 100;
 
         d3.timer(function(elapsed) {
           const t = elapsed / 1000;
