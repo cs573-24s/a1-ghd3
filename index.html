@@ -1,10 +1,131 @@
-<script src="https://d3js.org/d3.v6.min.js"></script>
+<!DOCTYPE html>
+<html>
 
-<script>
-  console.log(d3); // test if d3 is loaded
-  // Add an SVG
-  // Add Rectangles
-  // Add Circles
-  // Add Lines
-  // Add Polygons
-</script>
+<head>
+    <meta charset="utf-8">
+    <title>Dog Visualization</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        /* CSS animation */
+        .fade-in {
+            opacity: 0;
+            animation: fadeInAnimation 1s ease-in forwards;
+        }
+
+        @keyframes fadeInAnimation {
+            0% {opacity: 0;}
+            100% {opacity: 1; }
+        }
+
+        /* CSS to scale the button */
+        #start-animation {
+            transform: scale(3);
+            margin-bottom: 20px;
+            /* Add some space between the button and the SVG */
+        }
+
+        /* CSS for centering */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <svg width="1036" height="1000"></svg>
+    <script>
+        // Select the SVG element
+        const svg = d3.select("svg");
+        svg.attr("style", "background: #ccccff;")
+        // Draw background
+
+        const bgGroup = svg.append("g");
+        const getHillPath = () => {
+            // ... (unchanged)
+
+            return path.toString();
+        }
+
+        bgGroup.append("path")
+            .attr("d", getHillPath())
+            .attr("fill", "#229922")
+            .attr("stroke", "transparent");
+
+        bgGroup.append("rect")
+            .attr("x", 0)
+            .attr("y", 600)
+            .attr("width", 1036)
+            .attr("height", 400)
+            .attr("fill", "#444444");
+
+        // Draw a dog (new feature)
+        const dogGroup = svg.append("g")
+            .attr("class", "fade-in");
+
+        // Body
+        dogGroup.append("ellipse")
+            .attr("cx", 500)
+            .attr("cy", 550)
+            .attr("rx", 50)
+            .attr("ry", 30)
+            .attr("fill", "brown");
+
+        // Head
+        dogGroup.append("circle")
+            .attr("cx", 500)
+            .attr("cy", 530)
+            .attr("r", 25)
+            .attr("fill", "brown");
+
+        // Tail
+        dogGroup.append("line")
+            .attr("x1", 470)
+            .attr("y1", 550)
+            .attr("x2", 450)
+            .attr("y2", 520)
+            .attr("stroke", "brown")
+            .attr("stroke-width", 3);
+
+        // Ears
+        dogGroup.append("polygon")
+            .attr("points", "480,525 500,510 520,525")
+            .attr("fill", "brown");
+
+        // Eyes
+        dogGroup.append("circle")
+            .attr("cx", 490)
+            .attr("cy", 525)
+            .attr("r", 2)
+            .attr("fill", "black");
+
+        dogGroup.append("circle")
+            .attr("cx", 510)
+            .attr("cy", 525)
+            .attr("r", 2)
+            .attr("fill", "black");
+
+        // Nose
+        dogGroup.append("polygon")
+            .attr("points", "500,530 495,535 505,535")
+            .attr("fill", "pink");
+
+        // Mouth
+        dogGroup.append("path")
+            .attr("d", "M495,540 Q500,545 505,540")
+            .attr("fill", "none")
+            .attr("stroke", "black");
+
+        // Animate shapes when page is loaded
+        animateShapes();
+
+        // ... (unchanged)
+
+    </script>
+</body>
+
+</html>
+
