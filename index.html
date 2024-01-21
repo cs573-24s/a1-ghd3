@@ -199,7 +199,7 @@
           const dy = arrowLength * Math.sin(angleRadians);
           arrowGroup.attr('transform', `translate(${arrowPosition.x + x - dx},${arrowPosition.y + y - dy}) rotate(${angle},${0},${0})`);
 
-          
+
           let collisionDetected = false;
 
           svg.selectAll('circle.apple').each(function() {
@@ -296,7 +296,7 @@
         }
 
         // 更新苹果的位置
-        apple.attr('cx', posX).attr('cy', posY);
+        d3.select(appleElement).attr('cx', posX).attr('cy', posY);
 
         // 如果苹果几乎停止移动，则停止计时器
         if (Math.abs(velocityY) < 0.01 && posY >= svgHeight - 100 - appleRadius && Math.abs(velocityX) < 0.01) {
