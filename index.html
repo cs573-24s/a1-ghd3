@@ -206,7 +206,7 @@
 
 
       // 修改后的碰撞检测函数
-      function checkCollision(arrowGroup, canopy, angle, arrowLength) {
+      function checkCollision(arrowGroup, apple, angle, arrowLength) {
       // 获取箭头当前位置
       const arrowTransform = d3.select(arrowGroup.node()).attr("transform");
       const translate = arrowTransform.substring(10, arrowTransform.indexOf(')')).split(',');
@@ -223,10 +223,10 @@
 
       // 检查这些点是否进入了树冠区域
       for (const point of points) {
-        if (point.x >= canopyCenter.x - canopySideLength &&
-            point.x <= canopyCenter.x + canopySideLength &&
-            point.y >= canopyCenter.y - canopyHeight &&
-            point.y <= canopyCenter.y + canopyHeight) {
+        if (point.x >= appleCenter.x - appleSideLength &&
+            point.x <= appleCenter.x + appleSideLength &&
+            point.y >= appleCenter.y - appleHeight &&
+            point.y <= appleCenter.y + appleHeight) {
           return true;
         }
       }
