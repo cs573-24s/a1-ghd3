@@ -207,16 +207,15 @@
             const appleElement = this;
             if (checkCollision(arrowGroup, appleElement, angle, arrowLength)) {
               makeAppleFall(appleElement);
-              collisionDetected = true; // 标记检测到碰撞
+              collisionDetected = true;
             }
           });
 
           if (collisionDetected) {
-            return true; // 检测到碰撞后停止计时器
+            return true;
           }
 
-
-          return y + arrowPosition.y > svgHeight; // Stop the timer if arrow reaches bottom of the SVG
+          return y + arrowPosition.y > svgHeight;
         });
 
       });
@@ -280,7 +279,7 @@
 
     function makeAppleFall(appleElement) {
       const appleData = applesData.find(apple => apple.id === d3.select(appleElement).attr("id"));
-      appleData.velocityY = 0.5; // 设置被击中的苹果的初始垂直速度
+      appleData.velocityY = -0.5; // 设置被击中的苹果的初始垂直速度
 
       d3.timer(function(elapsed) {
         // 更新所有苹果的位置和速度
@@ -307,11 +306,12 @@
         });
 
         // 停止条件
-        if (applesData.every(apple => Math.abs(apple.velocityY) < 0.01)) {
+        if (applesData.every(apple => Math.abs(apple.velocityY) < 0.01 && apple.position.y >= svgHeight - 100 - appleRadius)) {
           return true;
         }
       });
     }
+
 
 
   </script>
