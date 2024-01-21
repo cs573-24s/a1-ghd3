@@ -2,101 +2,96 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Data Visualization A1 Anthony Chen</title>
+  <meta viewport="width=device-width, initial-scale=1.0">
+  <title>Data Visualization</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f3f3f3;
+    }
+    svg {
+      border: 1px solid #ccc;
+    }
+  </style>
 </head>
 <body>
-  <h1>All work and no play makes Jack a dull boy</h1>
-  <h1>All play and no work makes Bob a playboy</h1>
   <svg width="800" height="600"></svg>
-
   <script src="https://d3js.org/d3.v6.min.js"></script>
   <script>
-    console.log(d3); // test if d3 is loaded
-
-    // Set up SVG dimensions
-    const svgWidth = 800;
-    const svgHeight = 600;
-
-    // Set up SVG
-    const svg = d3.select('body').select('svg')
-        .attr('width', svgWidth)
-        .attr('height', svgHeight);
+    // SVG setup
+    const svgWidth = 800, svgHeight = 600;
+    const svg = d3.select('svg');
 
     // Child settings
-    const childRadius = 30;
-    const childPosition = { x: 50, y: svgHeight - 50 };
-
-
-
-
+    const childRadius = 20;
+    const childPosition = { x: 100, y: svgHeight - 100 };
 
     // Tree settings
-    const treeWidth = 40;
-    const treeHeight = 200;
-    const treePosition = { x: svgWidth - 100, y: svgHeight - treeHeight - 50 };
-
-
+    const treeWidth = 50;
+    const treeHeight = 150;
+    const treePosition = { x: svgWidth - 150, y: svgHeight - treeHeight - 50 };
 
     // Canopy settings (Hexagon)
-    const sideLength = treeWidth; // The side of the hexagon is the same as the width of the tree
-    const canopyHeight = Math.sqrt(3) * sideLength; // Height of a regular hexagon
-    const canopyPosition = { x: treePosition.x + treeWidth / 2, y: treePosition.y };
-
-
-    // Arrow settings
-    const arrowLength = 100;
-    const arrowPosition = { x: childPosition.x + 40, y: childPosition.y };
-
+    const canopySideLength = 70;
+    const canopyHeight = Math.sqrt(3) * canopySideLength / 2;
+    const canopyCenter = { x: treePosition.x + treeWidth / 2, y: treePosition.y - canopyHeight / 2 };
 
     // Apple settings
-    const appleRadius = childRadius / Math.sqrt(2);  // Area is half of the child
-    const applePosition = { x: canopyPosition.x + canopyWidth / 4, y: canopyPosition.y + canopyHeight / 2 };
+    const appleRadius = 10;
+    const applePosition = { x: canopyCenter.x - canopySideLength / 3, y: canopyCenter.y };
 
-    // Create child
+    // Arrow settings
+    const arrowLength = 80;
+    const arrowPosition = { x: childPosition.x + 40, y: childPosition.y };
+
+    // Draw child
     svg.append('circle')
-        .attr('cx', childPosition.x)
-        .attr('cy', childPosition.y)
-        .attr('r', childRadius)
-        .style('fill', 'blue');
+      .attr('cx', childPosition.x)
+      .attr('cy', childPosition.y)
+      .attr('r', childRadius)
+      .style('fill', 'blue');
 
-    // Create tree
+    // Draw tree
     svg.append('rect')
-        .attr('x', treePosition.x)
-        .attr('y', treePosition.y)
-        .attr('width', treeWidth)
-        .attr('height', treeHeight)
-        .style('fill', 'brown');
+      .attr('x', treePosition.x)
+      .attr('y', treePosition.y)
+      .attr('width', treeWidth)
+      .attr('height', treeHeight)
+      .style('fill', 'brown');
 
-    // Create arrow
-    svg.append('line')
-        .attr('x1', arrowPosition.x)
-        .attr('y1', arrowPosition.y)
-        .attr('x2', arrowPosition.x + arrowLength)
-        .attr('y2', arrowPosition.y)
-        .attr('stroke-width', 2)
-        .style('stroke', 'black');
-
-    // Create canopy
+    // Draw canopy
     const canopyPoints = [
-      [canopyPosition.x, canopyPosition.y],
-      [canopyPosition.x + canopyWidth / 2, canopyPosition.y - canopyHeight / 2],
-      [canopyPosition.x + canopyWidth, canopyPosition.y],
-      [canopyPosition.x + canopyWidth, canopyPosition.y + canopyHeight],
-      [canopyPosition.x + canopyWidth / 2, canopyPosition.y + canopyHeight * 1.5],
-      [canopyPosition.x, canopyPosition.y + canopyHeight]
-    ].join(' ');
+      [canopyCenter.x - canopySideLength, canopyCenter.y],
+      [canopyCenter.x - canopySideLength / 2, canopyCenter.y - canopyHeight],
+      [canopyCenter.x + canopySideLength / 2, canopyCenter.y - canopyHeight],
+      [canopyCenter.x + canopySideLength, canopyCenter.y],
+      [canopyCenter.x + canopySideLength / 2, canopyCenter.y + canopyHeight],
+      [canopyCenter.x - canopySideLength / 2, canopyCenter.y + canopyHeight]
+    ].map(p => p.join(',')).join(' ');
 
     svg.append('polygon')
-        .attr('points', canopyPoints)
-        .style('fill', 'green');
+      .attr('points', canopyPoints)
+      .style('fill', 'green');
 
-    // Create apple
+    // Draw apple
     svg.append('circle')
-        .attr('cx', applePosition.x)
-        .attr('cy', applePosition.y)
-        .attr('r', appleRadius)
-        .style('fill', 'red');
+      .attr('cx', applePosition.x)
+      .attr('cy', applePosition.y)
+      .attr('r', appleRadius)
+      .style('fill', 'red');
+
+    // Draw arrow
+    svg.append('line')
+      .attr('x1', arrowPosition.x)
+      .attr('y1', arrowPosition.y)
+      .attr('x2', arrowPosition.x + arrowLength)
+      .attr('y2', arrowPosition.y)
+      .attr('stroke-width', 2)
+      .style('stroke', 'black');
 
     // Gravity force
     const gravity = 0.98;
