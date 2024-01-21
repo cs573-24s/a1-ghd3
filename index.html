@@ -143,6 +143,8 @@
 
         arrowGroup.attr('transform', `translate(${arrowPosition.x},${arrowPosition.y}) rotate(${angle},${0},${0})`);
 
+        arrowGroup.raise();
+
 
         // Check for collision with apple
         if (checkCollision(arrowGroup, apple)) {
@@ -166,7 +168,7 @@
         const velocityY = velocity * Math.sin(angleRadians);
         const gravity = 200;
 
-        
+        arrowGroup.raise();
 
 
 
@@ -188,7 +190,7 @@
 
 
         // Function to check collision
-        function checkCollision(arrow, apple) {
+        function checkCollision(arrowGroup, apple) {
       // Simplified collision logic
       const arrowBox = arrow.node().getBBox();
       const appleBox = apple.node().getBBox();
