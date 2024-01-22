@@ -2,9 +2,292 @@
 
 <script>
   console.log(d3); // test if d3 is loaded
-  // Add an SVG
+  // Add an SVG x
   // Add Rectangles
-  // Add Circles
+  // Add Circles x
   // Add Lines
-  // Add Polygons
+  // Add Polygons x
 </script>
+
+<html>
+  <head>
+    <title>CS 573 Assignment 1</title>
+  </head>
+  <body>
+    <script>
+      // Set up the SVG container
+      const svg = d3.select("body")
+      .append("svg")
+      .attr("viewBox", "0 0 720 800");
+
+      // rectangle
+      svg.append("rect")
+      .attr("x", 50)
+      .attr("y", 140)
+      .attr("width", 100)
+      .attr("height", 50)
+      .attr("fill", "	#8B0000")
+      .attr("stroke", "black");
+
+      // body
+      svg.append("line")
+      .attr("x1", 67)
+      .attr("y1", 169)
+      .attr("x2", 115)
+      .attr("y2", 169)
+      .attr("stroke", "black");
+
+      svg.append("ellipse")
+      .attr("cx", 101)
+      .attr("cy", 130)
+      .attr("rx", 35)
+      .attr("ry", 40)
+      .attr("fill", "white")
+      .attr("stroke", "black");
+      
+      // right arm
+      svg.append("ellipse")
+      .attr("cx", 120)
+      .attr("cy", 129)
+      .attr("rx", 9)
+      .attr("ry", 11)
+      .attr("fill", "white")
+      .attr("stroke", "black");
+
+      // collar
+      svg.append("ellipse")
+      .attr("cx", 100)
+      .attr("cy", 86)
+      .attr("rx", 28)
+      .attr("ry", 30)
+      .attr("fill", "red")
+      .attr("stroke", "black");
+
+      // bell on collar
+      svg.append("circle")
+      .attr("cx", 100)
+      .attr("cy", 117)
+      .attr("r", 5)
+      .attr("fill", "yellow")
+      .attr("stroke", "black");
+
+      // ears
+      svg.append("polygon")
+      .attr("points", "70,45 70,75 85,57")
+      .attr("fill", "white")
+      .attr("stroke", "black");
+
+      svg.append("polygon")
+      .attr("points", "73,52 73,75 80,57")
+      .attr("fill", "pink")
+      .attr("stroke", "black");  
+
+      svg.append("polygon")
+      .attr("points", "130,45 130,75 115,57")
+      .attr("fill", "white")
+      .attr("stroke", "black");
+
+      svg.append("polygon")
+      .attr("points", "127,52 127,75 120,57")
+      .attr("fill", "pink")
+      .attr("stroke", "black"); 
+
+
+      // head
+      svg.append("ellipse")
+      .attr("cx", 100)
+      .attr("cy", 80)
+      .attr("rx", 32.5)
+      .attr("ry", 29)
+      .attr("fill", "white")
+      .attr("stroke", "black");
+
+
+      // eyes
+      svg.append("circle")
+      .attr("cx", 90)
+      .attr("cy", 75)
+      .attr("r", 4)
+      .attr("fill", "black");
+
+      svg.append("circle")
+      .attr("cx", 92)
+      .attr("cy", 78)
+      .attr("r", 1.5)
+      .attr("fill", "white");
+
+      svg.append("circle")
+      .attr("cx", 110)
+      .attr("cy", 75)
+      .attr("r", 4)
+      .attr("fill", "black");
+
+      svg.append("circle")
+      .attr("cx", 112)
+      .attr("cy", 78)
+      .attr("r", 1.5)
+      .attr("fill", "white");
+
+      // whiskers
+      svg.append("line")
+      .attr("x1", 79)
+      .attr("y1", 83)
+      .attr("x2", 74)
+      .attr("y2", 80)
+      .attr("stroke", "black");
+
+      svg.append("line")
+      .attr("x1", 79)
+      .attr("y1", 85)
+      .attr("x2", 74)
+      .attr("y2", 85)
+      .attr("stroke", "black");
+
+      svg.append("line")
+      .attr("x1", 79)
+      .attr("y1", 87)
+      .attr("x2", 74)
+      .attr("y2", 90)
+      .attr("stroke", "black");
+
+      svg.append("line")
+      .attr("x1", 120)
+      .attr("y1", 83)
+      .attr("x2", 125)
+      .attr("y2", 80)
+      .attr("stroke", "black");
+
+      svg.append("line")
+      .attr("x1", 120)
+      .attr("y1", 85)
+      .attr("x2", 125)
+      .attr("y2", 85)
+      .attr("stroke", "black");
+
+      svg.append("line")
+      .attr("x1", 120)
+      .attr("y1", 87)
+      .attr("x2", 125)
+      .attr("y2", 90)
+      .attr("stroke", "black");
+      
+      // nose
+      svg.append("polygon")
+      .attr("points", "95,85 100,90 105,85")
+      .attr("fill", "pink")
+      .attr("stroke", "black");
+
+      // thighs
+      svg.append("path")
+      .attr("d", "M83,170 a11,20 0 1,0 -15,0")
+      .attr("fill", "white")
+      .attr("stroke", "black");
+
+      svg.append("path")
+      .attr("d", "M135,170 a11,20 0 1,0 -15,0")
+      .attr("fill", "white")
+      .attr("stroke", "black");
+
+      //  left arm
+      var left_arm = svg.append("ellipse")
+      .attr("cx", 65)
+      .attr("cy", 105)
+      .attr("rx", 9)
+      .attr("ry", 18)
+      .attr("fill", "white")
+      .attr("stroke", "black");
+
+
+      //  left hand
+      var left_hand = svg.append("ellipse")
+      .attr("cx", 65)
+      .attr("cy", 90)
+      .attr("rx", 10)
+      .attr("ry", 7)
+      .attr("fill", "white")
+      .attr("stroke", "black");
+
+      // coin
+      svg.append("path")
+      .attr("d", "M106,170 a20,25 25 1,0 -10,0")
+      .attr("fill", "gold")
+      .attr("stroke", "black");
+
+      // right hand
+      svg.append("ellipse")
+      .attr("cx", 120)
+      .attr("cy", 125)
+      .attr("rx", 10)
+      .attr("ry", 7)
+      .attr("fill", "white")
+      .attr("stroke", "black");
+
+
+      // feet
+      svg.append("path")
+      .attr("d", "M87,170 a10,12 0 1,0 -20,0")
+      .attr("fill", "white")
+      .attr("stroke", "black");
+
+      svg.append("line")
+      .attr("x1", 67)
+      .attr("y1", 170)
+      .attr("x2", 87)
+      .attr("y2", 170)
+      .attr("stroke", "black");
+
+      svg.append("path")
+      .attr("d", "M135,170 a10,12 0 1,0 -20,0")
+      .attr("fill", "white")
+      .attr("stroke", "black");
+
+      svg.append("line")
+      .attr("x1", 115)
+      .attr("y1", 170)
+      .attr("x2", 135)
+      .attr("y2", 170)
+      .attr("stroke", "black");
+
+    </script>
+
+    <style>
+      button {
+      position: absolute;
+      top: 350px;
+      left: 170px;
+      }
+    </style>
+    // wave button
+    <button type="button" onclick="update()">Wave to Me</button>
+
+    <script>
+      function update(){
+        left_hand.transition()
+        .ease(d3.easeLinear)
+        .duration(2000)
+        .attr("cy",109)
+        .attr("rx", 11)
+
+        left_arm.transition()
+        .ease(d3.easeLinear)
+        .duration(2000)
+        .attr("ry", 4)
+        .on("end", function() {
+            left_hand.transition()
+                .ease(d3.easeLinear)
+                .duration(2000)
+                .delay(400) 
+                .attr("cy", 90)
+                .attr("rx", 10);
+
+            left_arm.transition()
+                .ease(d3.easeLinear)
+                .duration(2000)
+                .delay(400)
+                .attr("ry", 18);
+        });
+      }
+    </script>
+  </body>
+</html>
+
