@@ -14,8 +14,8 @@ Assignment 1 - Hello World: GitHub and d3
         one big gray circle to render face, 
         one big rectangel to render her body and a tail.
 
-    ![Alt text](screenshot/image.png)
-    ![Alt text](screenshot/image.png)
+    ![Alt text](images/image.png)
+    ![Alt text](images/image-1.png)
 
 4. "Technical Achievement Desription"
     4.1 D3.js Integration: Start to learn proficiency in integrating the D3.js library to create dynamic and interactive visualizations. And highlight the use of SVG grouping (<g>) to organize and structure related elements.
