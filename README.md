@@ -1,9 +1,10 @@
 Assignment 1 - Hello World: GitHub and d3  
 ===
 Description of Project
-* For assignment 1, I utilized the d3 library to create a virtual Maneki Neko (aka a beckoning lucky cat). As such, I included the traditional features to try and emulate an real-life example, such as: a large koban coin, a functional beckoning arm, a cat in a seated position, and a bell on the cat's collar. Moreover, I tried to keep to the typical color scehemes of reds, yellows, black, and white. 
+---
+For assignment 1, I utilized the d3 library to create a virtual Maneki Neko (aka a beckoning lucky cat). As such, I included the traditional features to try and emulate an real-life example, such as: a large koban coin, a functional beckoning arm, a cat in a seated position, and a bell on the cat's collar. Moreover, I tried to keep to the typical color scehemes of reds, yellows, black, and white. 
 
-* To make the cat wave, just press the "Wave to Me" button. I used a mixture of circles, rectangles, polygons, lines, and paths to best capture the overall silloughette of the cat. Below, I've included screen shots of my cat and the irl inspiration for it. 
+To make the cat wave, just press the "Wave to Me" button. I used a mixture of circles, rectangles, polygons, lines, and paths to best capture the overall silloughette of the cat. Below, I've included screen shots of my cat and the irl inspiration for it. 
 
 ![Alt text](https://github.com/chikpea123/a1-ghd3/blob/main/d3_cat.png)
 
@@ -11,34 +12,16 @@ Description of Project
 
 
 File Link
-
-
+---
+https://chikpea123.github.io/a1-ghd3/
 
 Technical and Design Achievements
-* For the technical achievements, I included a button that allows users to interact with the cat by making its arm wave. Using a combination of a button, update functions, and corresponding shape morphing I was able to mimic how the anatomy perspective changes when waving to the user (as opposed to keeping the shape flat). Additionally, I included some extra functionalities of d3 like the d3.easelinear transition to make the waving movements smoother. To make the arm go up and down, I had to construct 2 functions (one nested in the other) to transition the arm down and then back up to its original position.
-
-* For the design achievements, I included multiple paths within my file to allow for the creation of more dynamic shape options. These were not specified as requirements in the assignment; however, I chose to include them because I needed access to shapes like semi circles and thought it best to manually make them as opposed to using shape layering to get a similar effect. Moreover I implemented a variety of layering and shapes to capture some important details for the cat, like: lines for whiskers, concentric triangles for the ears, eyes with a light source for more dimension, and overlapping circles to create the cat's collar and legs. 
-
-
-
-
-This is a starting project to make sure you can write and host a webpage that generates graphics using d3. 
-
-The primary goal is to be able to generate graphics primitives (circles, rectangles, lines, polygons) at different locations on the screen with different colors. 
-
-The secondary goal is to introduce you to coding on GitHub, including creating a gh-pages branch to host your visualizations.
-
-You may write everything from scratch, or start with demo programs from books or the web. 
-If you do start with code that you found, you **must identify** the source of the code in your README and, most importantly, make non-trivial changes to the code to make it your own so you really learn what you're doing. 
-
-For example, you could download one of the d3.js examples, read it through so you understand what it's doing, and then change the appearance of the graphical output to use different color schemes, different primitive shapes, different layouts of the primitives, and so on.
-
-Resources
 ---
+For the technical achievements, I included a button that allows users to interact with the cat by making its arm wave. Using a combination of a button, update functions, and corresponding shape morphing I was able to mimic how the anatomy perspective changes when waving to the user (as opposed to keeping the shape flat). Additionally, I included some extra functionalities of d3 like the d3.easelinear transition to make the waving movements smoother. To make the arm go up and down, I had to construct 2 functions (one nested in the other) to transition the arm down and then back up to its original position.
 
-If you need a JavaScript/HTML/CSS refresher, see [JavaScript Codeacademy](https://www.codecademy.com/en/tracks/javascript) or find one of your choosing on the web.
+For the design achievements, I included multiple paths within my file to allow for the creation of more dynamic shape options. These were not specified as requirements in the assignment; however, I chose to include them because I needed access to shapes like semi circles and thought it best to manually make them as opposed to using shape layering to get a similar effect. Moreover I implemented a variety of layering and shapes to capture some important details for the cat, like: lines for whiskers, concentric triangles for the ears, eyes with a light source for more dimension, and overlapping circles to create the cat's collar and legs. 
 
-If you need a Git/GitHub refreseher, some possible resources include [Getting Started with GitHub](https://help.github.com/categories/bootcamp/), the [GitHub Guides](https://guides.github.com/) (especially the ones on Hello World, and Understanding the GitHub Flow, and Forking Projects), and [CodeSchool's Try Git Course](https://www.codeschool.com/courses/try-git).
+
 
 Requirements
 ---
