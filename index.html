@@ -170,10 +170,7 @@
       .attr("x2", 125)
       .attr("y2", 90)
       .attr("stroke", "black");
-
-      // mouth lines
       
-
       // nose
       svg.append("polygon")
       .attr("points", "95,85 100,90 105,85")
@@ -251,8 +248,19 @@
       .attr("y2", 170)
       .attr("stroke", "black");
 
-      update();
+    </script>
 
+    <style>
+      button {
+      position: absolute; /* Set position to absolute */
+      top: 330px; /* Adjust the top position */
+      left: 150px; /* Adjust the left position */
+      }
+    </style>
+    // wave button
+    <button type="button" onclick="update()">Wave to Me</button>
+
+    <script>
       function update(){
         left_hand.transition()
         .ease(d3.easeLinear)

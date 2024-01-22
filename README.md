@@ -1,5 +1,21 @@
 Assignment 1 - Hello World: GitHub and d3  
 ===
+* Description of Project *
+For assignment 1, I utilized the d3 library to create a virtual Maneki Neko (aka a beckoning lucky cat). As such, I included the traditional features to try and emulate an real-life example, such as: a large koban coin, a functional beckoning arm, a cat in a seated position, and a bell on the cat's collar. Moreover, I tried to keep to the typical color scehemes of reds, yellows, black, and white. 
+
+To make the cat wave, just press the "Wave to Me" button. I used a mixture of circles, rectangles, lines, and paths to best capture the overall silloughette of the cat. Below, I've included screen shots of my cat and the irl inspiration for it. 
+
+
+
+* File Link *
+
+
+
+
+
+
+
+
 
 This is a starting project to make sure you can write and host a webpage that generates graphics using d3. 
 
