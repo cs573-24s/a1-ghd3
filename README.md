@@ -2,7 +2,7 @@ Data Visualization Assignment 1 - Hello World: GitHub and d3
 ===
 This assignment visualizes a simple interactive page called **"Friends Trip"**  in d3.js. The illustration includes the required shapes (circles, rectangles, lines, polygons, paths in different colors) to create animals, a train, and a background. You can also change the passengers to the other train by dragging. 
 
-Demo Link: https://gbenderiya.github.io/a1-ghd3/index.html
+Demo Link: http://gbenderiya.github.io/a1-ghd3/index.html
 
 Here is the screenshot of the page with default location of animals:
 ![Alt text](image.png)
