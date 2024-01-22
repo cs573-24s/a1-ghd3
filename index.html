@@ -1,11 +1,11 @@
-<!-- 在 moveCircleToDog 函数结束时移除连接线 -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Dog visualization</title>
+  <title>My pig visualization</title>
   <script src="https://d3js.org/d3.v6.min.js"></script>
   <style>
     body {
@@ -26,92 +26,92 @@
 
 <script>
   const svg = d3.select("body").append("svg")
-    .attr("width", 1600)  // 放大2倍
-    .attr("height", 800)  // 放大2倍
+    .attr("width", 1600)  
+    .attr("height", 800)  
     .style("background-color", "#7FB3D5");
 
-  const dogGroup = svg.append("g");
+  const pigGroup = svg.append("g");
 
-  // 绘制操场矩形（红色）
+  // Draw a playground rectangle (red)
   svg.append("rect")
     .attr("x", 0)
-    .attr("y", 400)  // 放大2倍
-    .attr("width", 1600)  // 放大2倍
-    .attr("height", 400)  // 放大2倍
+    .attr("y", 400)  
+    .attr("width", 1600)  
+    .attr("height", 400)  
     .attr("fill", "red");
 
   const playgroundCircle = svg.append("circle")
-    .attr("cx", 1000)  // 放大2倍
-    .attr("cy", 200)  // 放大2倍
-    .attr("r", 100)  // 放大2倍
+    .attr("cx", 1000)  
+    .attr("cy", 200)  
+    .attr("r", 100)  
     .attr("fill", "orange");
 
-  // 绘制操场道路（白色路径）
+  // Draw a playground path (white)
   svg.append("path")
-    .attr("d", "M0,430 Q800,700 1600,430")  // 放大2倍
+    .attr("d", "M0,430 Q800,700 1600,430")  
     .attr("stroke", "white")
-    .attr("stroke-width", 60)  // 放大2倍
+    .attr("stroke-width", 60)  
     .attr("fill", "none");
 
-  // 绘制狗的身体（矩形）
-  const dogBody = dogGroup.append("rect")
-    .attr("x", 200)  // 放大2倍
-    .attr("y", 300)  // 放大2倍
-    .attr("width", 200)  // 放大2倍
-    .attr("height", 120)  // 放大2倍
+    // Draw the pig's body (rectangle)
+  const pigBody = pigGroup.append("rect")
+    .attr("x", 200)  
+    .attr("y", 300)  
+    .attr("width", 200)  
+    .attr("height", 120)  
     .attr("fill", "brown")
     .on("click", function() {
-      shakeBody(dogBody);
+      shakeBody(pigBody);
     });
 
-  // 绘制狗的头部（圆形）
+  // Draw the pig's head (circle)
   svg.append("circle")
-    .attr("cx", 200)  // 放大2倍
-    .attr("cy", 260)  // 放大2倍
-    .attr("r", 60)  // 放大2倍
+    .attr("cx", 200)  
+    .attr("cy", 260)  
+    .attr("r", 60)  
     .attr("fill", "gray");
 
-  // 绘制狗的眼睛（圆形）
+  // Draw the pig's eyes (circle)
   svg.append("circle")
-    .attr("cx", 170)  // 放大2倍
-    .attr("cy", 240)  // 放大2倍
-    .attr("r", 10)  // 放大2倍
+    .attr("cx", 170)  
+    .attr("cy", 240)  
+    .attr("r", 10)  
     .attr("fill", "black");
 
   svg.append("circle")
-    .attr("cx", 230)  // 放大2倍
-    .attr("cy", 240)  // 放大2倍
-    .attr("r", 10)  // 放大2倍
+    .attr("cx", 230)  
+    .attr("cy", 240)  
+    .attr("r", 10)  
     .attr("fill", "black");
 
-  // 绘制狗的鼻子（矩形）
+    // Draw the pig's nose (rectangle)
   svg.append("rect")
-    .attr("x", 190)  // 放大2倍
-    .attr("y", 270)  // 放大2倍
-    .attr("width", 20)  // 放大2倍
-    .attr("height", 20)  // 放大2倍
+    .attr("x", 190)  
+    .attr("y", 270)  
+    .attr("width", 20)  
+    .attr("height", 20)  
     .attr("fill", "pink");
 
-  // 绘制狗的耳朵（三角形）
-  const earPoints = "160,220 140,160 180,160";  // 放大2倍
+    // Draw the pig's ears (triangle)
+  const earPoints = "160,220 140,160 180,160";  
   svg.append("polygon")
     .attr("points", earPoints)
     .attr("fill", "gray");
 
-  const otherEarPoints = "240,160 260,220 220,220";  // 放大2倍
+  const otherEarPoints = "240,160 260,220 220,220";  
   svg.append("polygon")
     .attr("points", otherEarPoints)
     .attr("fill", "gray");
 
-  // 绘制狗的尾巴（路径）
-  const tailPath = "M420,360 Q460,300 420,240";  // 放大2倍
+  // Draw the pig's tail (path)
+  const tailPath = "M420,360 Q460,300 420,240";  
   svg.append("path")
     .attr("d", tailPath)
     .attr("stroke", "brown")
-    .attr("stroke-width", 6)  // 放大2倍
+    .attr("stroke-width", 6)  
     .attr("fill", "none");
 
-  // 连接狗的身体和头部的线
+    // Connect the pig's body and circle center with a line
   const connectingLine = svg.append("line")
     .attr("x1", 1000)  // 头部中心 x 坐标
     .attr("y1", 200)  // 头部中心 y 坐标
@@ -120,7 +120,7 @@
     .attr("stroke", "black")
     .attr("stroke-width", 2);
 
-  // 狗的身体抖动函数
+  // pig's body shaking function when click pig body
   function shakeBody(element) {
     const duration = 200;
     const interval = 500;
@@ -128,62 +128,62 @@
     for (let i = 0; i < 3; i++) {
       element.transition()
         .duration(duration)
-        .attr("y", 300 - 10)  // 放大2倍
+        .attr("y", 300 - 10)  
         .transition()
         .duration(duration)
-        .attr("y", 300)  // 放大2倍
+        .attr("y", 300)  
         .delay(interval * i);
     }
   }
 
-  // 狗在原地走动函数
+  // pig's function for walking horizontally to the right with tail concatenation
   function walkInPlace() {
-    const walkDistance = 20;  // 放大2倍
+    const walkDistance = 20;  
     const duration = 1000;
 
-    dogGroup.transition()
+    pigGroup.transition()
       .duration(duration)
       .attr("transform", "translate(" + walkDistance + ", 0)")
       .transition()
       .duration(duration)
       .on("end", function() {
-        // 移除连接线
+        // remove conncetion
         connectingLine.remove();
       });
   }
 
-  // 自动触发移动
-  moveCircleToDog(playgroundCircle);
+  // Automatically trigger movement
+  moveCircleTopig(playgroundCircle);
 
-  // 启动狗的走动
+  // Start the pig's movement
   walkInPlace();
 
-  // 将圆形慢慢移动到狗身体的函数
-  function moveCircleToDog(circle) {
+  // Function to slowly move the circle to the pig's body.
+  function moveCircleTopig(circle) {
     const duration = 4000;
 
-    // 获取圆形和狗身体的位置
+    // Get the positions of the circle and the pig's body
     const circleX = parseFloat(circle.attr("cx"));
     const circleY = parseFloat(circle.attr("cy"));
-    const dogX = parseFloat(dogBody.attr("x"));
-    const dogY = parseFloat(dogBody.attr("y"));
+    const pigX = parseFloat(pigBody.attr("x"));
+    const pigY = parseFloat(pigBody.attr("y"));
 
-    // 计算移动的距离
-    const moveX = circleX - dogX;
-    const moveY = circleY - dogY;
+    // calculate the distance 
+    const moveX = circleX - pigX;
+    const moveY = circleY - pigY;
 
-    // 移动圆形到狗身体
+    // Move the circle to the pig's body
     circle.transition()
       .duration(duration)
-      .attr("cx", dogX)
-      .attr("cy", dogY)
+      .attr("cx", pigX)
+      .attr("cy", pigY)
       .on("end", function() {
-        // 移除连接线
+        // remove conncetion
         connectingLine.remove();
       });
 
-    // 同时移动整个狗的组
-    dogGroup.transition()
+    // Simultaneously move the entire group of the pig
+    pigGroup.transition()
       .duration(duration)
       .attr("transform", "translate(" + moveX + "," + moveY + ")");
   }
