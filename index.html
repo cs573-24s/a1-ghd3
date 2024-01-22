@@ -1,10 +1,207 @@
-<script src="https://d3js.org/d3.v6.min.js"></script>
+<!DOCTYPE html>
+<div id="container"></div>
+<script type="module">
 
-<script>
-  console.log(d3); // test if d3 is loaded
-  // Add an SVG
-  // Add Rectangles
-  // Add Circles
-  // Add Lines
-  // Add Polygons
+import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+
+// Declare the chart dimensions and margins.
+const width = 700;
+const height = 700;
+// const marginTop = 20;
+// const marginRight = 20;
+// const marginBottom = 30;
+// const marginLeft = 40;
+
+console.log(d3); // test if d3 is loaded
+// Add an SVG
+// Add Rectangles
+// Add Circles
+// Add Lines
+// Add Polygons
+
+
+// Create the SVG container.
+const svg = d3.create("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+// left down cornor
+svg.append('rect')
+  .attr('x', 85)
+  .attr('y', 400)
+  .attr('width', 15)
+  .attr('height', 20)
+
+svg.append('rect')
+  .attr('x', 85)
+  .attr('y', 430)
+  .attr('width', 20)
+  .attr('height', 50)
+  .on()
+
+// Create a Rectangles
+svg.append("rect")
+  .attr('x', 100)
+  .attr('y', 100)
+  .attr('width', 400)
+  .attr('height', 400)
+  .attr('rx', 15)
+  .attr('fill', 'skyblue')
+  .attr('stroke', 'cadetblue')
+  .attr('stroke-width', 8);
+
+// vinyl
+svg.append('circle')
+  .attr('cx', 275)
+  .attr('cy', 320)
+  .attr('r', 125)
+  .attr('fill', 'black');
+
+svg.append('circle')
+  .attr('cx', 275)
+  .attr('cy', 320)
+  .attr('r', 50)
+  .attr('fill', '#faf7f7');  // grey
+
+svg.append('circle')
+  .attr('cx', 275)
+  .attr('cy', 320)
+  .attr('r', 45)
+  .attr('fill', '#c43131');  // dark red
+
+svg.append('circle')
+  .attr('cx', 275)
+  .attr('cy', 320)
+  .attr('r', 10)
+  .attr('fill', 'grey');
+
+svg.append('path')
+  .attr('d', 'M 200,265 Q 230 210 300 225')
+  .attr('fill', 'none')
+  .attr('stroke', 'grey')
+  .attr('stroke-width', 5)
+  .attr('class', 'vinyl_path');
+
+// upper right corner
+svg.append('circle')
+  .attr('cx', 430)
+  .attr('cy', 180)
+  .attr('r', 40);
+
+svg.append('circle')
+  .attr('cx', 430)
+  .attr('cy', 180)
+  .attr('r', 20)
+  .attr('fill', '#faf7f7');
+
+svg.append('circle')
+  .attr('cx', 430)
+  .attr('cy', 180)
+  .attr('r', 5)
+  .attr('fill', 'grey');
+
+svg.append('rect')
+  .attr('x', 420)
+  .attr('y', 125)
+  .attr('width', 20)
+  .attr('height', 32)
+  .attr('fill', 'grey')
+  .attr('stroke', 'lightgrey')
+  .attr('stroke-width', 2)
+  .attr('class', 'rect1');
+
+svg.append('rect')
+  .attr('x', 425)
+  .attr('y', 205)
+  .attr('width', 10)
+  .attr('height', 200)
+  .attr('fill', 'grey')
+  .attr('stroke', 'lightgrey')
+  .attr('stroke-width', 2)
+  .attr('class', 'rect2');
+
+svg.append('rect')
+  .attr('x', 421)
+  .attr('y', 405)
+  .attr('width', 17)
+  .attr('height', 19)
+  .attr('fill', 'grey')
+  .attr('stroke', 'lightgrey')
+  .attr('stroke-width', 2)
+  .attr('class', 'rect3');
+
+
+
+//svg.append('polygon')
+//  .attr('points', '370,490 430,425 430,465 490,400')  //.attr('points', '0,100 50,25 50,75 100,0')
+//  .attr('fill', 'black')
+//  .attr('stroke', 'black');
+
+function spin() {
+  d3.select('.vinyl_path').transition()
+      .duration(1000)  // Duration of the animation in milliseconds
+      .attrTween("transform", function() {
+          return d3.interpolateString("rotate(0,275,320)","rotate(360,275,320)");
+      })
+      setTimeout(spin, 799);  // Restart the animation when it completes
+}
+
+function changeColor() {
+  var isRed = true;
+  var targetColor = isRed ? "green" : "red";
+}
+
+
+svg.append('polygon')
+  .attr('points', '432,450 420,470 433,468 420,490 450,460 437,460 448,450')
+  //.attr('points', '430,450 430,470 440,455 440,470 470,440 450,450 450,440')
+  .attr('fill', 'yellow')
+  .on('click', function() {
+    d3.select(this)
+      .transition()
+      .duration(10)
+      .attr('fill', '#c43131');
+    spin();
+    d3.select('.rect1').transition()
+                            .duration(1000)
+                            .attrTween('transform', function() {
+                              return d3.interpolateString('rotate(0,430,180)', 'rotate(25,430,180)');
+                            });
+    d3.select('.rect2').transition()
+                      .duration(1000)
+                      .attrTween('transform', function() {
+                        return d3.interpolateString('rotate(0,430,180)', 'rotate(25,430,180)');
+                      });
+    d3.select('.rect3').transition()
+                      .duration(1000)
+                      .attrTween('transform', function() {
+                        return d3.interpolateString('rotate(0,430,180)', 'rotate(25,430,180)');
+                      });
+    d3.select('.button1').attr('fill', changeColor);
+  });
+
+// left upper corner
+svg.append('rect')
+  .attr('x', 120)
+  .attr('y', 120)
+  .attr('width', 40)
+  .attr('height', 20);
+
+svg.append('ellipse')
+  .attr('cx', 200)
+  .attr('cy', 130)
+  .attr('rx', 25)
+  .attr('ry', 10)
+  .attr('class', 'button1');
+
+
+
+
+
+
+// Append the SVG element.
+container.append(svg.node());
+
+
+
 </script>
