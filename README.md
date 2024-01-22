@@ -10,14 +10,21 @@ In this project, I use d3.js to create a vinyl records player that allows users 
 
 On the upper left of the turntable, we have the label of this turntable, proudly bearing the brand name 'Hello, D3!'.
 
+<p align='center'>
+<img src="turntable.png" />
 
-![](turntable.png)
-
+<p align='center'>
 Turntable is playing music
-![](turntable-playing.png)
+<p align='center'>
+<img src="turntable-playing.png" />
+</p>
 
+<p align='center'>
 Turntable stops playing music
-![](turntable-stop.png)
+<p align='center'>
+<img src="turntable-stop.png" />
+
+
 
 
 Requirements
