@@ -39,13 +39,3 @@ What was done:
 The biggest challenge:  (*for me*) was to figure out coordinates and make them aesthetic
 
 What could I improve: beautify it based on the color combination, improve the movement functions, improve the conductor (the cat) - it was the first and worst of the others.
-
-
-- Note: name your pull request using the following scheme: 
-```
-a1-your Gh username-your first name-your lastname
-
-```
-
-
-
