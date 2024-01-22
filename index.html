@@ -1,10 +1,170 @@
-<script src="https://d3js.org/d3.v6.min.js"></script>
+<!DOCTYPE html>
+<div id="container"></div>
 
-<script>
-  console.log(d3); // test if d3 is loaded
-  // Add an SVG
-  // Add Rectangles
-  // Add Circles
-  // Add Lines
-  // Add Polygons
+
+<script type="module">
+
+import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+
+const width = 1000;
+const height = 700;
+
+// making a star symbol
+var star = d3.symbol()
+    .type(d3.symbolStar)
+    .size(30);
+
+var triangle = d3.symbol()
+    .type(d3.symbolTriangle)
+    .size(35000);
+
+// adding a svg
+const svg = d3.create("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+// first layer of background to imitate night sky
+svg.append('rect')
+    .attr('width', '100%')
+    .attr('height', '100%')
+    .attr('fill', 'black');
+
+// second layer of background for user interaction
+svg.append('rect')
+    .attr('width', '100%')
+    .attr('height', '55%')
+    .attr('fill', 'black')
+    .on('click', function(event) { // adds star at mouse click coordiante 
+      let coordinates = d3.pointer(event); // fecting mouse coordinate
+      svg.append('path')
+      .attr('transform', `translate( ${coordinates[0]}, ${coordinates[1]})`)
+      .attr('d', star)
+      .attr('fill', 'white')
+      .size(5);
+    });    
+
+// drawing a house using the instrcuted shapes
+svg.append('rect')
+    .attr('x', 100)
+    .attr('y', 500)
+    .attr("width", 200)
+    .attr("height", 250)
+    .attr('stroke', 'white')
+    .attr('fill', 'navy');
+    
+// adding a roof using trinagle
+svg.append('path')
+    .attr('d', triangle)
+    .attr('stroke', 'white')
+    .attr('fill', 'navy')
+    .attr('transform', 'translate(200, 455)')
+
+// making windows
+svg.append('rect')
+    .attr('x', 120)
+    .attr('y', 550)
+    .attr("width", 50)
+    .attr("height", 50)
+    .attr('stroke', 'black')
+    .attr('fill', 'lightblue');
+
+svg.append('line')
+    .attr('x1', 145)
+    .attr('y1', 550)
+    .attr('x2', 145)
+    .attr('y2', 600)
+    .attr('stroke-width', 5)
+    .attr('stroke', 'black')
+    .attr('stroke', 'brown');
+
+svg.append('line')
+    .attr('x1', 120)
+    .attr('y1', 575)
+    .attr('x2', 170)
+    .attr('y2', 575)
+    .attr('stroke-width', 5)
+    .attr('stroke', 'black')
+    .attr('stroke', 'brown');
+
+svg.append('rect')
+    .attr('x', 230)
+    .attr('y', 550)
+    .attr("width", 50)
+    .attr("height", 50)
+    .attr('stroke', 'black')
+    .attr('fill', 'lightblue');
+
+svg.append('line')
+    .attr('x1', 255)
+    .attr('y1', 550)
+    .attr('x2', 255)
+    .attr('y2', 600)
+    .attr('stroke-width', 5)
+    .attr('stroke', 'black')
+    .attr('stroke', 'brown');
+
+svg.append('line')
+    .attr('x1', 230)
+    .attr('y1', 575)
+    .attr('x2', 280)
+    .attr('y2', 575)
+    .attr('stroke-width', 5)
+    .attr('stroke', 'black')
+    .attr('stroke', 'brown');
+// door
+svg.append('rect')
+    .attr('x', 185)
+    .attr('y', 650)
+    .attr("width", 35)
+    .attr("height", 70)
+    .attr('stroke', 'black')
+    .attr('fill', 'brown');
+
+
+// making a street light
+
+svg.append('rect')
+    .attr('x', 550)
+    .attr('y', 500)
+    .attr("width", 15)
+    .attr("height", 3000)
+    .attr('stroke', 'white')
+    .attr('fill', 'black');
+
+
+// Adding Polygons
+svg.append("polygon")
+   .attr("points", "545,475 570,475 565,500 550,500")
+   .style("fill", "yellow")
+   .style("stroke", "red");
+
+svg.append("polygon")
+   .attr("points", "535,465 580,465 580,475 535,475")
+   .style("fill", "black")
+   .style("stroke", "white");
+
+svg.append("circle")
+    .attr('cx', 557)
+    .attr('cy', 457)
+    .attr('r', 5)
+    .style("stroke", "white")
+    .attr('fill', 'black');
+
+// adding one white cirlce to imitate the moon
+svg.append("circle")
+    .attr('cx', 50)
+    .attr('cy', 50)
+    .attr('r', 20)
+    .attr('fill', 'white');
+
+// adding a black circle to cut the white circle into moon shape
+svg.append("circle")
+    .attr('cx', 40)
+    .attr('cy', 50)
+    .attr('r', 20)
+    .attr('fill', 'black');
+
+      
+container.append(svg.node());
+
 </script>
