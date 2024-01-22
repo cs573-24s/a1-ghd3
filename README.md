@@ -1,86 +1,40 @@
 Assignment 1 - Hello World: GitHub and d3  
 ===
+1. **Link to gh-pages site:** https://qjxberry.github.io/a1-ghd3/
 
-This is a starting project to make sure you can write and host a webpage that generates graphics using d3. 
+2. **Motivation for creation:** <br>I am fond cute cartoon comics, and based on my liking for Peppa Pig, I tried my best to draw a simple picture of her though it's not like that much.
 
-The primary goal is to be able to generate graphics primitives (circles, rectangles, lines, polygons) at different locations on the screen with different colors. 
+3. **Elements used to render:** <br>
+   3.1  Square: one red rectangle and one white path in the sqaure
 
-The secondary goal is to introduce you to coding on GitHub, including creating a gh-pages branch to host your visualizations.
+   3.2 picture on the square groud: <br>two gray triangles to render ears, <br>two black circles to render eyes, 
+        <br>one pink square to render mouth, 
+        <br>one big gray circle to render face, 
+        <br>one big rectangel to render her body and a tail.
 
-You may write everything from scratch, or start with demo programs from books or the web. 
-If you do start with code that you found, you **must identify** the source of the code in your README and, most importantly, make non-trivial changes to the code to make it your own so you really learn what you're doing. 
+    ![Alt text](images/image.png)
+    ![Alt text](images/image-1.png)
 
-For example, you could download one of the d3.js examples, read it through so you understand what it's doing, and then change the appearance of the graphical output to use different color schemes, different primitive shapes, different layouts of the primitives, and so on.
+4. **Technical Achievement Desription:** <br>
+    4.1 D3.js Integration: <br>Start to learn proficiency in integrating the D3.js library to create dynamic and interactive visualizations. And highlight the use of SVG grouping (<g>) to organize and structure related elements.
 
-Resources
----
+    4.2 Event Handling: <br>Showcase event handling capabilities, such as responding to user clicks and triggering animations.
 
-If you need a JavaScript/HTML/CSS refresher, see [JavaScript Codeacademy](https://www.codecademy.com/en/tracks/javascript) or find one of your choosing on the web.
+    4.3 Animations: <br>Highlight the use of smooth transitions and animations using D3.js, enhancing the visual appeal and user experience. Emphasize the ability to dynamically create and manipulate SVG elements through JavaScript. Explain how styles are dynamically changed based on data or interactions.
+   
+    4.4 Path Animation:<br> Discuss the implementation of path animations, specifically in the context of the pig's tail movement. Describe the logic behind complex movements, like moving the circle to the pig's body with synchronized motions. The moveCircleTopig function showcases complex movement logic, smoothly transitioning the circle to the pig's body with synchronized movements.
 
-If you need a Git/GitHub refreseher, some possible resources include [Getting Started with GitHub](https://help.github.com/categories/bootcamp/), the [GitHub Guides](https://guides.github.com/) (especially the ones on Hello World, and Understanding the GitHub Flow, and Forking Projects), and [CodeSchool's Try Git Course](https://www.codeschool.com/courses/try-git).
+    4.5 Other: <br>Successfully implemented a feature that dynamically adjusts the distance between the pig's tail and body by moving the pig's body, achieving a visually pleasing tail attachment. And implemented dynamic calculations to ensure that the circular movement stops at a position that precisely overlaps with the pig's face, creating an aesthetically interesting composition
 
-Requirements
----
 
-1. Your project should contain at least four kinds of graphics primitives (circles, rectangles, lines, polygons) in different colors. 
-2. Your document should identify the source of the code if you start with code that you found. 
-3. Your code should be forked from the GitHub repo and linked using GitHub pages. See the "GitHub Details" section below for detailed instructions on how to do this.
+5. **Design Achievement Description:** <br>
+    5.1 Visual Hierarchy: <br>Discuss how the visualization establishes a clear visual hierarchy with distinct elements representing different parts of the pig and its environment. Explain the choice of colors in the palette and how they contribute to a visually appealing representation of the pig and its surroundings.
 
-GitHub Details
----
+    5.2 Interactive Elements: <br>Discuss the incorporation of interactive elements, such as clickable parts of the pig and resulting animations, to enhance user engagement. Describe how shapes and colors are used to create a realistic representation of a pig, contributing to the overall visual appeal.
 
-- Fork the GitHub Repository for Assignment 1. You now have a copy associated with your username.
-- Make changes to index.html to fulfill the project requirements. 
-- Make sure your "main" branch matches your "gh-pages" branch. See the GitHub Guides referenced above if you need help.
-- Edit the README.md with a link to your gh-pages site "http://YourUsernameGoesHere.github.io/01-ghd3/index.html".
+    5.3 Symbolism: <br>Discuss any symbolic elements used in the visualization, adding depth and meaning to the overall design. Highlight the consistency in styling throughout the visualization, creating a cohesive and unified visual experience. Emphasize attention to detail in the design, such as the shape of the pig's ears, eyes, and tail.
 
-Submission Details
----
-- To submit, make a [Pull Request](https://help.github.com/articles/using-pull-requests/) on the original repository.
-- Note: name your pull request using the following scheme: 
-```
-a1-your Gh username-your first name-your lastname
+    5.4 Other: <br>Achieved visual harmony by allowing users to set a specific tail distance and ensuring a seamless connection between the pig's tail and body during movement. Demonstrated a commitment to aesthetic precision by ensuring that the stopping position aligns perfectly with the pig's face, resulting in a visually satisfying and well-composed image
 
-```
 
-Vis Details
----
-
-For this project you should use d3.js. 
-You can learn from examples on the [d3.js](http://d3js.org) site or start from scratch.
-
-See the [Using d3js](https://github.com/mbostock/d3/wiki#using) documentation for how to run your own local server.
-
-Creative solutions are welcome! In the past I've seen recreations of paintings, interactives, and more.
-
-Go beyond the minimum requirements of this project.
-Experiment with other aspects of the [d3 API](https://github.com/mbostock/d3/wiki/API-Reference) and [d3 Tutorials](https://github.com/mbostock/d3/wiki/Tutorials). 
-Try making the elements interactive, for example, or animate them.
-
-Grading
----
-
-Grades are on a 120 point scale. 
-96 points will be graded for functionality: the program does what the assignment requests with an informative README. 
-
-We will use Google Chrome to view submissions. 
-Be sure to test your code there.
-
-Below are some, but not necessarily all, of the key points we will consider during grading:
-
-- Circles and Rectangles  
-- Lines  
-- Paths  
-- Different colors  
-- README Quality
-    - A description of what you have created. 1-2 screenshots are recommended for the README.  
-    - A working link to the hosted files (usually the gh-pages 'live' url)  
-    - Section for Technical and Design Achievements
-
-Technical Achievement Desription -- 12  
-Design Achievement Description -- 12
-
-Remember, it is up to *you* to define what constitutes a technical and design achievements.
-Be ambitious as these are designed to allow you to shape your learning.
-These are the only way to move from B to A territory.
 

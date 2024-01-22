@@ -1,10 +1,194 @@
-<script src="https://d3js.org/d3.v6.min.js"></script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My pig visualization</title>
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      cursor: pointer;
+    }
+
+    svg {
+      background-color: #7FB3D5;
+    }
+  </style>
+</head>
+<body>
 
 <script>
-  console.log(d3); // test if d3 is loaded
-  // Add an SVG
-  // Add Rectangles
-  // Add Circles
-  // Add Lines
-  // Add Polygons
+  const svg = d3.select("body").append("svg")
+    .attr("width", 1600)  
+    .attr("height", 800)  
+    .style("background-color", "#7FB3D5");
+
+  const pigGroup = svg.append("g");
+
+  // Draw a playground rectangle (red)
+  svg.append("rect")
+    .attr("x", 0)
+    .attr("y", 400)  
+    .attr("width", 1600)  
+    .attr("height", 400)  
+    .attr("fill", "red");
+
+  const playgroundCircle = svg.append("circle")
+    .attr("cx", 1000)  
+    .attr("cy", 200)  
+    .attr("r", 100)  
+    .attr("fill", "orange");
+
+  // Draw a playground path (white)
+  svg.append("path")
+    .attr("d", "M0,430 Q800,700 1600,430")  
+    .attr("stroke", "white")
+    .attr("stroke-width", 60)  
+    .attr("fill", "none");
+
+    // Draw the pig's body (rectangle)
+  const pigBody = pigGroup.append("rect")
+    .attr("x", 200)  
+    .attr("y", 300)  
+    .attr("width", 200)  
+    .attr("height", 120)  
+    .attr("fill", "brown")
+    .on("click", function() {
+      shakeBody(pigBody);
+    });
+
+  // Draw the pig's head (circle)
+  svg.append("circle")
+    .attr("cx", 200)  
+    .attr("cy", 260)  
+    .attr("r", 60)  
+    .attr("fill", "gray");
+
+  // Draw the pig's eyes (circle)
+  svg.append("circle")
+    .attr("cx", 170)  
+    .attr("cy", 240)  
+    .attr("r", 10)  
+    .attr("fill", "black");
+
+  svg.append("circle")
+    .attr("cx", 230)  
+    .attr("cy", 240)  
+    .attr("r", 10)  
+    .attr("fill", "black");
+
+    // Draw the pig's nose (rectangle)
+  svg.append("rect")
+    .attr("x", 190)  
+    .attr("y", 270)  
+    .attr("width", 20)  
+    .attr("height", 20)  
+    .attr("fill", "pink");
+
+    // Draw the pig's ears (triangle)
+  const earPoints = "160,220 140,160 180,160";  
+  svg.append("polygon")
+    .attr("points", earPoints)
+    .attr("fill", "gray");
+
+  const otherEarPoints = "240,160 260,220 220,220";  
+  svg.append("polygon")
+    .attr("points", otherEarPoints)
+    .attr("fill", "gray");
+
+  // Draw the pig's tail (path)
+  const tailPath = "M420,360 Q460,300 420,240";  
+  svg.append("path")
+    .attr("d", tailPath)
+    .attr("stroke", "brown")
+    .attr("stroke-width", 6)  
+    .attr("fill", "none");
+
+    // Connect the pig's body and circle center with a line
+  const connectingLine = svg.append("line")
+    .attr("x1", 1000)  // 头部中心 x 坐标
+    .attr("y1", 200)  // 头部中心 y 坐标
+    .attr("x2", 300)  // 身体中心 x 坐标
+    .attr("y2", 360)  // 身体中心 y 坐标
+    .attr("stroke", "black")
+    .attr("stroke-width", 2);
+
+  // pig's body shaking function when click pig body
+  function shakeBody(element) {
+    const duration = 200;
+    const interval = 500;
+
+    for (let i = 0; i < 3; i++) {
+      element.transition()
+        .duration(duration)
+        .attr("y", 300 - 10)  
+        .transition()
+        .duration(duration)
+        .attr("y", 300)  
+        .delay(interval * i);
+    }
+  }
+
+  // pig's function for walking horizontally to the right with tail concatenation
+  function walkInPlace() {
+    const walkDistance = 20;  
+    const duration = 1000;
+
+    pigGroup.transition()
+      .duration(duration)
+      .attr("transform", "translate(" + walkDistance + ", 0)")
+      .transition()
+      .duration(duration)
+      .on("end", function() {
+        // remove conncetion
+        connectingLine.remove();
+      });
+  }
+
+  // Automatically trigger movement
+  moveCircleTopig(playgroundCircle);
+
+  // Start the pig's movement
+  walkInPlace();
+
+  // Function to slowly move the circle to the pig's body.
+  function moveCircleTopig(circle) {
+    const duration = 4000;
+
+    // Get the positions of the circle and the pig's body
+    const circleX = parseFloat(circle.attr("cx"));
+    const circleY = parseFloat(circle.attr("cy"));
+    const pigX = parseFloat(pigBody.attr("x"));
+    const pigY = parseFloat(pigBody.attr("y"));
+
+    // calculate the distance 
+    const moveX = circleX - pigX;
+    const moveY = circleY - pigY;
+
+    // Move the circle to the pig's body
+    circle.transition()
+      .duration(duration)
+      .attr("cx", pigX)
+      .attr("cy", pigY)
+      .on("end", function() {
+        // remove conncetion
+        connectingLine.remove();
+      });
+
+    // Simultaneously move the entire group of the pig
+    pigGroup.transition()
+      .duration(duration)
+      .attr("transform", "translate(" + moveX + "," + moveY + ")");
+  }
+
 </script>
+
+</body>
+</html>
