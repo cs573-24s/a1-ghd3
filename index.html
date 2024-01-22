@@ -4,23 +4,13 @@
 
   import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 
-
   var is_enable = false;
 
   // Declare the chart dimensions and margins.
   const width = 700;
   const height = 700;
-  // const marginTop = 20;
-  // const marginRight = 20;
-  // const marginBottom = 30;
-  // const marginLeft = 40;
   
   console.log(d3); // test if d3 is loaded
-  // Add an SVG
-  // Add Rectangles
-  // Add Circles
-  // Add Lines
-  // Add Polygons
   
   
   // Create the SVG container.
@@ -55,8 +45,7 @@
   
   // vinyl
 
-  const vinyl = svg.append('g')
-    .call(d3.drag());
+  const vinyl = svg.append('g');
   
   vinyl.append('circle')
       .attr('cx', 275)
@@ -138,12 +127,6 @@
       .attr('class', 'rect3');
   
   
-  
-  //svg.append('polygon')
-  //  .attr('points', '370,490 430,425 430,465 490,400')  //.attr('points', '0,100 50,25 50,75 100,0')
-  //  .attr('fill', 'black')
-  //  .attr('stroke', 'black');
-  
   function spin() {
   
       const vinyl_path = d3.select('.vinyl_path');
@@ -184,8 +167,6 @@
                 transitionGradientColor();
             });
       }
-
-
       if (is_enable) {
         transitionGradientColor();
       } else {
@@ -195,22 +176,10 @@
 
   }
   
-  
   // lightning symbol
   var light = svg.append('polygon')
       .attr('points', '132,450 120,470 133,468 120,490 150,460 137,460 148,450')
       .attr('class', 'lightning');
-
-  function pickup(event, d) {
-    //d3.select(this).raise();
-    d3.select(this).raise().attr("stroke", "black");
-    //d3.select(this).raise().classed("active", true);
-  }
-
-  function drop(event, d) {
-    d3.select(this).attr("stroke", 'pink');
-  }
-
   
   // left upper corner
   svg.append('rect')
@@ -218,14 +187,37 @@
       .attr('y', 120)
       .attr('width', 40)
       .attr('height', 20);
+
+  svg.append('rect')
+      .attr('x', 220)
+      .attr('y', 120)
+      .attr('width', 40)
+      .attr('height', 20);
   
   svg.append('ellipse')
-      .attr('cx', 200)
+      .attr('cx', 190)
       .attr('cy', 130)
-      .attr('rx', 25)
-      .attr('ry', 10)
+      .attr('rx', 70)
+      .attr('ry', 17)
       .attr('class', 'button1');
+
+  svg.append('polygon')
+      .attr('points', '120,120 120,140 130,130')
+      .attr('fill', 'skyblue');
+
+
+  svg.append('polygon')
+      .attr('points', '260,120 260,140 250,130')
+      .attr('fill', 'skyblue');
   
+  svg.append('text')
+      .attr('x', 190)
+      .attr('y', 135)
+      .attr('text-anchor', 'middle')
+      .attr('font-size', '16px')
+      .attr('fill', 'white')
+      .attr('font-family', 'monospace')
+      .text('Hello, D3!')
   
   // buttons: play
   svg.append('rect')
