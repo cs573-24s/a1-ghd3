@@ -1,10 +1,326 @@
-<script src="https://d3js.org/d3.v6.min.js"></script>
+<!DOCTYPE html>
+<div id="container"></div>
+<script type="module">
 
-<script>
+  import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+
+  var is_enable = false;
+
+  // Declare the chart dimensions and margins.
+  const width = 700;
+  const height = 700;
+  
   console.log(d3); // test if d3 is loaded
-  // Add an SVG
-  // Add Rectangles
-  // Add Circles
-  // Add Lines
-  // Add Polygons
+  
+  
+  // Create the SVG container.
+  const svg = d3.create("svg")
+      .attr("width", width)
+      .attr("height", height);
+  
+  // left down cornor
+  svg.append('rect')
+      .attr('x', 85)
+      .attr('y', 400)
+      .attr('width', 15)
+      .attr('height', 20)
+  
+  svg.append('rect')
+      .attr('x', 85)
+      .attr('y', 430)
+      .attr('width', 20)
+      .attr('height', 50)
+      .on()
+  
+  // Create a Rectangles
+  svg.append("rect")
+      .attr('x', 100)
+      .attr('y', 100)
+      .attr('width', 400)
+      .attr('height', 400)
+      .attr('rx', 15)
+      .attr('fill', 'skyblue')
+      .attr('stroke', 'cadetblue')
+      .attr('stroke-width', 8);
+  
+  // vinyl
+
+  const vinyl = svg.append('g');
+  
+  vinyl.append('circle')
+      .attr('cx', 275)
+      .attr('cy', 320)
+      .attr('r', 125)
+      .attr('fill', 'black');
+  
+  vinyl.append('circle')
+      .attr('cx', 275)
+      .attr('cy', 320)
+      .attr('r', 50)
+      .attr('fill', '#faf7f7'); // grey
+  
+  vinyl.append('circle')
+      .attr('cx', 275)
+      .attr('cy', 320)
+      .attr('r', 45)
+      .attr('fill', '#c43131'); // dark red
+  
+  vinyl.append('circle')
+      .attr('cx', 275)
+      .attr('cy', 320)
+      .attr('r', 10)
+      .attr('fill', 'grey');
+  
+  vinyl.append('path')
+      .attr('d', 'M 200,265 Q 230 210 300 225')
+      .attr('fill', 'none')
+      .attr('stroke', 'grey')
+      .attr('stroke-width', 5)
+      .attr('class', 'vinyl_path');
+  
+  // upper right corner
+  svg.append('circle')
+      .attr('cx', 430)
+      .attr('cy', 180)
+      .attr('r', 40);
+  
+  svg.append('circle')
+      .attr('cx', 430)
+      .attr('cy', 180)
+      .attr('r', 20)
+      .attr('fill', '#faf7f7');
+  
+  svg.append('circle')
+      .attr('cx', 430)
+      .attr('cy', 180)
+      .attr('r', 5)
+      .attr('fill', 'grey');
+  
+  svg.append('rect')
+      .attr('x', 420)
+      .attr('y', 125)
+      .attr('width', 20)
+      .attr('height', 32)
+      .attr('fill', 'grey')
+      .attr('stroke', 'lightgrey')
+      .attr('stroke-width', 2)
+      .attr('class', 'rect1');
+  
+  svg.append('rect')
+      .attr('x', 425)
+      .attr('y', 205)
+      .attr('width', 10)
+      .attr('height', 200)
+      .attr('fill', 'grey')
+      .attr('stroke', 'lightgrey')
+      .attr('stroke-width', 2)
+      .attr('class', 'rect2');
+  
+  svg.append('rect')
+      .attr('x', 421)
+      .attr('y', 405)
+      .attr('width', 17)
+      .attr('height', 19)
+      .attr('fill', 'grey')
+      .attr('stroke', 'lightgrey')
+      .attr('stroke-width', 2)
+      .attr('class', 'rect3');
+  
+  
+  function spin() {
+  
+      const vinyl_path = d3.select('.vinyl_path');
+  
+  
+      if (is_enable) {
+          console.log("Start moving")
+  
+          vinyl_path.transition()
+              .duration(1000) // Duration of the animation in milliseconds
+              .attrTween("transform", function() {
+                  return d3.interpolateString("rotate(0,275,320)", "rotate(360,275,320)");
+              })
+              .on("end", function() {
+                  spin()
+              })
+      } else {
+          console.log("Stop moving");
+          vinyl_path.interrupt();
+      }
+  
+  }
+  
+  function changeColor() {
+      const lightning_symbol = d3.select(".lightning")
+
+      // Function to transition the gradient color
+      function transitionGradientColor() {
+        // Generate an intermediate color between blue and red
+        const intermediateColor = d3.interpolateRgb('red', 'blue')(Math.random());
+
+        // Transition the fill color of the rectangle
+        lightning_symbol.transition()
+            .duration(1000)  // Duration of the transition in milliseconds
+            .attr('fill', intermediateColor)
+            .on('end', function () {
+                // Recursively call the function for continuous animation
+                transitionGradientColor();
+            });
+      }
+      if (is_enable) {
+        transitionGradientColor();
+      } else {
+        lightning_symbol.interrupt();
+        lightning_symbol.attr('fill', 'black');
+      }
+
+  }
+  
+  // lightning symbol
+  var light = svg.append('polygon')
+      .attr('points', '132,450 120,470 133,468 120,490 150,460 137,460 148,450')
+      .attr('class', 'lightning');
+  
+  // left upper corner
+  svg.append('rect')
+      .attr('x', 120)
+      .attr('y', 120)
+      .attr('width', 40)
+      .attr('height', 20);
+
+  svg.append('rect')
+      .attr('x', 220)
+      .attr('y', 120)
+      .attr('width', 40)
+      .attr('height', 20);
+  
+  svg.append('ellipse')
+      .attr('cx', 190)
+      .attr('cy', 130)
+      .attr('rx', 70)
+      .attr('ry', 17)
+      .attr('class', 'button1');
+
+  svg.append('polygon')
+      .attr('points', '120,120 120,140 130,130')
+      .attr('fill', 'skyblue');
+
+
+  svg.append('polygon')
+      .attr('points', '260,120 260,140 250,130')
+      .attr('fill', 'skyblue');
+  
+  svg.append('text')
+      .attr('x', 190)
+      .attr('y', 135)
+      .attr('text-anchor', 'middle')
+      .attr('font-size', '16px')
+      .attr('fill', 'white')
+      .attr('font-family', 'monospace')
+      .text('Hello, D3!')
+  
+  // buttons: play
+  svg.append('rect')
+      .attr('x', 460)
+      .attr('y', 400)
+      .attr('width', 30)
+      .attr('height', 30)
+      .attr('rx', 5)
+      .attr('fill', 'cadetblue');
+  
+  svg.append('circle')
+      .attr('cx', 475)
+      .attr('cy', 415)
+      .attr('r', 12)
+      .attr('stroke', 'white')
+      .attr('stroke-width', 1.5)
+      .attr('fill', 'none');
+  
+  svg.append('polygon')
+      .attr('points', '469,407 469,423 486,415')
+      .attr('fill', 'darkblue')
+      .attr('class', 'play_button')
+      .on('click', function() {
+          is_enable = (!is_enable)
+          d3.select(this)
+              .transition()
+              .duration(10)
+              .attr('fill', '#c43131');
+          spin();
+          changeColor();
+          d3.select('.rect1').transition()
+              .duration(1000)
+              .attrTween('transform', function() {
+                  return d3.interpolateString('rotate(0,430,180)', 'rotate(25,430,180)');
+              });
+          d3.select('.rect2').transition()
+              .duration(1000)
+              .attrTween('transform', function() {
+                  return d3.interpolateString('rotate(0,430,180)', 'rotate(25,430,180)');
+              });
+          d3.select('.rect3').transition()
+              .duration(1000)
+              .attrTween('transform', function() {
+                  return d3.interpolateString('rotate(0,430,180)', 'rotate(25,430,180)');
+              });
+          d3.select('.stop_button').attr('fill', 'darkblue');
+          
+          
+      });
+  
+  // buttons: stop
+  svg.append('rect')
+      .attr('x', 460)
+      .attr('y', 440)
+      .attr('width', 30)
+      .attr('height', 30)
+      .attr('rx', 5)
+      .attr('fill', 'cadetblue');
+  
+  svg.append('circle')
+      .attr('cx', 475)
+      .attr('cy', 455)
+      .attr('r', 12)
+      .attr('stroke', 'white')
+      .attr('stroke-width', 1.5)
+      .attr('fill', 'none');
+  
+  svg.append('rect')
+      .attr('x', 468)
+      .attr('y', 448)
+      .attr('width', 14)
+      .attr('height', 14)
+      .attr('fill', 'darkblue')
+      .attr('class', 'stop_button')
+      .on('click', function() {
+          is_enable = (!is_enable)
+          d3.select(this)
+              .transition()
+              .duration(10)
+              .attr('fill', '#c43131');
+          d3.select('.rect1').transition()
+              .duration(1000)
+              .attrTween('transform', function() {
+                  return d3.interpolateString('rotate(25,430,180)', 'rotate(0,430,180)');
+              });
+          d3.select('.rect2').transition()
+              .duration(1000)
+              .attrTween('transform', function() {
+                  return d3.interpolateString('rotate(25,430,180)', 'rotate(0,430,180)');
+              });
+          d3.select('.rect3').transition()
+              .duration(1000)
+              .attrTween('transform', function() {
+                  return d3.interpolateString('rotate(25,430,180)', 'rotate(0,430,180)');
+              });
+          d3.select('.play_button').attr('fill', 'darkblue');
+          spin();
+          changeColor();
+      });
+  
+  // Append the SVG element.
+  container.append(svg.node());
+
+
+
 </script>
