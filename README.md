@@ -5,13 +5,16 @@ For assignment 1, I utilized the d3 library to create a virtual Maneki Neko (aka
 
 To make the cat wave, just press the "Wave to Me" button. I used a mixture of circles, rectangles, lines, and paths to best capture the overall silloughette of the cat. Below, I've included screen shots of my cat and the irl inspiration for it. 
 
+![Alt text](a1-ghd3/d3_cat.png)
+
+![Alt text](a1-ghd3/irl_cat.png)
 
 
 * File Link *
 
 
 
-
+* Technical and Design Achievements*
 
 
 
