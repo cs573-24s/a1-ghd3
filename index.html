@@ -1,10 +1,83 @@
-<script src="https://d3js.org/d3.v6.min.js"></script>
+<!DOCTYPE html>
+<div id="container"></div>
 
-<script>
-  console.log(d3); // test if d3 is loaded
-  // Add an SVG
-  // Add Rectangles
-  // Add Circles
-  // Add Lines
-  // Add Polygons
+<script type="module">
+import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+
+const width = 1000;
+const height = 700;
+
+console.log(d3); // test if d3 is loaded
+
+const svg = d3.create("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+// The blue background
+svg.append("rect").attr("x", 0).attr("y", 0).attr("width", 1000).attr("height", 700).attr("fill", "lightblue");
+
+// Drawing the sun
+svg.append("circle").attr("cx", 650).attr("cy", 50).attr("r", 25).attr("fill", "yellow");
+
+// Drawing the cat
+svg.append("rect").attr("x", 125).attr("y", 250).attr("width", 300).attr("height", 200).attr("fill", "gray");
+svg.append("rect").attr("x", 375).attr("y", 150).attr("width", 125).attr("height", 100).attr("fill", "darkgray");
+
+svg.append("polygon").attr("points", "350,295 395,300 450,325 500,375").attr("fill", "#373737");
+
+svg.append("circle").attr("cx", 425).attr("cy", 175).attr("r", 10).attr("fill", "black");
+svg.append("circle").attr("cx", 475).attr("cy", 175).attr("r", 10).attr("fill", "black");
+
+var curlyTailPath = "M127 250 Q125 230 150 220";
+
+svg.append("path")
+    .attr("d", curlyTailPath)
+    .attr("stroke", "black")
+    .attr("fill", "none").attr("stroke-width",5);
+
+svg.append("line").attr("x1", 450).attr("y1", 200).attr("x2", 425).attr("y2", 190).attr("stroke", "black").attr("stroke-width",2);
+
+// Drawing the tree
+svg.append("rect").attr("x", 725).attr("y", 350).attr("width", 50).attr("height", 100).attr("fill", "brown");
+
+svg.append("polygon").attr("points", "750,250 700,350 800,350").attr("fill", "green");
+
+svg.append("polygon").attr("points", "750,300 700,350 800,350").attr("fill", "green");
+
+svg.append("polygon").attr("points", "750,250 700,300 800,300").attr("fill", "green");
+
+//The text
+svg.append("text").attr("x", 10).attr("y", 35).text("Click on the button to toggle between day and night.");
+
+const button = d3.select("body")
+    .append("button")
+    .text("Toggle Day/Night")
+    .style("position", "absolute")
+    .style("top", "10px")
+    .style("left", "10px")
+    .on("click", toggleDayNight);
+
+// Function to toggle between day and night
+function toggleDayNight() {
+  const blueRect = svg.select("rect");
+  const currentColor = blueRect.attr("fill");
+
+  if (currentColor === "lightblue") {
+    blueRect.attr("fill", "darkblue");
+  } else if (currentColor === "darkblue") {
+    blueRect.attr("fill", "lightblue");
+  }
+
+  const sun = svg.select("circle");
+  const suncolor = sun.attr("fill");
+
+  if (suncolor == "yellow") {
+    sun.attr("fill", "darkblue");
+  } else if (suncolor == "darkblue") {
+    sun.attr("fill", "yellow");
+  }
+}
+
+container.append(svg.node());
+
 </script>
