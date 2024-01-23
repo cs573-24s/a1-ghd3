@@ -34,29 +34,29 @@
         // 
         const svg = d3.select("svg");
 
-        // getthe moon
+        // 获取月亮
         const moon = d3.select("#moon");
 
-        // initial position
+        // 设置初始位置
         let offsetX = 0;
         let offsetY = 0;
 
-        // mouse
+        // 鼠标按下
         moon.on("mousedown", function (event) {
             offsetX = event.clientX - parseFloat(moon.attr("cx"));
             offsetY = event.clientY - parseFloat(moon.attr("cy"));
 
-            // mouse mobve
+            // 鼠标移动
             svg.on("mousemove", function (event) {
                 const newX = event.clientX - offsetX;
                 const newY = event.clientY - offsetY;
 
-                // new position of moon
+                // 更新月亮
                 moon.attr("cx", newX);
                 moon.attr("cy", newY);
             });
 
-            // mouse release
+            // 鼠标释放
             svg.on("mouseup", function () {
                 svg.on("mousemove", null);
                 svg.on("mouseup", null);
