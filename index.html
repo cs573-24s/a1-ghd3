@@ -28,10 +28,10 @@ svg.append("polygon").attr("points", "350,295 395,300 450,325 500,375").attr("fi
 svg.append("circle").attr("cx", 425).attr("cy", 175).attr("r", 10).attr("fill", "black");
 svg.append("circle").attr("cx", 475).attr("cy", 175).attr("r", 10).attr("fill", "black");
 
-var curlyTailPath = "M127 250 Q125 230 150 220";
+var tailpath = "M127 250 Q125 230 150 220";
 
 svg.append("path")
-    .attr("d", curlyTailPath)
+    .attr("d", tailpath)
     .attr("stroke", "black")
     .attr("fill", "none").attr("stroke-width",5);
 
