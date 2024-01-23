@@ -1,10 +1,110 @@
-<script src="https://d3js.org/d3.v6.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
 
-<script>
-  console.log(d3); // test if d3 is loaded
-  // Add an SVG
-  // Add Rectangles
-  // Add Circles
-  // Add Lines
-  // Add Polygons
-</script>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assignment 1 with D3.js</title>
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+</head>
+
+<body>
+
+  <script>
+    // Add an SVG
+    function addSvg(width, height) {
+      let svg = d3.select("body")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("id", "mySvg");
+      return svg;
+    }
+
+    // Add Circles
+    function addCircle(svg, cx, cy, r, fill) {
+      let circ = svg.append("circle")
+        .attr("cx", cx)
+        .attr("cy", cy)
+        .attr("r", r)
+        .attr("fill", fill);
+
+      circ.on("click", function () {
+        window.alert("Blub blub!");
+      });
+    }
+
+    // Add Ellipse
+    function addEllipse(svg, cx, cy, rx, ry, fill) {
+      let ell = svg.append("ellipse")
+        .attr("cx", cx)
+        .attr("cy", cy)
+        .attr("rx", rx)
+        .attr("ry", ry)
+        .attr("fill", fill);
+
+      ell.on("click", function () {
+        window.alert("Blub blub!");
+      });
+    }
+
+    // Add Rectangles
+    function addRect(svg, x, y, width, height, fill) {
+      let rect = svg.append("rect")
+        .attr("x", x)
+        .attr("y", y)
+        .attr("width", width)
+        .attr("height", height)
+        .attr("fill", fill);
+    }
+
+    // Add Lines
+    function addLine(svg, x1, y1, x2, y2, stroke, strokeWidth) {
+      let line = svg.append("line")
+        .attr("x1", x1)
+        .attr("y1", y1)
+        .attr("x2", x2)
+        .attr("y2", y2)
+        .attr("stroke", stroke)
+        .attr("stroke-width", strokeWidth);
+    }
+
+    // Add Polygons
+    function addPolygon(svg, points, fill) {
+      let poly = svg.append("polygon")
+        .attr("points", points)
+        .attr("fill", fill);
+
+      poly.on("click", function () {
+        window.alert("Blub blub!");
+      });
+    }
+
+    // Add Text
+    function addText(svg, x, y, content, fontSize, color) {
+      let text = svg.append("text")
+        .attr("x", x)
+        .attr("y", y)
+        .text(content)
+        .attr("font-size", fontSize)
+        .attr("fill", color);
+    }
+
+    // Call the functions to create the fish
+    var d3Svg = addSvg(800, 400);
+
+    addEllipse(d3Svg, 175, 100, 75, 50, "#4181ed");
+    addPolygon(d3Svg, "50, 150 50, 50 150, 100", "#4181ed");
+
+    addCircle(d3Svg, 210, 90, 10, "#FFFFFF");
+    addCircle(d3Svg, 210, 90, 7, "#000000");
+
+    addPolygon(d3Svg, "150, 110 150, 90 170, 100", "darkblue")
+
+    addRect(d3Svg, 280, 120, 120, 30, "#4181ed")
+    addText(d3Svg, 308, 140, "Click me!", "16px", "#000000");
+  </script>
+
+</body>
+
+</html>
