@@ -1,6 +1,6 @@
 Abigail Albuquerque - Assignment 1 - Hello World: Github and d3
 ---
-For assignment 1, I have created a visual of a square cat, sitting next to a tree in the sun. Additionally, I created an interactive feature in the form of a button that can toggle the image between day and night. During the "night", the sun disappears and the light blue background during the day turns to dark blue.
+For assignment 1, I have created a visual of a square cat, sitting next to a tree in the sun. Additionally, I created an interactive feature in the form of a button that can toggle the image between day and night. During the "night", the sun disappears and the background to dark blue.
 
 Here is a link to the 'live' url:
 https://abigailalbuquerque.github.io/a1-ghd3/
