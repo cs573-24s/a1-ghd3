@@ -13,8 +13,18 @@
       align-items: center;
       background-color: #f3f3f3;
     }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
     svg {
       border: 1px solid #ccc;
+    }
+    .title {
+      font-family: 'Arial', sans-serif;
+      font-size: 24px;
+      margin-bottom: 10px;
     }
     .handwriting {
       font-family: 'Brush Script MT', cursive;
@@ -24,6 +34,8 @@
   </style>
 </head>
 <body>
+  <div class="container">
+    <p class="title">CS 573 Data Visualization A1 Anthony Chen</p>
   <svg width="800" height="600"></svg>
   <script src="https://d3js.org/d3.v6.min.js"></script>
   <script>
