@@ -60,7 +60,7 @@
     const textElement = svg.append('text')
       .attr('x', x)
       .attr('y', y)
-      .attr('class')
+      .attr('class', 'handwriting')
       .attr('text-anchor', 'start'); // 设置文本为左对齐
 
     text.split('\n').forEach((line, index) => {
@@ -72,6 +72,8 @@
   };
     addMultilineText(text2, 100, 100); // y 坐标适当调整以避免文本重叠
     addMultilineText(text3, 100, 230);
+
+    
 
     // Child settings
     const childRadius = 20;
