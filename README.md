@@ -38,7 +38,7 @@ This project showcases a vivid application of d3.js, a powerful JavaScript libra
 
 **Coordinate Calculations**: Implements intricate calculations for positioning elements like the child, arrow, tree, and apples.
 
-**Interactive Drag Behavior** Integrates d3.drag() to create an interactive arrow that users can manipulate. This involves calculating the drag's impact on the arrow's angle and given force, hence the subsequent motion.
+**Interactive Drag Behavior**: Integrates d3.drag() to create an interactive arrow that users can manipulate. This involves calculating the drag's impact on the arrow's angle and given force, hence the subsequent motion.
 
 **Physics-based Projectile Motion**: Develops a physics simulation for the arrow's trajectory post-release. It includes velocity calculations, angle adjustments, and gravity effects, showcasing a sophisticated use of mathematics in animation.
 
