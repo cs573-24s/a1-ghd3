@@ -12,15 +12,15 @@ The apples being shot will fall down and bouce back and forth until they are out
 
 ## Screenshots
 
-<img width="622" alt="Screenshot 2024-01-23 064056" src="https://github.com/TonyC793/a1-ghd3/assets/100252364/58dbc131-ff36-44af-a2b4-9db38318aa60">
+![Screenshot 1](./1.png)
 
 *Screenshot 1: The original picture*
 
-<img width="630" alt="Screenshot 2024-01-23 064308" src="https://github.com/TonyC793/a1-ghd3/assets/100252364/5a0d1ab0-f10b-4fbf-826e-c566cb2067e8">
+![Screenshot 2](./2.png)
 
 *Screenshot 2: After releasing the arrow*
 
-<img width="622" alt="Screenshot 2024-01-23 064422" src="https://github.com/TonyC793/a1-ghd3/assets/100252364/67df9636-beb3-41ca-be9e-7dc743512e00">
+![Screenshot 3](./3.png)
 
 *Screenshot 3: The falling and bouncing of apples*
 
