@@ -1,7 +1,5 @@
 # D3.js SVG Elements Showcase
 
-![D3.js SVG Elements Showcase](screenshots/screenshot.png)
-
 ## Description
 
 This repository showcases the usage of D3.js to create SVG elements dynamically. It includes functions to add rectangles, circles, lines, polygons, text, and more to an SVG container. The examples demonstrate how to interactively handle click events on SVG elements.
@@ -13,8 +11,6 @@ Check out the live demo hosted on GitHub Pages: [D3.js SVG Elements Showcase](ht
 ## Screenshots
 
 ![Screenshot 1](screenshots/screenshot1.png)
-
-![Screenshot 2](screenshots/screenshot2.png)
 
 ## Technical and Design Achievements
 
