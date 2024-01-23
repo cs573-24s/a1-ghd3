@@ -46,7 +46,7 @@
     // Text settingss
     const text1 = "Drag the arrow tip to help the child shoot some incredibly bouncy fruits on the moon.";
     const text2 = "The place you release your mouse \ndetermines which direction and \nhow much force you give for the \nprojectile motion of the arrow.";
-    const text3 = "It's hard to shoot all the fruits \n or no fruits(while passing the canopy). \n Try again by refreshing the page!";
+    const text3 = "It's both hard to shoot all the \nfruits or no fruits(while passing the canopy). \n Try again by refreshing the page!";
     const text4 = "The bouncy fruits will eventually stop \n if you watch them long enough ;)";
     // Add texts
     svg.append('text')
@@ -60,7 +60,7 @@
     const textElement = svg.append('text')
       .attr('x', x)
       .attr('y', y)
-      .attr('class', 'handwriting')
+      .attr('class')
       .attr('text-anchor', 'start'); // 设置文本为左对齐
 
     text.split('\n').forEach((line, index) => {
@@ -71,7 +71,9 @@
     });
   };
     addMultilineText(text2, 100, 100); // y 坐标适当调整以避免文本重叠
-    addMultilineText(text3, 100, 250);
+    addMultilineText(text3, 100, 230);
+
+    addMultilineText(text4, 100, 260);
 
     // Child settings
     const childRadius = 20;
