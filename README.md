@@ -4,7 +4,11 @@ Assignment 1 - Hello World: GitHub and d3
 
 ## Description
 
-This project demonstrates a simple data visualization using D3.js to create aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+This project is an interactive shooting game. The rule is to drag and release the arrow with your mouse to shoot as many fruits as possibe.
+
+
+    const text2 = "The place you release your mouse \ndetermines both the direction and \nforce you give for the projectile \nmotion of the arrow.";
+    const text3 = "Shoot as many fruits as possible\n at one time at one time. Try again \nby refreshing the page.\n \nThe fruits will eventually stop if \n you watch them long enough :)";demonstrates a simple data visualization using D3.js to create aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 ## Screenshots
 
