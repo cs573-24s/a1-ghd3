@@ -1,86 +1,61 @@
 Assignment 1 - Hello World: GitHub and d3  
 ===
+# Data Visualization Assignment 1
 
-This is a starting project to make sure you can write and host a webpage that generates graphics using d3. 
+## Description
 
-The primary goal is to be able to generate graphics primitives (circles, rectangles, lines, polygons) at different locations on the screen with different colors. 
+This project is an interactive shooting game. The rule is to drag and release the arrow with your mouse to shoot as many apples as possibe.
 
-The secondary goal is to introduce you to coding on GitHub, including creating a gh-pages branch to host your visualizations.
+You can control the direction and force you give the arrow by releasing the mouse at different places. Note the arrow has gravity as well.
 
-You may write everything from scratch, or start with demo programs from books or the web. 
-If you do start with code that you found, you **must identify** the source of the code in your README and, most importantly, make non-trivial changes to the code to make it your own so you really learn what you're doing. 
+The apples being shot will fall down and bouce back and forth until they are out of energy.
 
-For example, you could download one of the d3.js examples, read it through so you understand what it's doing, and then change the appearance of the graphical output to use different color schemes, different primitive shapes, different layouts of the primitives, and so on.
+## Screenshots
 
-Resources
----
+![Screenshot 1](./1.png)
 
-If you need a JavaScript/HTML/CSS refresher, see [JavaScript Codeacademy](https://www.codecademy.com/en/tracks/javascript) or find one of your choosing on the web.
+*Screenshot 1: The original picture*
 
-If you need a Git/GitHub refreseher, some possible resources include [Getting Started with GitHub](https://help.github.com/categories/bootcamp/), the [GitHub Guides](https://guides.github.com/) (especially the ones on Hello World, and Understanding the GitHub Flow, and Forking Projects), and [CodeSchool's Try Git Course](https://www.codeschool.com/courses/try-git).
+![Screenshot 2](./2.png)
 
-Requirements
----
+*Screenshot 2: After releasing the arrow*
 
-1. Your project should contain at least four kinds of graphics primitives (circles, rectangles, lines, polygons) in different colors. 
-2. Your document should identify the source of the code if you start with code that you found. 
-3. Your code should be forked from the GitHub repo and linked using GitHub pages. See the "GitHub Details" section below for detailed instructions on how to do this.
+![Screenshot 3](./3.png)
 
-GitHub Details
----
+*Screenshot 3: The falling and bouncing of apples*
 
-- Fork the GitHub Repository for Assignment 1. You now have a copy associated with your username.
-- Make changes to index.html to fulfill the project requirements. 
-- Make sure your "main" branch matches your "gh-pages" branch. See the GitHub Guides referenced above if you need help.
-- Edit the README.md with a link to your gh-pages site "http://YourUsernameGoesHere.github.io/01-ghd3/index.html".
+## Demo Site
 
-Submission Details
----
-- To submit, make a [Pull Request](https://help.github.com/articles/using-pull-requests/) on the original repository.
-- Note: name your pull request using the following scheme: 
-```
-a1-your Gh username-your first name-your lastname
+Demo site: https://TonyC793.github.io/a1-ghd3
 
-```
+## Technical Achievement Desription
 
-Vis Details
----
+### Advanced Implementation of Interactive Graphics and Physics Simulation in d3.js
 
-For this project you should use d3.js. 
-You can learn from examples on the [d3.js](http://d3js.org) site or start from scratch.
+This project showcases a vivid application of d3.js, a powerful JavaScript library, for creating an interactive visualization with complex physics simulations. The key technical achievements include:
 
-See the [Using d3js](https://github.com/mbostock/d3/wiki#using) documentation for how to run your own local server.
+**SVG Manipulation**: Efficiently creates and manipulates SVG elements such as circles, rectangles, and paths.
 
-Creative solutions are welcome! In the past I've seen recreations of paintings, interactives, and more.
+**Coordinate Calculations**: Implements intricate calculations for positioning elements like the child, arrow, tree, and apples.
 
-Go beyond the minimum requirements of this project.
-Experiment with other aspects of the [d3 API](https://github.com/mbostock/d3/wiki/API-Reference) and [d3 Tutorials](https://github.com/mbostock/d3/wiki/Tutorials). 
-Try making the elements interactive, for example, or animate them.
+**Interactive Drag Behavior**: Integrates d3.drag() to create an interactive arrow that users can manipulate. This involves calculating the drag's impact on the arrow's angle and given force, hence the subsequent motion.
 
-Grading
----
+**Physics-based Projectile Motion**: Develops a physics simulation for the arrow's trajectory post-release. It includes velocity calculations, angle adjustments, and gravity effects, showcasing a sophisticated use of mathematics in animation.
 
-Grades are on a 120 point scale. 
-96 points will be graded for functionality: the program does what the assignment requests with an informative README. 
+**Collision Detection Algorithm**: Implements a custom collision detection algorithm to identify when the arrow hits the apples. This algorithm checks the relative positions.
 
-We will use Google Chrome to view submissions. 
-Be sure to test your code there.
+**Realistic Motion Effects**: Applies physics principles to simulate the falling and bouncing of apples, with considerations for gravity, velocity, and energy loss on impact.
 
-Below are some, but not necessarily all, of the key points we will consider during grading:
+These technical aspects also reflect the application of computational geometry, physics, and interactive design in data visualization.
 
-- Circles and Rectangles  
-- Lines  
-- Paths  
-- Different colors  
-- README Quality
-    - A description of what you have created. 1-2 screenshots are recommended for the README.  
-    - A working link to the hosted files (usually the gh-pages 'live' url)  
-    - Section for Technical and Design Achievements
+## Design Achievement Description
 
-Technical Achievement Desription -- 12  
-Design Achievement Description -- 12
+### Aesthetic and User-Friendly Data Visualization with d3.js
 
-Remember, it is up to *you* to define what constitutes a technical and design achievements.
-Be ambitious as these are designed to allow you to shape your learning.
-These are the only way to move from B to A territory.
+**Balanced Layout and Composition**: The spatial arrangement of elements like the child, tree, and apples creates a visually balanced and cohesive composition.The screen also includes well-placed, multiline instructional texts, aiding users in understanding the interaction mechanism and the objectives of the visualization.
 
+**Intuitive Interaction Design**: The draggable arrow provides an intuitive and engaging way for users to interact with the visualization.The gravity and velocity of the arrow are also designed to be realistic, making the interaction more intuitive and enjoyable.
+
+**Responsive and Entertaining Design**: The apples have gravity and can bounce off the ground, creating a realistic and responsive design. One can see the trajectories of applesand the arrow change as the arrow is released at different angle and forces, making the visualization informative and entertaining.
+
+**Adaptive Design**: Ensures that the visualization remains functional and aesthetically pleasing across different screen sizes and resolutions, a critical aspect of modern web design.
