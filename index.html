@@ -1,10 +1,110 @@
-<script src="https://d3js.org/d3.v6.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>D3 SVG Robot Face</title>
+ 
+  Artist of Robot: <a href="https://www.github.com/devtechster" target="_blank">Adhiraj</a></head>
+<body>
 
-<script>
-  console.log(d3); // test if d3 is loaded
-  // Add an SVG
-  // Add Rectangles
-  // Add Circles
-  // Add Lines
-  // Add Polygons
+<div id="container"></div>
+
+<script type="module">
+import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+
+// Declare the chart dimensions and margins.
+const width = 640;
+const height = 400;
+const marginTop = 20;
+const marginRight = 20;
+const marginBottom = 30;
+const marginLeft = 40;
+
+// Create the SVG container using D3.
+const svg = d3.select("#container")
+  .append("svg")
+  .attr("width", width)
+  .attr("height", height);
+
+// Robot Head (Circle)
+svg.append("circle")
+  .attr("cx", width / 2)
+  .attr("cy", height / 2)
+  .attr("r", 100)
+  .attr("fill", "#b0c4de"); // Light Blue color for the head
+
+// Robot Eyes (Circles)
+svg.append("circle")
+  .attr("cx", width / 2 - 40)
+  .attr("cy", height / 2 - 20)
+  .attr("r", 15)
+  .attr("fill", "black"); // Left eye
+
+svg.append("circle")
+  .attr("cx", width / 2 + 40)
+  .attr("cy", height / 2 - 20)
+  .attr("r", 15)
+  .attr("fill", "black"); // Right eye
+
+// Robot Mouth (Rectangle)
+svg.append("rect")
+  .attr("x", width / 2 - 30)
+  .attr("y", height / 2 + 20)
+  .attr("width", 60)
+  .attr("height", 10)
+  .attr("fill", "red"); // Red color for the mouth
+
+// Robot Antenna (Line and Circle)
+svg.append("line")
+  .attr("x1", width / 2)
+  .attr("y1", height / 2 - 100)
+  .attr("x2", width / 2)
+  .attr("y2", height / 2 - 50)
+  .attr("stroke", "gray")
+  .attr("stroke-width", 5); // Antenna Line
+
+svg.append("circle")
+  .attr("cx", width / 2)
+  .attr("cy", height / 2 - 120)
+  .attr("r", 10)
+  .attr("fill", "gray"); // Antenna Top Circle
+
+// Robot Eyebrows (Lines)
+svg.append("line")
+  .attr("x1", width / 2 - 50)
+  .attr("y1", height / 2 - 50)
+  .attr("x2", width / 2 - 20)
+  .attr("y2", height / 2 - 70)
+  .attr("stroke", "black")
+  .attr("stroke-width", 3); // Left eyebrow
+
+svg.append("line")
+  .attr("x1", width / 2 + 20)
+  .attr("y1", height / 2 - 70)
+  .attr("x2", width / 2 + 50)
+  .attr("y2", height / 2 - 50)
+  .attr("stroke", "black")
+  .attr("stroke-width", 3); // Right eyebrow
+
+// Robot Nose (Triangle)
+const noseTriangle = svg.append("polygon")
+  .attr("points", `${width / 2 - 10},${height / 2 - 5} ${width / 2 + 10},${height / 2 - 5} ${width / 2},${height / 2 - 20}`)
+  .attr("fill", "orange"); // Orange color for the nose
+
+// Variable to store rotation value
+let rotationValue = 0;
+
+// Add click event listener for nose animation
+noseTriangle.on("click", function() {
+  // Rotate the nose triangle
+  d3.select(this)
+    .transition()
+    .duration(5)
+    .attr("fill", "purple"); // Rotate by 360 degrees and update rotation value
+});
+
 </script>
+
+</body>
+</html>
