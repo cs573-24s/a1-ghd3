@@ -84,6 +84,16 @@ Remember, it is up to *you* to define what constitutes a technical and design ac
 Be ambitious as these are designed to allow you to shape your learning.
 These are the only way to move from B to A territory.
 
+(1)Description of my work
 
 
+<img width="633" alt="Screen Shot 2024-02-07 at 20 37 30" src="https://github.com/danile981199/a1-ghd3/assets/63995138/ee41c6d3-caab-4246-bae3-f75b1ac7bd07">
+
+
+(2)The working link to the hosted files:
+
+[[
+](http://localhost:63342/A1/A1.html?_ijt=ig4vi726rnniqlssp9mhu5btme)http://localhost:63342/A1/A1.html?_ijt=ig4vi726rnniqlssp9mhu5btme
+
+](http://localhost:63342/A1/A1.html?_ijt=k63u6mq1h1ldp772oo582hiuja)http://localhost:63342/A1/A1.html?_ijt=k63u6mq1h1ldp772oo582hiuja
 
