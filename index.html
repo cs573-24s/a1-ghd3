@@ -189,7 +189,7 @@
       g.append("rect")
         .attr("id", id + "descBox")
         .attr("x", x - 75)
-        .attr("y", y - 100)
+        .attr("y", y + 100)
         .attr("width", 150)
         .attr("height", 40)
         .attr("fill", "white");
@@ -197,7 +197,40 @@
       g.append("text")
         .attr("id", id + "desc")
         .attr("x", x)
-        .attr("y", y - 80)
+        .attr("y", y + 120)
+        .attr("text-anchor", "middle")
+        .attr("font-family", "Arial")
+        .attr("font-size", "16px")
+        .attr("font-weight", "bold")
+        .attr("fill", "black")
+        .text(name);
+    }
+
+    function drawPerson(id, name, x, y) {
+
+
+      g.append("circle")
+        .attr("x", x)
+        .attr("y", y)
+        .attr("r", 40)
+        .attr("fill", "green")
+        .attr("stroke", "black")
+        .attr("stroke-width", 5)
+        .attr("transform", `translate(${x},${y})`);
+
+      //title
+      g.append("rect")
+        .attr("id", id + "descBox")
+        .attr("x", x - 75)
+        .attr("y", y + 60)
+        .attr("width", 150)
+        .attr("height", 40)
+        .attr("fill", "white");
+
+      g.append("text")
+        .attr("id", id + "desc")
+        .attr("x", x)
+        .attr("y", y + 80)
         .attr("text-anchor", "middle")
         .attr("font-family", "Arial")
         .attr("font-size", "16px")
@@ -208,13 +241,17 @@
 
 
 
+    drawEvent("smaugDeath", "Death of Smaug", 2150, 450);
+
+    drawPerson("sauron", "Sauron", 2300, 1600);
+
     drawMapCoord("Shire", "The Shire", "The home of the\n little folk,\n known as 'Hobbits'", 950, 650);
     drawMapCoord("Moria", "Mines of Moria", "One of the ancient homes of the dwarves", 1500, 900);
     drawMapCoord("MinasTirith", "Minas Tirith", "The White city, Capital of Gondor", 2050, 1650);
     drawMapCoord("HelmsDeep", "Helm's Deep", "The ancient stronghold of Rohan", 1500, 1450);
     drawMapCoord("Erebor", "The Lonely Mountain", "Previous home of Smaug", 2100, 400);
 
-    drawEvent("smaugDeath", "Death of Smaug", 2100, 600);
+
 
 
 
