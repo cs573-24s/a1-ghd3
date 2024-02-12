@@ -1,10 +1,333 @@
-<script src="https://d3js.org/d3.v6.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
 
-<script>
-  console.log(d3); // test if d3 is loaded
-  // Add an SVG
-  // Add Rectangles
-  // Add Circles
-  // Add Lines
-  // Add Polygons
-</script>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assignment 1</title>
+
+
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script src="https://d3js.org/topojson.v3.min.js"></script>
+  <script src="map.js"></script>
+  <style>
+    body {
+      text-align: center;
+      /* Center the text horizontally */
+    }
+
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+  </style>
+
+
+</head>
+
+<body style="background-color: #f0f0f0;">
+
+  <h1>MIDDLE EARTH MAP</h1>
+
+  <script>
+
+    /*Inspiration / Source: https://observablehq.com/@d3/zoom-to-bounding-box?intent=fork
+
+    design flaws:
+    -no easy way to zoom back if you click in the middle of the country
+    -dragging has no limits
+    -zooming in/out on different locations causes weird effects
+
+  
+    */
+    // Add an SVG
+
+
+
+    // Add Rectangles
+    // Add Circles
+    // Add Lines
+    // Add Polygons
+
+    const viewportWidth = document.documentElement.clientWidth;
+    const viewportHeight = document.documentElement.clientHeight;
+
+    // Margins set to prevent drifting of box
+    const margin = { top: 100, right: 450, bottom: 100, left: 450 };
+    const width = viewportWidth - margin.left - margin.right;
+    const height = viewportHeight - margin.top - margin.bottom;
+
+
+    const imgWidth = 3200;
+    const imgHeight = 2400;
+
+    //used for zoomout feature
+    let lastSelected = null;
+
+
+    // Create SVG
+    var svg = d3.select("body")
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .attr("viewBox", `0 0 ${imgWidth} ${imgHeight}`)
+      .attr("preserveAspectRatio", "xMidYMid meet");
+
+
+
+    const g = svg.append("g");
+
+    const zoom = d3.zoom()
+      .scaleExtent([1, 3])
+      .translateExtent([[0, 0], [imgWidth, imgHeight]]) //used to ensure zooming out doesn't land in the ocean of nothingness
+
+      .on("zoom", handleZoom);
+
+    svg.call(zoom);
+
+
+
+
+    var map = g.append("image")
+      .attr("href", "LOTRHighRes.jpeg")
+      .attr("width", 3200)
+      .attr("height", 2400)
+      .attr("x", 0)
+      .attr("y", 0)
+      .on("click", reset);
+
+
+    let locationList = []
+
+    const starPoints = [
+      [0, -50],
+      [14, -14],
+      [50, 0],
+      [14, 14],
+      [0, 50],
+      [-14, 14],
+      [-50, 0],
+      [-14, -14],
+    ];
+    function drawMapCoord(id, name, desc, x, y) {
+
+      if (locationList.includes(name)) {
+        console.log("item already exists");
+        return;
+      }
+      locationList.push(id)
+      g.append("polygon")
+        .attr("id", id)
+        .attr("points", starPoints.map(point => point.join(',')).join(' '))
+        .attr("transform", "translate(" + x + "," + y + ")")
+        .attr("fill", "orange")
+        .attr("stroke", "black")
+        .attr("stroke-width", 5)
+        .on("click", function (event) {
+          locationClicked(this, id, x, y);
+        });
+
+      //description
+      g.append("rect")
+        .attr("id", id + "titleBox")
+        .attr("x", x - 200)
+        .attr("y", y + 60)
+        .attr("width", 400)
+        .attr("height", 40)
+        .attr("fill", "white")
+        .attr("display", "none");
+
+      g.append("text")
+        .attr("id", id + "title")
+        .attr("x", x)
+        .attr("y", y + 80)
+        .attr("text-anchor", "middle")
+        .attr("display", "none")
+        .attr("font-family", "Arial")
+        .attr("font-size", "16px")
+        .attr("font-weight", "bold")
+        .attr("fill", "black")
+        .text(desc);
+
+      //title
+      g.append("rect")
+        .attr("id", id + "descBox")
+        .attr("x", x - 75)
+        .attr("y", y - 100)
+        .attr("width", 150)
+        .attr("height", 40)
+        .attr("fill", "white")
+        .attr("display", "none");
+
+      g.append("text")
+        .attr("id", id + "desc")
+        .attr("x", x)
+        .attr("y", y - 80)
+        .attr("text-anchor", "middle")
+        .attr("display", "none")
+        .attr("font-family", "Arial")
+        .attr("font-size", "16px")
+        .attr("font-weight", "bold")
+        .attr("fill", "black")
+        .text(name);
+    }
+
+    function drawEvent(id, name, x, y) {
+
+      const trianglePoints = "0,0 -50,80 50,80";
+
+      g.append("polygon")
+        .attr("points", trianglePoints)
+        .attr("fill", "blue")
+        .attr("stroke", "black")
+        .attr("stroke-width", 5)
+        .attr("transform", `translate(${x},${y})`);
+
+      //title
+      g.append("rect")
+        .attr("id", id + "descBox")
+        .attr("x", x - 75)
+        .attr("y", y + 100)
+        .attr("width", 150)
+        .attr("height", 40)
+        .attr("fill", "white");
+
+      g.append("text")
+        .attr("id", id + "desc")
+        .attr("x", x)
+        .attr("y", y + 120)
+        .attr("text-anchor", "middle")
+        .attr("font-family", "Arial")
+        .attr("font-size", "16px")
+        .attr("font-weight", "bold")
+        .attr("fill", "black")
+        .text(name);
+    }
+
+    function drawPerson(id, name, x, y) {
+
+
+      g.append("circle")
+        .attr("x", x)
+        .attr("y", y)
+        .attr("r", 40)
+        .attr("fill", "green")
+        .attr("stroke", "black")
+        .attr("stroke-width", 5)
+        .attr("transform", `translate(${x},${y})`);
+
+      //title
+      g.append("rect")
+        .attr("id", id + "descBox")
+        .attr("x", x - 75)
+        .attr("y", y + 60)
+        .attr("width", 150)
+        .attr("height", 40)
+        .attr("fill", "white");
+
+      g.append("text")
+        .attr("id", id + "desc")
+        .attr("x", x)
+        .attr("y", y + 80)
+        .attr("text-anchor", "middle")
+        .attr("font-family", "Arial")
+        .attr("font-size", "16px")
+        .attr("font-weight", "bold")
+        .attr("fill", "black")
+        .text(name);
+    }
+
+
+
+    drawEvent("smaugDeath", "Death of Smaug", 2150, 450);
+
+    drawPerson("sauron", "Sauron", 2300, 1600);
+
+    drawMapCoord("Shire", "The Shire", "The home of the\n little folk,\n known as 'Hobbits'", 950, 650);
+    drawMapCoord("Moria", "Mines of Moria", "One of the ancient homes of the dwarves", 1500, 900);
+    drawMapCoord("MinasTirith", "Minas Tirith", "The White city, Capital of Gondor", 2050, 1650);
+    drawMapCoord("HelmsDeep", "Helm's Deep", "The ancient stronghold of Rohan", 1500, 1450);
+    drawMapCoord("Erebor", "The Lonely Mountain", "Previous home of Smaug", 2100, 400);
+
+
+
+
+
+    function handleZoom(event) {
+      console.log(event.transform);
+      g.attr("transform", event.transform);
+    }
+
+    //modified from the source
+    function reset() {
+      lastSelected = null;
+
+      locationList.forEach(tempId => {
+        d3.select("#" + tempId).transition().style("fill", "orange");
+        d3.select('#' + tempId + "titleBox").style("display", "none");
+        d3.select('#' + tempId + "title").style("display", "none");
+        d3.select('#' + tempId + "descBox").style("display", "none");
+        d3.select('#' + tempId + "desc").style("display", "none");
+      });
+
+      //zoom out animation
+      svg.transition().duration(750).call(
+        zoom.transform,
+        d3.zoomIdentity,
+        d3.zoomTransform(svg.node()).invert([width / 2, height / 2])
+      );
+    }
+
+
+
+
+
+    //created by me to zoom to a specific element
+    function locationClicked(item, id, x, y) {
+
+
+      //clicking the same star again will reset back
+      if (lastSelected == id) {
+        console.log("resetting board");
+        reset();
+        return;
+      } else {
+        lastSelected = id;
+      }
+
+
+
+
+
+
+      locationList.forEach(tempId => {
+        d3.select("#" + tempId).transition().style("fill", "orange");
+        d3.select('#' + tempId + "titleBox").style("display", "none");
+        d3.select('#' + tempId + "title").style("display", "none");
+        d3.select('#' + tempId + "descBox").style("display", "none");
+        d3.select('#' + tempId + "desc").style("display", "none");
+      });
+
+      d3.select("#" + id).transition().style("fill", "red");
+      let svgElement = d3.select("#" + id).node();
+      d3.select('#' + id + "titleBox").style("display", "block");
+      d3.select('#' + id + "title").style("display", "block");
+      d3.select('#' + id + "descBox").style("display", "block");
+      d3.select('#' + id + "desc").style("display", "block");
+
+      //Math performed by ChatGPT
+      svg.transition().duration(750).call(
+        zoom.transform,
+        d3.zoomIdentity.translate(imgWidth / 2, imgHeight / 2).scale(3).translate(-x, -y)
+      );
+    }
+
+
+
+
+  </script>
+</body>
+
+</html>

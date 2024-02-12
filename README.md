@@ -1,86 +1,43 @@
 Assignment 1 - Hello World: GitHub and d3  
 ===
 
-This is a starting project to make sure you can write and host a webpage that generates graphics using d3. 
+Github Pages Link: https://echo532.github.io/a1-ghd3/
 
-The primary goal is to be able to generate graphics primitives (circles, rectangles, lines, polygons) at different locations on the screen with different colors. 
 
-The secondary goal is to introduce you to coding on GitHub, including creating a gh-pages branch to host your visualizations.
+This project is an interactive map of Lord of the Rings. You can zoom and pan over the map, and when you click on one of the interactive stars on the map, the map zooms into that star and informative text appears. You can click the map to return to full view, and you can click on the same star you are on and it will return to full view.
 
-You may write everything from scratch, or start with demo programs from books or the web. 
-If you do start with code that you found, you **must identify** the source of the code in your README and, most importantly, make non-trivial changes to the code to make it your own so you really learn what you're doing. 
+![The full map from the start](ReadmeScreenshot1.png)
+The full map from the start
 
-For example, you could download one of the d3.js examples, read it through so you understand what it's doing, and then change the appearance of the graphical output to use different color schemes, different primitive shapes, different layouts of the primitives, and so on.
-
-Resources
----
-
-If you need a JavaScript/HTML/CSS refresher, see [JavaScript Codeacademy](https://www.codecademy.com/en/tracks/javascript) or find one of your choosing on the web.
-
-If you need a Git/GitHub refreseher, some possible resources include [Getting Started with GitHub](https://help.github.com/categories/bootcamp/), the [GitHub Guides](https://guides.github.com/) (especially the ones on Hello World, and Understanding the GitHub Flow, and Forking Projects), and [CodeSchool's Try Git Course](https://www.codeschool.com/courses/try-git).
+![The map zoomed in after clicking](ReadmeScreenshot2.png)
+The map zoomed in after clicking
 
 Requirements
 ---
 
-1. Your project should contain at least four kinds of graphics primitives (circles, rectangles, lines, polygons) in different colors. 
-2. Your document should identify the source of the code if you start with code that you found. 
-3. Your code should be forked from the GitHub repo and linked using GitHub pages. See the "GitHub Details" section below for detailed instructions on how to do this.
+Used 4 graphics primitives: polygon (4 pointed star), text, image, rectangle. 4+ colors are used.
 
-GitHub Details
+REGRADING: I Added green circles and blue triangles to add new shapes and meet the requirement of 4 shapes.
+
+Source: https://observablehq.com/@d3/zoom-to-bounding-box?intent=fork
+
+The idea of this project is entirely taken from this map, and at first a lot of the code was used. But there are major alterations from the source material. First, I was no longer able to rely on the US mapping code support so that invalidated a lot of code right away. But I mainly chose this one because I was frustrated with its failings as a design.
+
+design flaws:  
+-after clicking on a state, you had to pan to find a non-state area to click and reset to the full map.  
+-dragging has no limits, can drag as far as you like into the void.  
+-after zooming in, if you moved your cursor sideways and zoomed out, the FOV would be in one of the oceans. (This was the most frustrating)  
+
+As I fixed all of these issues, I believe I have fullfilled the requirements of making my project unique from its source.
+
+Technical Acheivement
 ---
 
-- Fork the GitHub Repository for Assignment 1. You now have a copy associated with your username.
-- Make changes to index.html to fulfill the project requirements. 
-- Make sure your "main" branch matches your "gh-pages" branch. See the GitHub Guides referenced above if you need help.
-- Edit the README.md with a link to your gh-pages site "http://YourUsernameGoesHere.github.io/01-ghd3/index.html".
+I think fixing the issues of the prior design qualifies me for some technical acheivements, as it goes beyond what was expected. In addition to that, I also implemented a system that allows the adding of one point with a single line of code, which is something that could easily be moved into some kind of gui. The image could also be swapped out without too much trouble. In essence, I've created a modular map-making tool for marking important locations, which I think qualifies me for the rest of the points.
 
-Submission Details
----
-- To submit, make a [Pull Request](https://help.github.com/articles/using-pull-requests/) on the original repository.
-- Note: name your pull request using the following scheme: 
-```
-a1-your Gh username-your first name-your lastname
 
-```
 
-Vis Details
+Design Acheivement
 ---
 
-For this project you should use d3.js. 
-You can learn from examples on the [d3.js](http://d3js.org) site or start from scratch.
-
-See the [Using d3js](https://github.com/mbostock/d3/wiki#using) documentation for how to run your own local server.
-
-Creative solutions are welcome! In the past I've seen recreations of paintings, interactives, and more.
-
-Go beyond the minimum requirements of this project.
-Experiment with other aspects of the [d3 API](https://github.com/mbostock/d3/wiki/API-Reference) and [d3 Tutorials](https://github.com/mbostock/d3/wiki/Tutorials). 
-Try making the elements interactive, for example, or animate them.
-
-Grading
----
-
-Grades are on a 120 point scale. 
-96 points will be graded for functionality: the program does what the assignment requests with an informative README. 
-
-We will use Google Chrome to view submissions. 
-Be sure to test your code there.
-
-Below are some, but not necessarily all, of the key points we will consider during grading:
-
-- Circles and Rectangles  
-- Lines  
-- Paths  
-- Different colors  
-- README Quality
-    - A description of what you have created. 1-2 screenshots are recommended for the README.  
-    - A working link to the hosted files (usually the gh-pages 'live' url)  
-    - Section for Technical and Design Achievements
-
-Technical Achievement Desription -- 12  
-Design Achievement Description -- 12
-
-Remember, it is up to *you* to define what constitutes a technical and design achievements.
-Be ambitious as these are designed to allow you to shape your learning.
-These are the only way to move from B to A territory.
-
+In the design category, I would say that recognizing they are a problem at all is at least partially a design acheivement. if UIs are frustrating, unintuitive, and not easily navigable, the information trying to be portrayed is lost on the viewer. I think my design merged the best of what my source had to offer with my own changes. Some other seemingly minor, yet important things, I made it so that the screen scales with how much space the browser gives it, meaning it can be as large and as small as needed (also this requires a page reload). I also think that my decision to keep the titles hidden until clicking on the point is a good balance of what to display and what not to display, it requires the user to click and interact with the map, which I think is the intent of this product. All in all, I think the summation of what I have done earns me the design acheivement.
