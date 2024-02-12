@@ -128,8 +128,8 @@
         .on("click", function (event) {
           locationClicked(this, id, x, y);
         });
-      
-        //description
+
+      //description
       g.append("rect")
         .attr("id", id + "titleBox")
         .attr("x", x - 200)
@@ -151,9 +151,9 @@
         .attr("fill", "black")
         .text(desc);
 
-        //title
+      //title
       g.append("rect")
-      .attr("id", id + "descBox")
+        .attr("id", id + "descBox")
         .attr("x", x - 75)
         .attr("y", y - 100)
         .attr("width", 150)
@@ -162,7 +162,7 @@
         .attr("display", "none");
 
       g.append("text")
-      .attr("id", id + "desc")
+        .attr("id", id + "desc")
         .attr("x", x)
         .attr("y", y - 80)
         .attr("text-anchor", "middle")
@@ -174,11 +174,48 @@
         .text(name);
     }
 
-    drawMapCoord("Shire","The Shire", "The home of the\n little folk,\n known as 'Hobbits'", 950, 650);
+    function drawEvent(id, name, x, y) {
+
+      const trianglePoints = "0,0 -75,100 75,100";
+
+      // Append the triangle to the SVG
+      svg.append("polygon")
+        .attr("points", trianglePoints)
+        .attr("fill", "blue")
+        .attr("transform", `translate(${x},${y})`);
+
+      //title
+      g.append("rect")
+        .attr("id", id + "descBox")
+        .attr("x", x - 75)
+        .attr("y", y - 100)
+        .attr("width", 150)
+        .attr("height", 40)
+        .attr("fill", "white")
+        .attr("display", "none");
+
+      g.append("text")
+        .attr("id", id + "desc")
+        .attr("x", x)
+        .attr("y", y - 80)
+        .attr("text-anchor", "middle")
+        .attr("display", "none")
+        .attr("font-family", "Arial")
+        .attr("font-size", "16px")
+        .attr("font-weight", "bold")
+        .attr("fill", "black")
+        .text(name);
+    }
+
+
+
+    drawMapCoord("Shire", "The Shire", "The home of the\n little folk,\n known as 'Hobbits'", 950, 650);
     drawMapCoord("Moria", "Mines of Moria", "One of the ancient homes of the dwarves", 1500, 900);
     drawMapCoord("MinasTirith", "Minas Tirith", "The White city, Capital of Gondor", 2050, 1650);
     drawMapCoord("HelmsDeep", "Helm's Deep", "The ancient stronghold of Rohan", 1500, 1450);
     drawMapCoord("Erebor", "The Lonely Mountain", "Previous home of Smaug", 2100, 400);
+
+    drawEvent("smaugDeath", "Death of Smaug", 2100, 600);
 
 
 
@@ -209,14 +246,14 @@
 
 
 
-    
+
 
     //created by me to zoom to a specific element
     function locationClicked(item, id, x, y) {
 
 
       //clicking the same star again will reset back
-      if(lastSelected == id){
+      if (lastSelected == id) {
         console.log("resetting board");
         reset();
         return;
@@ -224,8 +261,8 @@
         lastSelected = id;
       }
 
-      
-      
+
+
 
 
 
@@ -241,8 +278,8 @@
       let svgElement = d3.select("#" + id).node();
       d3.select('#' + id + "titleBox").style("display", "block");
       d3.select('#' + id + "title").style("display", "block");
-        d3.select('#' + id + "descBox").style("display", "block");
-        d3.select('#' + id + "desc").style("display", "block");
+      d3.select('#' + id + "descBox").style("display", "block");
+      d3.select('#' + id + "desc").style("display", "block");
 
       //Math performed by ChatGPT
       svg.transition().duration(750).call(
