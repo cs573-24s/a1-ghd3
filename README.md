@@ -17,6 +17,8 @@ Requirements
 
 Used 4 graphics primitives: polygon (4 pointed star), text, image, rectangle. 4+ colors are used.
 
+REGRADING: I Added green circles and blue triangles to add new shapes and meet the requirement of 4 shapes.
+
 Source: https://observablehq.com/@d3/zoom-to-bounding-box?intent=fork
 
 The idea of this project is entirely taken from this map, and at first a lot of the code was used. But there are major alterations from the source material. First, I was no longer able to rely on the US mapping code support so that invalidated a lot of code right away. But I mainly chose this one because I was frustrated with its failings as a design.
