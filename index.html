@@ -176,12 +176,13 @@
 
     function drawEvent(id, name, x, y) {
 
-      const trianglePoints = "0,0 -75,100 75,100";
+      const trianglePoints = "0,0 -50,80 50,80";
 
-      // Append the triangle to the SVG
-      svg.append("polygon")
+      g.append("polygon")
         .attr("points", trianglePoints)
         .attr("fill", "blue")
+        .attr("stroke", "black")
+        .attr("stroke-width", 5)
         .attr("transform", `translate(${x},${y})`);
 
       //title
@@ -191,15 +192,13 @@
         .attr("y", y - 100)
         .attr("width", 150)
         .attr("height", 40)
-        .attr("fill", "white")
-        .attr("display", "none");
+        .attr("fill", "white");
 
       g.append("text")
         .attr("id", id + "desc")
         .attr("x", x)
         .attr("y", y - 80)
         .attr("text-anchor", "middle")
-        .attr("display", "none")
         .attr("font-family", "Arial")
         .attr("font-size", "16px")
         .attr("font-weight", "bold")
