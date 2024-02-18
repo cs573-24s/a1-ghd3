@@ -1,18 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D3 Graphics Demo</title>
-    <!-- Ensure you have the D3.js library linked -->
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-</head>
-<body>
-    <!-- Your corrected JavaScript file will be linked here -->
-    <script src="main.js"></script>
-</body>
-</html>
-
 // Log to console to test if d3 is loaded
 console.log(d3);
 
