@@ -34,8 +34,8 @@ These are the only way to move from B to A territory.
 
 (2)The working link to the hosted files:
 website link:
-
-
+[
+](https://danile981199.github.io)
 (3) technical achievement
 
 The technical achievements in the provided D3.js code lie in its effective utilization of the library's capabilities. The seamless integration of SVG elements for circles, rectangles, lines, and polygons demonstrates a solid grasp of D3's data binding and manipulation features. The use of a declarative approach simplifies code readability, making it easy to understand and maintain. The inclusion of the D3.js library from an external source emphasizes a best practice, ensuring developers access an optimized version and promoting code efficiency.
